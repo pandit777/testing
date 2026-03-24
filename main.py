@@ -171,6 +171,10 @@ def login():
 def university():
     return render_template("university.html")
 
+@app.route("/igu")
+def igu():
+    return render_template("igu.html")
+
 @app.route("/about")
 def about():
     return render_template("about.html")
