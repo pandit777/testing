@@ -1,11 +1,1030 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="canonical" href="https://www.examsaarthi.com/about.html">
+  <link rel="manifest" href="/manifest.json">
+  <title>Exam Saarthi - About Us | Our Story & Mission</title>
+  <meta name="description" content="Learn about Exam Saarthi - started by Gourav Sharma and Mahesh Verma, students of Indira Gandhi University, Rewari. Our mission is to help students with free PYQs.">
+  <meta name="keywords" content="exam saarthi about, gourav sharma, mahesh verma, igu rewari, pyq portal, about us">
+  <meta name="author" content="Exam Saarthi">
+  <link data-default-icon="https://www.examsaarthi.com/logo.png" rel="icon" sizes="192x192" href="https://www.examsaarthi.com/logo.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* ---------------------------------------------------------------------- */
+    /* ENHANCED PROFESSIONAL COLOR VARIABLES - Same as Homepage */
+    /* ---------------------------------------------------------------------- */
+    :root {
+      --primary-deep-blue: #0b1e4a;
+      --primary-rich-blue: #142b6e;
+      --accent-bright-yellow: #fbbf24;
+      --accent-deep-gold: #f59e0b;
+      --gradient-primary: linear-gradient(145deg, #0b1e4a 0%, #1a3182 60%, #2540a8 100%);
+      --gradient-accent: linear-gradient(145deg, #fbbf24 0%, #f59e0b 100%);
+      --gradient-card-light: linear-gradient(145deg, #ffffff 0%, #f2f6fc 100%);
+      --text-main: #1e293b;
+      --text-soft: #334155;
+      --text-muted: #64748b;
+      --bg-soft-gradient: linear-gradient(145deg, #f1f5f9 0%, #d9e2ef 100%);
+      --card-bg-light: #ffffff;
+      --stat-label-light: #334155;
+      --shadow-soft: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+      --shadow-medium: 0 20px 30px -10px rgba(0, 20, 60, 0.15);
+      --shadow-strong: 0 30px 45px -15px rgba(0, 20, 60, 0.25);
+      --footer-text: #ffffff;
+      --marquee-text: #0b1e4a;
+      --marquee-bg: linear-gradient(145deg, #fbbf24 0%, #f59e0b 100%);
+      --btn-login-bg: rgba(255,255,255,0.12);
+      --btn-login-hover: rgba(255,255,255,0.25);
+    }
+
+    /* Dark mode */
+    [data-theme="dark"] {
+      --primary-deep-blue: #0f172a;
+      --primary-rich-blue: #1e2b4f;
+      --accent-bright-yellow: #fcd34d;
+      --accent-deep-gold: #fbbf24;
+      --gradient-primary: linear-gradient(145deg, #0b1324 0%, #1a2442 60%, #25365e 100%);
+      --gradient-accent: linear-gradient(145deg, #fbbf24 0%, #d97706 100%);
+      --gradient-card-light: linear-gradient(145deg, #1e2538 0%, #2c3349 100%);
+      --text-main: #edf2f7;
+      --text-soft: #cbd5e1;
+      --text-muted: #9aa9bc;
+      --bg-soft-gradient: linear-gradient(145deg, #0f1422 0%, #1a1f32 100%);
+      --card-bg-light: transparent;
+      --stat-label-light: #b9c7da;
+      --shadow-soft: 0 15px 30px -10px rgba(0, 0, 0, 0.6);
+      --shadow-medium: 0 25px 40px -12px rgba(0, 0, 0, 0.8);
+      --shadow-strong: 0 35px 55px -15px rgba(0, 0, 0, 0.9);
+      --footer-text: #e2e8f0;
+      --marquee-text: #0b1e4a;
+      --marquee-bg: linear-gradient(145deg, #fbbf24 0%, #d97706 100%);
+      --btn-login-bg: rgba(255,255,255,0.1);
+      --btn-login-hover: rgba(255,255,255,0.2);
+    }
+
+    html { 
+      scroll-behavior: smooth; 
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text-main);
+      background: var(--bg-soft-gradient);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+      transition: background 0.3s ease, color 0.2s ease;
+    }
+
+    /* Header Styles (same as before) */
+    header {
+      background: var(--gradient-primary);
+      color: white;
+      box-shadow: var(--shadow-medium);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.8rem 2rem;
+      position: relative;
+      z-index: 100;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      padding: 0.5rem 0;
+      text-decoration: none;
+      transition: transform 0.3s ease;
+    }
+    .logo-area:hover {
+      transform: scale(1.02);
+    }
+
+    .logo-img {
+      width: 50px;
+      height: 50px;
+      margin-right: 0.75rem;
+      border-radius: 12px;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+      background: white;
+      padding: 5px;
+      transition: all 0.3s ease;
+    }
+    .logo-area:hover .logo-img {
+      transform: rotate(5deg);
+    }
+
+    .header-title {
+      font-size: 1.5rem;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #ffffff 0%, #ffeb3b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .desktop-nav { 
+      display: none; 
+      align-items: center;
+      gap: 8px;
+    }
+    .desktop-nav ul {
+      display: flex;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      gap: 8px;
+      align-items: center;
+    }
+    .desktop-nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 50px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+    .desktop-nav ul li a::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--accent-bright-yellow);
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+    }
+    .desktop-nav ul li a:hover::before {
+      width: 70%;
+    }
+    .desktop-nav ul li a:hover {
+      background-color: rgba(255,255,255,0.1);
+      color: var(--accent-bright-yellow);
+      transform: translateY(-2px);
+    }
+    .active-nav-link {
+      background-color: rgba(255,255,255,0.15) !important;
+      color: var(--accent-bright-yellow) !important;
+      border: 1px solid rgba(255,255,255,0.3) !important;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+    }
+    .active-nav-link::before {
+      width: 70% !important;
+    }
+
+    .login-btn {
+      background: linear-gradient(135deg, var(--accent-bright-yellow), var(--accent-deep-gold));
+      border: none;
+      color: #0b1e4a;
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    .login-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+    .login-btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+    .login-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(251, 191, 36, 0.5);
+      color: #0b1e4a;
+    }
+
+    .user-info {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      padding: 6px 20px;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: all 0.3s ease;
+    }
+    .user-info:hover {
+      background: rgba(255,255,255,0.25);
+      transform: translateY(-2px);
+    }
+    .user-info i {
+      font-size: 1.2rem;
+      color: var(--accent-bright-yellow);
+    }
+    .user-info span {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .logout-btn {
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+      padding: 6px 14px;
+      border-radius: 40px;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    .logout-btn:hover {
+      background: rgba(255,255,255,0.35);
+      transform: translateY(-2px);
+    }
+
+    .theme-toggle {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      margin-left: 12px;
+      transition: all 0.3s ease;
+      font-size: 1.2rem;
+      backdrop-filter: blur(5px);
+    }
+    .theme-toggle:hover {
+      background: rgba(255,255,255,0.3);
+      transform: rotate(20deg) scale(1.1);
+      box-shadow: 0 0 15px rgba(251, 191, 36, 0.5);
+    }
+
+    .mobile-menu-btn {
+      display: block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+      font-size: 1.3rem;
+      cursor: pointer;
+      z-index: 100;
+      border-radius: 50px;
+      padding: 10px 18px;
+      transition: all 0.3s ease;
+    }
+    .mobile-menu-btn:hover {
+      background: rgba(255,255,255,0.25);
+      transform: scale(1.05);
+    }
+
+    .mobile-nav {
+      display: none;
+      background: var(--gradient-primary);
+      padding: 1rem;
+      box-shadow: var(--shadow-strong);
+      width: 100%;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      z-index: 99;
+      animation: slideDown 0.3s ease-out;
+      box-sizing: border-box;
+      backdrop-filter: blur(10px);
+    }
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .mobile-nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .mobile-nav ul li {
+      margin: 10px 0;
+    }
+    .mobile-nav ul li a {
+      color: white;
+      text-decoration: none;
+      display: block;
+      padding: 12px 20px;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      border: 1px solid transparent;
+      font-weight: 600;
+      text-align: center;
+    }
+    .mobile-nav ul li a:hover {
+      background-color: rgba(255,255,255,0.15);
+      transform: translateX(5px);
+      border-color: rgba(255,255,255,0.3);
+    }
+
+    .mobile-user-info {
+      text-align: center;
+      padding: 15px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50px;
+      margin: 10px 0;
+    }
+    .mobile-logout-btn {
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+      padding: 10px;
+      border-radius: 50px;
+      text-align: center;
+      text-decoration: none;
+      display: block;
+      margin-top: 10px;
+      font-weight: 600;
+    }
+    .mobile-login-btn {
+      background: var(--accent-bright-yellow);
+      color: #0b1e4a;
+      padding: 12px;
+      border-radius: 50px;
+      text-align: center;
+      text-decoration: none;
+      display: block;
+      font-weight: 700;
+    }
+
+    .mobile-theme-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 20px;
+      color: white;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      margin-top: 15px;
+    }
+    .mobile-theme-toggle span {
+      font-weight: 600;
+    }
+    .mobile-theme-toggle button {
+      background: rgba(255,255,255,0.2);
+      border: 1px solid white;
+      color: white;
+      border-radius: 40px;
+      padding: 8px 20px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    .mobile-theme-toggle button:hover {
+      background: rgba(255,255,255,0.3);
+    }
+
+    marquee {
+      background: var(--marquee-bg);
+      color: var(--marquee-text);
+      padding: 12px 0;
+      font-weight: 700;
+      font-size: 0.95rem;
+      width: 100%;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    footer {
+      margin-top: auto;
+      background: var(--gradient-primary);
+      color: var(--footer-text);
+      text-align: center;
+      padding: 1.75rem;
+      width: 100%;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.2);
+      position: relative;
+      font-size: 0.95rem;
+      box-sizing: border-box;
+    }
+    footer:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gradient-accent);
+    }
+
+    .flash-messages {
+      max-width: 1200px;
+      margin: 1rem auto;
+      padding: 0 1.2rem;
+    }
+    .alert {
+      padding: 1rem;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      animation: fadeIn 0.5s ease-out;
+    }
+    .alert-success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+    .alert-danger { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    .alert-warning { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+    .alert-info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .content-section { animation: fadeIn 0.7s ease-out; }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.2rem;
+      flex: 1;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    /* About Page Enhanced Styles */
+    .about-hero {
+      background: var(--gradient-card-light);
+      border-radius: 32px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+    .about-hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(251,191,36,0.05) 0%, transparent 70%);
+      animation: rotate 20s linear infinite;
+    }
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .about-hero h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(145deg, var(--primary-deep-blue) 0%, var(--primary-rich-blue) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+    [data-theme="dark"] .about-hero h1 {
+      background: linear-gradient(145deg, #fcd34d, #fbbf24);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .about-hero p {
+      font-size: 1.1rem;
+      color: var(--text-soft);
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    /* Enhanced Founders Section */
+    .founders-section {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      margin: 3rem 0;
+    }
+    .founder-card {
+      background: var(--gradient-card-light);
+      border-radius: 32px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+    .founder-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: var(--gradient-accent);
+      transform: scaleX(0);
+      transition: transform 0.5s ease;
+    }
+    .founder-card:hover::before {
+      transform: scaleX(1);
+    }
+    .founder-card:hover {
+      transform: translateY(-12px);
+      box-shadow: var(--shadow-strong);
+    }
+    
+    /* Enhanced Image Container */
+    .image-container {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      margin: 0 auto 1.5rem;
+      cursor: pointer;
+    }
+    .founder-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--accent-bright-yellow);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      filter: brightness(1.05) contrast(1.05);
+    }
+    .image-container:hover .founder-img {
+      transform: scale(1.08) rotate(5deg);
+      border-color: var(--accent-deep-gold);
+      box-shadow: 0 20px 40px rgba(251, 191, 36, 0.4);
+    }
+    /* Glow effect on image */
+    .image-container::after {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      right: -5px;
+      bottom: -5px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-bright-yellow), var(--accent-deep-gold));
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      z-index: -1;
+    }
+    .image-container:hover::after {
+      opacity: 0.5;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.5; }
+      50% { transform: scale(1.05); opacity: 0.8; }
+    }
+    
+    /* Social icons for founders */
+    .founder-social {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+    .social-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(251, 191, 36, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      color: var(--accent-bright-yellow);
+      text-decoration: none;
+    }
+    .social-icon:hover {
+      background: var(--accent-bright-yellow);
+      color: #0b1e4a;
+      transform: translateY(-3px) scale(1.1);
+    }
+    
+    .founder-name {
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--primary-deep-blue), var(--primary-rich-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+    }
+    [data-theme="dark"] .founder-name {
+      background: linear-gradient(135deg, #fcd34d, #fbbf24);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .founder-role {
+      font-size: 1.1rem;
+      color: var(--accent-bright-yellow);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      display: inline-block;
+      padding: 0.3rem 1rem;
+      background: rgba(251, 191, 36, 0.1);
+      border-radius: 50px;
+    }
+    .founder-university {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    .founder-bio {
+      color: var(--text-soft);
+      line-height: 1.7;
+      margin-top: 1rem;
+      padding: 1rem;
+      background: rgba(251, 191, 36, 0.05);
+      border-radius: 20px;
+      font-size: 0.95rem;
+    }
+
+    .mission-section {
+      background: var(--gradient-card-light);
+      border-radius: 32px;
+      padding: 2.5rem;
+      margin: 2rem 0;
+      text-align: center;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .mission-section:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-medium);
+    }
+    .mission-icon {
+      font-size: 3rem;
+      background: linear-gradient(135deg, var(--accent-bright-yellow), var(--accent-deep-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+      display: inline-block;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    .mission-section h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      color: var(--text-main);
+    }
+    .mission-section p {
+      font-size: 1.1rem;
+      color: var(--text-soft);
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .stats-about {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    .stat-about-card {
+      background: var(--gradient-card-light);
+      border-radius: 24px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .stat-about-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gradient-accent);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    .stat-about-card:hover::before {
+      transform: scaleX(1);
+    }
+    .stat-about-card:hover {
+      transform: translateY(-5px);
+    }
+    .stat-number-about {
+      font-size: 2.2rem;
+      font-weight: 900;
+      background: linear-gradient(145deg, var(--primary-deep-blue) 0%, var(--primary-rich-blue) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    [data-theme="dark"] .stat-number-about {
+      background: linear-gradient(145deg, #fcd34d, #fbbf24);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    @media (min-width: 768px) {
+      .header-content { padding: 0.8rem 2.5rem; }
+      .logo-img { width: 55px; height: 55px; }
+      .header-title { font-size: 1.8rem; }
+      .desktop-nav { display: flex; }
+      .mobile-menu-btn { display: none; }
+      .founders-section { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+      .stats-about { grid-template-columns: repeat(4, 1fr); }
+      .about-hero h1 { font-size: 3rem; }
+    }
+    @media (max-width: 480px) {
+      .header-title { font-size: 1.2rem; }
+      .about-hero h1 { font-size: 1.8rem; }
+      .founder-name { font-size: 1.4rem; }
+      .image-container { width: 150px; height: 150px; }
+    }
+  </style>
 </head>
 <body>
-    <h1>Welcome to About Page!</h1>
+  <header>
+    <div class="header-content">
+      <a href="/" class="logo-area">
+        <img src="https://examsaarthi.com/logo.png" alt="Exam Saarthi Logo" class="logo-img" onerror="this.src='https://via.placeholder.com/55/0b1e4a/ffffff?text=ES'">
+        <h1 class="header-title">Exam Saarthi</h1>
+      </a>
+      <nav class="desktop-nav">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/university">Universities</a></li>
+          <li><a href="/about" class="active-nav-link">About</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+        {% if user %}
+          <div class="user-info">
+            <i class="fas fa-user-circle"></i>
+            <span>Welcome, {{ user }}!</span>
+            <a href="/logout" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+          </div>
+        {% else %}
+          <a href="/login" class="login-btn"><i class="fas fa-sign-in-alt"></i> Login</a>
+        {% endif %}
+        <div class="theme-toggle" id="themeToggle">
+          <i class="fas fa-moon"></i>
+        </div>
+      </nav>
+      <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+    <marquee behavior="scroll" direction="left" scrollamount="6">
+      <i class="fas fa-bullhorn"></i> 📖 Exam Saarthi - Started by two passionate students from Indira Gandhi University, Rewari, to help fellow students with free PYQs!
+    </marquee>
+    <div class="mobile-nav" id="mobileNav">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/university">Universities</a></li>
+        <li><a href="/about" class="active-nav-link">About</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+      {% if user %}
+        <div class="mobile-user-info">
+          <i class="fas fa-user-circle"></i> {{ user }}
+          <a href="/logout" class="mobile-logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+      {% else %}
+        <div style="padding: 15px;">
+          <a href="/login" class="mobile-login-btn"><i class="fas fa-sign-in-alt"></i> Login</a>
+        </div>
+      {% endif %}
+      <div class="mobile-theme-toggle">
+        <span>🌓 Dark Mode</span>
+        <button id="mobileThemeToggle">Switch</button>
+      </div>
+    </div>
+  </header>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="flash-messages">
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">
+            <i class="fas fa-{% if category == 'success' %}check-circle{% elif category == 'danger' %}exclamation-circle{% else %}info-circle{% endif %} me-2"></i>
+            {{ message }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <main>
+    <div class="content-section">
+      <!-- Hero Section -->
+      <div class="about-hero">
+        <h1>✨ Our Story</h1>
+        <p>Exam Saarthi was born from a simple idea - every student deserves free access to quality study materials. What started as a small initiative by two passionate students has now become a trusted platform for thousands of learners across India.</p>
+      </div>
+
+      <!-- Founders Section with Enhanced Images -->
+      <div class="founders-section">
+        <div class="founder-card">
+          <div class="image-container">
+            <img src="https://examsaarthi.com/Dev.jpg" alt="Gourav Sharma" class="founder-img" onerror="this.src='https://via.placeholder.com/200/0b1e4a/ffffff?text=Gourav'">
+          </div>
+          <h2 class="founder-name">Gourav Sharma</h2>
+          <div class="founder-role"><i class="fas fa-code"></i> Developer & Founder</div>
+          <div class="founder-university">
+            <i class="fas fa-university"></i> Indira Gandhi University, Meerpur, Rewari
+          </div>
+          <div class="founder-bio">
+            A passionate developer and final year student at IGU Rewari, Gourav envisioned a platform where students could easily access previous year question papers without any hassle. His technical expertise and dedication brought Exam Saarthi to life. He believes in "Code for a Cause" and aims to make education accessible to all.
+          </div>
+          <div class="founder-social">
+            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+
+        <div class="founder-card">
+          <div class="image-container">
+            <img src="https://examsaarthi.com/Edit.jpeg" alt="Mahesh Verma" class="founder-img" onerror="this.src='https://via.placeholder.com/200/142b6e/ffffff?text=Mahesh'">
+          </div>
+          <h2 class="founder-name">Mahesh Verma</h2>
+          <div class="founder-role"><i class="fas fa-edit"></i> Content Manager & Founder</div>
+          <div class="founder-university">
+            <i class="fas fa-university"></i> Indira Gandhi University, Meerpur, Rewari
+          </div>
+          <div class="founder-bio">
+            With a deep understanding of student needs, Mahesh curates and verifies all content on the platform. His commitment to quality ensures that every PYQ is accurate and helpful for exam preparation. His mantra is "Quality content changes lives" and he ensures every resource on the platform meets the highest standards.
+          </div>
+          <div class="founder-social">
+            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- University Info -->
+      <div class="mission-section">
+        <div class="mission-icon">
+          <i class="fas fa-university"></i>
+        </div>
+        <h2>Indira Gandhi University, Meerpur, Rewari</h2>
+        <p>Both founders are proud students of <strong>Indira Gandhi University, Rewari, Haryana</strong>. This prestigious university has been the foundation of their journey, and through Exam Saarthi, they aim to give back to the student community that has supported them throughout their academic life.</p>
+      </div>
+
+      <!-- Stats Section -->
+      <div class="stats-about">
+        <div class="stat-about-card">
+          <span class="stat-number-about">50+</span>
+          <span class="stat-label">Universities</span>
+        </div>
+        <div class="stat-about-card">
+          <span class="stat-number-about">5000+</span>
+          <span class="stat-label">PYQs</span>
+        </div>
+        <div class="stat-about-card">
+          <span class="stat-number-about">100+</span>
+          <span class="stat-label">Courses</span>
+        </div>
+        <div class="stat-about-card">
+          <span class="stat-number-about">10k+</span>
+          <span class="stat-label">Active Users</span>
+        </div>
+      </div>
+
+      <!-- Mission & Vision -->
+      <div class="mission-section">
+        <div class="mission-icon">
+          <i class="fas fa-bullseye"></i>
+        </div>
+        <h2>Our Mission</h2>
+        <p>To empower every student with free, easy, and reliable access to previous year question papers and exam resources. We believe that no student should struggle to find quality study materials during their crucial exam preparation phase.</p>
+      </div>
+
+      <div class="mission-section">
+        <div class="mission-icon">
+          <i class="fas fa-eye"></i>
+        </div>
+        <h2>Our Vision</h2>
+        <p>To become India's most trusted platform for academic resources, helping millions of students achieve their educational goals through accessible, organized, and verified study materials - all completely free of cost.</p>
+      </div>
+
+      <div class="mission-section">
+        <div class="mission-icon">
+          <i class="fas fa-heart"></i>
+        </div>
+        <h2>Why We Do It</h2>
+        <p>As students ourselves, we know the struggles of exam preparation. The endless search for previous year papers, the cost of buying guides, and the frustration of finding unreliable resources - we've been there. Exam Saarthi is our way of making exam preparation simpler, more organized, and completely free for everyone.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Exam Saarthi | Made with <i class="fas fa-heart" style="color: #fbbf24;"></i> by Gourav Sharma & Mahesh Verma | Indira Gandhi University, Rewari</p>
+  </footer>
+
+  <script>
+    (function() {
+      // Theme Toggle
+      const themeToggle = document.getElementById('themeToggle');
+      const mobileThemeToggle = document.getElementById('mobileThemeToggle');
+      const html = document.documentElement;
+      const icon = themeToggle?.querySelector('i');
+
+      function setTheme(theme) {
+        html.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        if (icon) icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        if (mobileThemeToggle) mobileThemeToggle.textContent = theme === 'dark' ? 'Light' : 'Dark';
+      }
+
+      const saved = localStorage.getItem('theme') || 'light';
+      setTheme(saved);
+
+      themeToggle?.addEventListener('click', () => {
+        const current = html.getAttribute('data-theme');
+        setTheme(current === 'light' ? 'dark' : 'light');
+      });
+      mobileThemeToggle?.addEventListener('click', () => {
+        const current = html.getAttribute('data-theme');
+        setTheme(current === 'light' ? 'dark' : 'light');
+      });
+
+      // Mobile Menu
+      const menuBtn = document.getElementById('mobileMenuBtn');
+      const mobileNav = document.getElementById('mobileNav');
+      
+      if (menuBtn && mobileNav) {
+        menuBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const isOpen = mobileNav.style.display === 'block';
+          mobileNav.style.display = isOpen ? 'none' : 'block';
+          const icon = menuBtn.querySelector('i');
+          if (icon) icon.className = isOpen ? 'fas fa-bars' : 'fas fa-times';
+        });
+
+        document.addEventListener('click', function(e) {
+          if (mobileNav.style.display === 'block' && !mobileNav.contains(e.target) && !menuBtn.contains(e.target)) {
+            mobileNav.style.display = 'none';
+            const icon = menuBtn.querySelector('i');
+            if (icon) icon.className = 'fas fa-bars';
+          }
+        });
+      }
+
+      function checkViewport() {
+        if (window.innerWidth <= 768 && mobileNav) {
+          mobileNav.style.display = 'none';
+          const icon = menuBtn?.querySelector('i');
+          if (icon) icon.className = 'fas fa-bars';
+        }
+      }
+      checkViewport();
+      window.addEventListener('resize', checkViewport);
+    })();
+  </script>
 </body>
 </html>
