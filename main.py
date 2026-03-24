@@ -1,18 +1,27 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify
 import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
 import os
 import secrets
+from functools import wraps
+from datetime import timedelta
 
 load_dotenv()
 
 app = Flask(__name__)
 
+# ============ SESSION CONFIGURATION FOR PRODUCTION ============
+# Important: Set permanent session and secure settings
+app.config['SESSION_PERMANENT'] = True
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)  # Session lasts 7 days
+app.config['SESSION_COOKIE_SECURE'] = False  # Set to True if using HTTPS
+app.config['SESSION_COOKIE_HTTPONLY'] = True
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
+
 # Set secret key with validation
 secret_key = os.getenv("SECRET_KEY")
 if not secret_key:
-    # Generate a random secret key for development
     secret_key = secrets.token_hex(32)
     print("=" * 50)
     print("WARNING: No SECRET_KEY found in .env file!")
@@ -25,10 +34,25 @@ app.secret_key = secret_key
 # Set admin password with validation
 admin_password = os.getenv("ADMIN_PASSWORD")
 if not admin_password:
-    admin_password = "admin123"  # Default for development
+    admin_password = "admin123"
     print("WARNING: No ADMIN_PASSWORD found in .env file! Using default: admin123")
     
 app.config["ADMIN_PASSWORD"] = admin_password
+
+# ============ WEB3FORMS API KEY ============
+web3forms_key = os.getenv("WEB3FORMS_ACCESS_KEY")
+if not web3forms_key:
+    web3forms_key = ""
+    print("=" * 50)
+    print("WARNING: No WEB3FORMS_ACCESS_KEY found in .env file!")
+    print("Contact form will not work without it.")
+    print("Get your free key from: https://web3forms.com/")
+    print("Add WEB3FORMS_ACCESS_KEY=your-key-here to .env file")
+    print("=" * 50)
+else:
+    print("=" * 50)
+    print("Web3Forms API Key loaded successfully!")
+    print("=" * 50)
 
 DB_FILE = "database.db"
 
@@ -44,7 +68,6 @@ def init_db():
     conn = get_db_connection()
 
     if not db_exists:
-        # Create new users table with full columns
         conn.execute("""
         CREATE TABLE users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -56,25 +79,34 @@ def init_db():
         )
         """)
         conn.commit()
-        conn.close()
         print("Database created successfully!")
-        return
-
-    # If database exists, make sure all required columns exist
-    try:
-        conn.execute("ALTER TABLE users ADD COLUMN fullname TEXT")
-    except sqlite3.OperationalError:
-        pass
-    try:
-        conn.execute("ALTER TABLE users ADD COLUMN mobile TEXT")
-    except sqlite3.OperationalError:
-        pass
-    try:
-        conn.execute("ALTER TABLE users ADD COLUMN email TEXT UNIQUE")
-    except sqlite3.OperationalError:
-        pass
-    conn.commit()
+    else:
+        # Add missing columns if needed
+        try:
+            conn.execute("ALTER TABLE users ADD COLUMN fullname TEXT")
+        except sqlite3.OperationalError:
+            pass
+        try:
+            conn.execute("ALTER TABLE users ADD COLUMN mobile TEXT")
+        except sqlite3.OperationalError:
+            pass
+        try:
+            conn.execute("ALTER TABLE users ADD COLUMN email TEXT UNIQUE")
+        except sqlite3.OperationalError:
+            pass
+        conn.commit()
+    
     conn.close()
+
+# Login required decorator
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session:
+            flash('Please login to access this page 🔒', 'warning')
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated_function
 
 # Initialize DB
 init_db()
@@ -82,14 +114,9 @@ init_db()
 # Home route
 @app.route("/")
 def home():
-    return render_template("index.html")
-
-# Logout
-@app.route("/logout")
-def logout():
-    session.clear()
-    flash("Logged out successfully ✅", "success")
-    return redirect(url_for("home"))
+    # Debug: Print session data (for checking)
+    print(f"Session data: user_id={session.get('user_id')}, fullname={session.get('fullname')}")
+    return render_template("index.html", user=session.get('fullname'))
 
 # Register route
 @app.route("/register", methods=["GET", "POST"])
@@ -102,7 +129,6 @@ def register():
         password = request.form.get("password", "")
         confirm_password = request.form.get("confirm_password", "")
 
-        # Basic validation
         if not all([fullname, mobile, email, username, password]):
             flash("All fields are required ❌", "danger")
             return redirect(url_for("register"))
@@ -125,7 +151,7 @@ def register():
             )
             conn.commit()
             conn.close()
-            flash("User Registered Successfully! ✅", "success")
+            flash("User Registered Successfully! ✅ Please login.", "success")
             return redirect(url_for("login"))
         except sqlite3.IntegrityError as e:
             if "email" in str(e).lower():
@@ -155,9 +181,16 @@ def login():
         conn.close()
 
         if user and check_password_hash(user["password"], password):
+            # Set session with permanent flag
+            session.permanent = True
             session["user_id"] = user["id"]
             session["username"] = user["username"]
             session["fullname"] = user["fullname"]
+            session["email"] = user["email"]
+            
+            # Debug: Print session after login
+            print(f"Login successful! Session set: user_id={session.get('user_id')}, fullname={session.get('fullname')}")
+            
             flash(f"Welcome back, {user['fullname']}! 🎉", "success")
             return redirect(url_for("home"))
         else:
@@ -166,27 +199,249 @@ def login():
 
     return render_template("login.html")
 
-# Other pages
-@app.route("/university")
-def university():
-    return render_template("university.html")
+# Logout
+@app.route("/logout")
+def logout():
+    session.clear()
+    flash("Logged out successfully ✅", "success")
+    return redirect(url_for("home"))
 
-@app.route("/igu")
-def igu():
-    return render_template("igu.html")
+# ============ PROTECTED ROUTES ============
+
+@app.route("/university")
+@login_required
+def university():
+    """Universities page - only accessible after login"""
+    return render_template("university.html", user=session.get('fullname'))
 
 @app.route("/about")
 def about():
-    return render_template("about.html")
+    return render_template("about.html", user=session.get('fullname'))
 
 @app.route("/contact")
 def contact():
-    return render_template("contact.html")
+    """Contact page - pass web3forms key to template"""
+    return render_template("contact.html", user=session.get('fullname'), web3forms_key=web3forms_key)
 
-# Admin routes
+# ============ IGU ROUTES ============
+
+@app.route("/igu")
+def igu():
+    """IGU University Main Page"""
+    return render_template("igu.html", user=session.get('fullname'))
+
+@app.route("/igu-btech")
+def igu_btech():
+    """IGU B.Tech Page"""
+    return render_template("igu-btech.html", user=session.get('fullname'))
+
+@app.route("/igu-mtech")
+def igu_mtech():
+    """IGU M.Tech Page"""
+    return render_template("igu-mtech.html", user=session.get('fullname'))
+
+@app.route("/igu-bca")
+def igu_bca():
+    """IGU BCA Page"""
+    return render_template("igu-bca.html", user=session.get('fullname'))
+
+@app.route("/igu-bba")
+def igu_bba():
+    """IGU BBA Page"""
+    return render_template("igu-bba.html", user=session.get('fullname'))
+
+@app.route("/igu-bsc")
+def igu_bsc():
+    """IGU B.Sc Page"""
+    return render_template("igu-bsc.html", user=session.get('fullname'))
+
+@app.route("/igu-msc")
+def igu_msc():
+    """IGU M.Sc Page"""
+    return render_template("igu-msc.html", user=session.get('fullname'))
+
+@app.route("/igu-ba")
+def igu_ba():
+    """IGU BA Page"""
+    return render_template("igu-ba.html", user=session.get('fullname'))
+
+@app.route("/igu-ma")
+def igu_ma():
+    """IGU MA Page"""
+    return render_template("igu-ma.html", user=session.get('fullname'))
+
+@app.route("/igu-bcom")
+def igu_bcom():
+    """IGU B.Com Page"""
+    return render_template("igu-bcom.html", user=session.get('fullname'))
+
+@app.route("/igu-mcom")
+def igu_mcom():
+    """IGU M.Com Page"""
+    return render_template("igu-mcom.html", user=session.get('fullname'))
+
+@app.route("/igu-bed")
+def igu_bed():
+    """IGU B.Ed Page"""
+    return render_template("igu-bed.html", user=session.get('fullname'))
+
+@app.route("/igu-llb")
+def igu_llb():
+    """IGU LLB Page"""
+    return render_template("igu-llb.html", user=session.get('fullname'))
+
+@app.route("/igu-mca")
+def igu_mca():
+    """IGU MCA Page"""
+    return render_template("igu-mca.html", user=session.get('fullname'))
+
+@app.route("/igu-mba")
+def igu_mba():
+    """IGU MBA Page"""
+    return render_template("igu-mba.html", user=session.get('fullname'))
+
+# ============ OTHER UNIVERSITY ROUTES ============
+
+@app.route("/du")
+def du():
+    """Delhi University Page"""
+    return render_template("du.html", user=session.get('fullname'))
+
+@app.route("/pu")
+def pu():
+    """Punjab University Page"""
+    return render_template("pu.html", user=session.get('fullname'))
+
+@app.route("/jmi")
+def jmi():
+    """Jamia Millia Islamia Page"""
+    return render_template("jmi.html", user=session.get('fullname'))
+
+@app.route("/amu")
+def amu():
+    """Aligarh Muslim University Page"""
+    return render_template("amu.html", user=session.get('fullname'))
+
+@app.route("/bhu")
+def bhu():
+    """Banaras Hindu University Page"""
+    return render_template("bhu.html", user=session.get('fullname'))
+
+@app.route("/mumbai")
+def mumbai():
+    """University of Mumbai Page"""
+    return render_template("mumbai.html", user=session.get('fullname'))
+
+@app.route("/calcutta")
+def calcutta():
+    """Calcutta University Page"""
+    return render_template("calcutta.html", user=session.get('fullname'))
+
+@app.route("/anna")
+def anna():
+    """Anna University Page"""
+    return render_template("anna.html", user=session.get('fullname'))
+
+@app.route("/osmania")
+def osmania():
+    """Osmania University Page"""
+    return render_template("osmania.html", user=session.get('fullname'))
+
+@app.route("/pune")
+def pune():
+    """Savitribai Phule Pune University Page"""
+    return render_template("pune.html", user=session.get('fullname'))
+
+@app.route("/gujarat")
+def gujarat():
+    """Gujarat University Page"""
+    return render_template("gujarat.html", user=session.get('fullname'))
+
+@app.route("/rajasthan")
+def rajasthan():
+    """Rajasthan University Page"""
+    return render_template("rajasthan.html", user=session.get('fullname'))
+
+@app.route("/kurukshetra")
+def kurukshetra():
+    """Kurukshetra University Page"""
+    return render_template("kurukshetra.html", user=session.get('fullname'))
+
+@app.route("/mdu")
+def mdu():
+    """Maharshi Dayanand University Page"""
+    return render_template("mdu.html", user=session.get('fullname'))
+
+@app.route("/ignou")
+def ignou():
+    """IGNOU Page"""
+    return render_template("ignou.html", user=session.get('fullname'))
+
+@app.route("/bangalore")
+def bangalore():
+    """Bangalore University Page"""
+    return render_template("bangalore.html", user=session.get('fullname'))
+
+@app.route("/madras")
+def madras():
+    """Madras University Page"""
+    return render_template("madras.html", user=session.get('fullname'))
+
+@app.route("/kerala")
+def kerala():
+    """Kerala University Page"""
+    return render_template("kerala.html", user=session.get('fullname'))
+
+@app.route("/andhra")
+def andhra():
+    """Andhra University Page"""
+    return render_template("andhra.html", user=session.get('fullname'))
+
+# ============ API ENDPOINTS ============
+
+@app.route("/check_session")
+def check_session():
+    """Check if user is logged in (for AJAX calls)"""
+    if 'user_id' in session:
+        return jsonify({
+            'logged_in': True,
+            'username': session.get('username'),
+            'fullname': session.get('fullname'),
+            'email': session.get('email')
+        })
+    return jsonify({'logged_in': False})
+
+@app.route("/api/universities")
+def get_universities():
+    """Get list of universities (for university.html page)"""
+    universities_data = [
+        {"name": "Indira Gandhi University (IGU)", "location": "Rewari, Haryana", "icon": "🏛️", "code": "igu"},
+        {"name": "University of Delhi (DU)", "location": "Delhi", "icon": "📚", "code": "du"},
+        {"name": "Punjab University (PU)", "location": "Chandigarh", "icon": "🎓", "code": "pu"},
+        {"name": "Jamia Millia Islamia (JMI)", "location": "Delhi", "icon": "🏫", "code": "jmi"},
+        {"name": "Aligarh Muslim University (AMU)", "location": "Aligarh, UP", "icon": "🌙", "code": "amu"},
+        {"name": "Banaras Hindu University (BHU)", "location": "Varanasi, UP", "icon": "🕉️", "code": "bhu"},
+        {"name": "University of Mumbai", "location": "Mumbai, MH", "icon": "🏝️", "code": "mumbai"},
+        {"name": "Calcutta University (CU)", "location": "Kolkata, WB", "icon": "🎭", "code": "calcutta"},
+        {"name": "Anna University", "location": "Chennai, TN", "icon": "⚙️", "code": "anna"},
+        {"name": "Osmania University", "location": "Hyderabad, TS", "icon": "🌆", "code": "osmania"},
+        {"name": "Savitribai Phule Pune University", "location": "Pune, MH", "icon": "📖", "code": "pune"},
+        {"name": "Gujarat University", "location": "Ahmedabad, GJ", "icon": "🦁", "code": "gujarat"},
+        {"name": "Rajasthan University (RU)", "location": "Jaipur, RJ", "icon": "🏜️", "code": "rajasthan"},
+        {"name": "Kurukshetra University", "location": "Kurukshetra, HR", "icon": "⚔️", "code": "kurukshetra"},
+        {"name": "Maharshi Dayanand University (MDU)", "location": "Rohtak, HR", "icon": "🧘", "code": "mdu"},
+        {"name": "IGNOU", "location": "Delhi (Distance)", "icon": "📡", "code": "ignou"},
+        {"name": "Bangalore University", "location": "Bengaluru, KA", "icon": "🌳", "code": "bangalore"},
+        {"name": "Madras University", "location": "Chennai, TN", "icon": "🎼", "code": "madras"},
+        {"name": "Kerala University", "location": "Thiruvananthapuram, KL", "icon": "🥥", "code": "kerala"},
+        {"name": "Andhra University", "location": "Visakhapatnam, AP", "icon": "🌊", "code": "andhra"}
+    ]
+    return jsonify(universities_data)
+
+# ============ ADMIN ROUTES ============
+
 @app.route("/admin", methods=["GET", "POST"])
 def admin():
-    # If already logged in as admin, redirect to panel
     if session.get("admin_logged_in"):
         return redirect(url_for("admin_panel"))
     
@@ -212,7 +467,6 @@ def admin_panel():
     conn.close()
 
     if request.method == "POST":
-        # Handle delete user
         if "delete_user" in request.form:
             user_id = request.form.get("user_id")
             try:
@@ -224,15 +478,6 @@ def admin_panel():
             except Exception as e:
                 flash(f"Error deleting user: {e}", "danger")
             return redirect(url_for("admin_panel"))
-        
-        # Handle update user (optional)
-        elif "update_user" in request.form:
-            flash("Update feature coming soon ⚠️", "warning")
-            return redirect(url_for("admin_panel"))
-        
-        else:
-            flash("Invalid action ⚠️", "warning")
-            return redirect(url_for("admin_panel"))
 
     return render_template("admin_panel.html", users=users)
 
@@ -243,4 +488,25 @@ def admin_logout():
     return redirect(url_for("home"))
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    print("=" * 50)
+    print("Exam Saarthi Server Starting...")
+    print(f"Database: {DB_FILE}")
+    print(f"Admin Password: {'*' * len(app.config['ADMIN_PASSWORD'])}")
+    if web3forms_key:
+        print("Web3Forms API Key: Loaded")
+    else:
+        print("Web3Forms API Key: Not Found")
+    print("=" * 50)
+    print("Available Routes:")
+    print("  /                 - Home Page")
+    print("  /login            - Login Page")
+    print("  /register         - Register Page")
+    print("  /university       - All Universities Page")
+    print("  /about            - About Page")
+    print("  /contact          - Contact Page")
+    print("  /igu              - IGU University Page")
+    print("=" * 50)
+    print("Server running at: http://127.0.0.1:5000")
+    print("Press Ctrl+C to stop the server")
+    print("=" * 50)
+    app.run(debug=True, host='0.0.0.0', port=5000)
