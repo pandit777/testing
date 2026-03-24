@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IGU MA Previous Year Papers - Exam Saarthi</title>
+    <link rel="canonical" href="https://www.examsaarthi.com/igu-ma.html" />
+    <meta name="description" content="Download IGU MA all semester previous year question papers. MA 1st, 2nd year PYQ for English, History, Political Science.">
+    <meta name="keywords" content="igu ma pyq, igu ma papers, igu previous year papers, ma question papers">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- IGU Favicon -->
+    <link data-default-icon="https://upload.wikimedia.org/wikipedia/en/9/9c/Indira_Gandhi_University%2C_Rewari_Logo.png" rel="icon" sizes="192x192" href="https://upload.wikimedia.org/wikipedia/en/9/9c/Indira_Gandhi_University%2C_Rewari_Logo.png" />
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f5f7fa;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        /* IGU Header with Logo */
+        .igu-header {
+            background: linear-gradient(145deg, #00897B, #00695C);
+            color: white;
+            padding: 1.2rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            box-shadow: 0 8px 20px rgba(0,137,123,0.2);
+        }
+
+        .igu-logo {
+            width: 70px;
+            height: 70px;
+            background: white;
+            border-radius: 50%;
+            padding: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .igu-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .igu-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .igu-header p {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-top: 4px;
+        }
+
+        .back-link {
+            margin-left: auto;
+            background: rgba(255,255,255,0.15);
+            padding: 0.6rem 1.5rem;
+            border-radius: 40px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            background: #fbbf24;
+            color: #0b1e4a;
+            border-color: #fbbf24;
+        }
+
+        /* Main container */
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Search & filter bar */
+        .toolbar {
+            background: white;
+            border-radius: 60px;
+            padding: 0.6rem 0.6rem 0.6rem 2rem;
+            box-shadow: 0 10px 25px -8px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+            border: 1px solid #e9eef3;
+        }
+
+        .search-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            min-width: 250px;
+        }
+
+        .search-wrapper i {
+            color: #00897B;
+            font-size: 1.2rem;
+            margin-right: 0.8rem;
+        }
+
+        .search-wrapper input {
+            border: none;
+            padding: 0.8rem 0;
+            width: 100%;
+            font-size: 1rem;
+            outline: none;
+            background: transparent;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            padding: 0.3rem 0;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            border: 1px solid #b2dfdb;
+            background: #e0f2f1;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #00897B;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .filter-btn.active {
+            background: #00897B;
+            color: white;
+            border-color: #00897B;
+        }
+
+        .filter-btn:hover {
+            background: #00897B;
+            color: white;
+        }
+
+        /* Year sections */
+        .year-section {
+            background: white;
+            border-radius: 32px;
+            margin-bottom: 2rem;
+            box-shadow: 0 12px 30px -10px rgba(0,137,123,0.12);
+            overflow: hidden;
+            border: 1px solid rgba(0,137,123,0.08);
+        }
+
+        .section-header {
+            background: linear-gradient(145deg, #e0f2f1, #ffffff);
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #4db6ac;
+            cursor: pointer;
+        }
+
+        .section-header h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #00897B;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-header h2 i {
+            color: #00897B;
+            font-size: 2rem;
+        }
+
+        .toggle-icon {
+            background: #00897B;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+
+        /* Table styling */
+        .table-wrapper {
+            overflow-x: auto;
+            padding: 0 1.5rem 1.5rem 1.5rem;
+            transition: all 0.3s;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0.5rem;
+        }
+
+        th {
+            background: #e0f2f1;
+            color: #00897B;
+            font-weight: 700;
+            font-size: 0.9rem;
+            padding: 1rem 0.8rem;
+            text-align: left;
+            border-radius: 16px 16px 0 0;
+        }
+
+        td {
+            padding: 1rem 0.8rem;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.95rem;
+        }
+
+        tr:hover td {
+            background: #e0f2f1;
+        }
+
+        .download-btn {
+            background: linear-gradient(145deg, #00897B, #00695C);
+            color: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: 0.2s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,137,123,0.2);
+        }
+
+        .download-btn:hover {
+            background: #fbbf24;
+            color: #0b1e4a;
+            transform: translateY(-2px);
+        }
+
+        /* Mobile card view */
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            padding: 1.2rem;
+            display: none;
+        }
+
+        .paper-card {
+            background: white;
+            border-radius: 24px;
+            padding: 1.2rem;
+            border: 1px solid #e9eef3;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.02);
+            transition: 0.2s;
+        }
+
+        .paper-card:hover {
+            border-color: #00897B;
+            box-shadow: 0 12px 24px -10px rgba(0,137,123,0.3);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .card-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #00897B;
+        }
+
+        .card-sem {
+            background: #e0f2f1;
+            color: #00897B;
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.7rem;
+        }
+
+        .card-detail {
+            display: flex;
+            margin: 0.6rem 0;
+            font-size: 0.9rem;
+        }
+
+        .card-label {
+            width: 80px;
+            color: #5f6b7a;
+        }
+
+        .card-value {
+            font-weight: 500;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            background: white;
+            border-radius: 40px;
+            color: #6b7a8f;
+            display: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #00897B;
+            color: white;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .igu-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .back-link {
+                margin-left: 0;
+            }
+            .toolbar {
+                border-radius: 30px;
+                padding: 1rem;
+            }
+            .search-wrapper {
+                width: 100%;
+            }
+            .table-wrapper {
+                display: none;
+            }
+            .card-grid {
+                display: grid;
+            }
+            .section-header h2 {
+                font-size: 1.4rem;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .card-grid {
+                display: none !important;
+            }
+            .table-wrapper {
+                display: block !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- IGU Header with Logo & Navigation -->
+<div class="igu-header">
+    <div class="igu-logo">
+        <img src="https://upload.wikimedia.org/wikipedia/en/9/9c/Indira_Gandhi_University%2C_Rewari_Logo.png" alt="IGU Logo" onerror="this.src='https://pandit777.github.io/Exam-Saarthi/logo.png'">
+    </div>
+    <div>
+        <h1>IGU MA PYQ Repository</h1>
+        <p>Indira Gandhi University, Rewari • English • History • Political Science</p>
+    </div>
+    <a href="igu.html" class="back-link"><i class="fas fa-arrow-left"></i> All Courses</a>
+</div>
+
+<div class="container">
+    <!-- Search & Filter Toolbar -->
+    <div class="toolbar">
+        <div class="search-wrapper">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Search by paper name, ID, semester or year...">
+        </div>
+        <div class="filter-group">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="1st">1st Sem</button>
+            <button class="filter-btn" data-filter="2nd">2nd Sem</button>
+            <button class="filter-btn" data-filter="3rd">3rd Sem</button>
+            <button class="filter-btn" data-filter="4th">4th Sem</button>
+        </div>
+    </div>
+
+    <!-- 1st Year Section (Sem 1 & 2) -->
+    <div class="year-section" id="section1">
+        <div class="section-header" onclick="toggleSection('1')">
+            <h2><i class="fas fa-book"></i> MA 1st Year (Sem 1 & 2)</h2>
+            <span class="toggle-icon" id="icon1"><i class="fas fa-chevron-up"></i></span>
+        </div>
+        <!-- Table View (Desktop) -->
+        <div class="table-wrapper" id="table1">
+            <table id="table1-data">
+                <thead>
+                    <tr>
+                        <th>Paper ID</th>
+                        <th>Paper Name</th>
+                        <th>Course</th>
+                        <th>Sem</th>
+                        <th>Year</th>
+                        <th>Download</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>12203</td><td>English British Drama</td><td>MA</td><td>1st</td><td>2019</td><td><a href="https://drive.google.com/file/d/1JIGC2GAsbTWXTxCsvcxPS_xwVIIgUDhZ/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>12209</td><td>English British Novel</td><td>MA</td><td>1st</td><td>2019</td><td><a href="https://drive.google.com/file/d/1wFAJRtayGTzd4hXylXFHb9c7weOtECw-/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>12207</td><td>English British Poetry</td><td>MA</td><td>1st</td><td>2019</td><td><a href="https://drive.google.com/file/d/1zC02DYNmdkbzjyNLgGHaXVpqKX-Hekdo/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>12210</td><td>English British Prose</td><td>MA</td><td>1st</td><td>2019</td><td><a href="https://drive.google.com/file/d/1pQHlRAK_En9ODam8ISZSb8UCC97BYfXs/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>12201</td><td>English Reading Writing and Documentation Skills</td><td>MA</td><td>1st</td><td>2019</td><td><a href="https://drive.google.com/file/d/16LzvRGrvcjsyQQi7IXi9DyX77TLdQOAd/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>12704</td><td>Common Value Education</td><td>MA</td><td>1st</td><td>2019</td><td><a href="https://drive.google.com/file/d/1G9OPneflnlJ_iv1FvXdsk9BnphNIwtta/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>12705</td><td>Communication Skills and Personality Development</td><td>MA</td><td>1st</td><td>2019</td><td><a href="https://drive.google.com/file/d/1VdyoYNAXDns_4rx1DmkkGhU5_2GyaGsE/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>12706</td><td>Computer Application</td><td>MA</td><td>1st</td><td>2023</td><td><a href="https://drive.google.com/file/d/1BaeVpAz06KIn0jGWnTOZzAx8664Ne2ko/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>12706</td><td>Computer Application</td><td>MA</td><td>1st</td><td>2019</td><td><a href="https://drive.google.com/file/d/1aK8g4lVgc1KR18rKOCpL_x5UTJQc-8Ul/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>12234</td><td>Medieval Societies</td><td>MA</td><td>1st</td><td>2023</td><td><a href="https://drive.google.com/file/d/1THsT0J970HpHtW28_t8JfURK6cOTHQoE/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>12252</td><td>Western Political Thought</td><td>MA</td><td>1st</td><td>2023</td><td><a href="https://drive.google.com/file/d/1nu21ppcE1AEG8V_Bd2aWUnZviWsbl2zB/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>12207/12213</td><td>British Poetry</td><td>MA</td><td>1st</td><td>2023</td><td><a href="https://drive.google.com/file/d/17TREQrqR3W39DT2nUqgNImPtFuoj1p9t/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>12234</td><td>Medieval Societies</td><td>MA</td><td>1st</td><td>2023</td><td><a href="https://drive.google.com/file/d/1THsT0J970HpHtW28_t8JfURK6cOTHQoE/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>12227</td><td>Source of History</td><td>MA</td><td>1st</td><td>2023</td><td><a href="https://drive.google.com/file/d/1vf20cXDjANbHxwVCukb2aboXVRP8DiDI/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>14201</td><td>History of English Literature</td><td>MA</td><td>1st</td><td>2024</td><td><a href="https://drive.google.com/file/d/1FEwG-ME-nuQHgFYZTjY4Iky-lFfNzqas/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>12212</td><td>Reading of Writing Skill</td><td>MA</td><td>1st</td><td>2024</td><td><a href="https://drive.google.com/file/d/1hgXYGIN1fZaRgRcsfBbzvVAXwYxPkihw/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>14225</td><td>State of India</td><td>MA</td><td>1st</td><td>2024</td><td><a href="https://drive.google.com/file/d/1J7LT4FbztHw2pmpiZrEFREpSE1rVPvO4/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>12216</td><td>British Prose</td><td>MA</td><td>1st</td><td>2024</td><td><a href="https://drive.google.com/file/d/18E4HrrS9HPvMSowKJcd62wqkragpNm29/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- Mobile Cards -->
+        <div class="card-grid" id="cards1"></div>
+    </div>
+
+    <!-- 2nd Year Section (Sem 3 & 4) -->
+    <div class="year-section" id="section2">
+        <div class="section-header" onclick="toggleSection('2')">
+            <h2><i class="fas fa-graduation-cap"></i> MA 2nd Year (Sem 3 & 4)</h2>
+            <span class="toggle-icon" id="icon2"><i class="fas fa-chevron-up"></i></span>
+        </div>
+        <div class="table-wrapper" id="table2">
+            <table id="table2-data">
+                <thead>
+                    <tr>
+                        <th>Paper ID</th>
+                        <th>Paper Name</th>
+                        <th>Course</th>
+                        <th>Sem</th>
+                        <th>Year</th>
+                        <th>Download</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- No data available for 2nd year -->
+                </tbody>
+            </table>
+        </div>
+        <div class="card-grid" id="cards2"></div>
+    </div>
+
+    <!-- No Results Message -->
+    <div id="noResults" class="no-results">
+        <i class="fas fa-search"></i>
+        <h3>No matching papers found</h3>
+        <p>Try different keywords or semester filter</p>
+    </div>
+</div>
+
+<footer>
+    <i class="fas fa-graduation-cap"></i> Exam Saarthi - IGU MA PYQ Repository | Free for all students
+</footer>
+
+<script>
+    (function() {
+        // Toggle sections (open/close)
+        window.toggleSection = function(id) {
+            const tableDiv = document.getElementById('table' + id);
+            const cardsDiv = document.getElementById('cards' + id);
+            const icon = document.getElementById('icon' + id).querySelector('i');
+            
+            if (window.innerWidth <= 768) {
+                // Mobile: switch between table and cards
+                if (tableDiv.style.display !== 'none') {
+                    tableDiv.style.display = 'none';
+                    cardsDiv.style.display = 'grid';
+                    icon.className = 'fas fa-chevron-down';
+                } else {
+                    tableDiv.style.display = 'block';
+                    cardsDiv.style.display = 'none';
+                    icon.className = 'fas fa-chevron-up';
+                }
+            } else {
+                // Desktop: just hide/show table
+                if (tableDiv.style.display !== 'none') {
+                    tableDiv.style.display = 'none';
+                    icon.className = 'fas fa-chevron-down';
+                } else {
+                    tableDiv.style.display = 'block';
+                    icon.className = 'fas fa-chevron-up';
+                }
+            }
+        };
+
+        // Generate mobile cards from table rows
+        function generateCardsForSection(tableId, cardsId) {
+            const table = document.getElementById(tableId);
+            const cardsContainer = document.getElementById(cardsId);
+            if (!table || !cardsContainer) return;
+            const rows = table.querySelectorAll('tbody tr');
+            cardsContainer.innerHTML = '';
+            
+            rows.forEach(row => {
+                if (row.style.display !== 'none') {
+                    const cells = row.cells;
+                    const downloadBtn = row.querySelector('.download-btn');
+                    const pdfUrl = downloadBtn ? downloadBtn.href : '#';
+                    
+                    const card = document.createElement('div');
+                    card.className = 'paper-card';
+                    card.innerHTML = `
+                        <div class="card-header">
+                            <span class="card-title">${cells[1]?.textContent || ''}</span>
+                            <span class="card-sem">${cells[3]?.textContent || ''} Sem</span>
+                        </div>
+                        <div class="card-detail"><span class="card-label">Paper ID:</span> <span class="card-value">${cells[0]?.textContent || ''}</span></div>
+                        <div class="card-detail"><span class="card-label">Course:</span> <span class="card-value">${cells[2]?.textContent || ''}</span></div>
+                        <div class="card-detail"><span class="card-label">Year:</span> <span class="card-value">${cells[4]?.textContent || ''}</span></div>
+                        <a href="${pdfUrl}" class="download-btn" target="_blank" style="margin-top:10px;"><i class="fas fa-download"></i> Download</a>
+                    `;
+                    cardsContainer.appendChild(card);
+                }
+            });
+        }
+
+        // Function to expand/collapse sections based on filter
+        function updateSectionsVisibility(selectedSem) {
+            const sections = [
+                { id: 'section1', name: '1st Year', sems: ['1st', '2nd'] },
+                { id: 'section2', name: '2nd Year', sems: ['3rd', '4th'] }
+            ];
+
+            sections.forEach(section => {
+                const sectionId = section.id.slice(-1);
+                const tableDiv = document.getElementById('table' + sectionId);
+                const cardsDiv = document.getElementById('cards' + sectionId);
+                const icon = document.getElementById('icon' + sectionId).querySelector('i');
+                
+                // Check if this section contains the selected semester
+                const containsSelectedSem = selectedSem === 'all' || section.sems.some(sem => 
+                    sem.toLowerCase().includes(selectedSem.toLowerCase())
+                );
+
+                if (window.innerWidth <= 768) {
+                    // Mobile view
+                    if (containsSelectedSem) {
+                        // Show this section's cards
+                        tableDiv.style.display = 'none';
+                        cardsDiv.style.display = 'grid';
+                        icon.className = 'fas fa-chevron-down';
+                    } else {
+                        // Hide this section
+                        tableDiv.style.display = 'none';
+                        cardsDiv.style.display = 'none';
+                        icon.className = 'fas fa-chevron-down';
+                    }
+                } else {
+                    // Desktop view
+                    if (containsSelectedSem) {
+                        // Show this section's table
+                        tableDiv.style.display = 'block';
+                        icon.className = 'fas fa-chevron-up';
+                    } else {
+                        // Hide this section
+                        tableDiv.style.display = 'none';
+                        icon.className = 'fas fa-chevron-down';
+                    }
+                }
+            });
+        }
+
+        // Search and filter functionality
+        const searchInput = document.getElementById('searchInput');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        let activeFilter = 'all';
+
+        function filterTable() {
+            const searchTerm = searchInput.value.toLowerCase();
+            let anyVisible = false;
+            
+            // Filter the rows based on search and semester
+            ['table1-data', 'table2-data'].forEach(tableId => {
+                const table = document.getElementById(tableId);
+                if (!table) return;
+                const rows = table.querySelectorAll('tbody tr');
+                
+                rows.forEach(row => {
+                    const cells = row.cells;
+                    const paperName = cells[1]?.textContent.toLowerCase() || '';
+                    const paperId = cells[0]?.textContent.toLowerCase() || '';
+                    const sem = cells[3]?.textContent.toLowerCase() || '';
+                    const year = cells[4]?.textContent.toLowerCase() || '';
+
+                    const matchesSearch = paperName.includes(searchTerm) || 
+                                         paperId.includes(searchTerm) || 
+                                         year.includes(searchTerm);
+                    const matchesFilter = activeFilter === 'all' || sem.includes(activeFilter.toLowerCase());
+
+                    if (matchesSearch && matchesFilter) {
+                        row.style.display = '';
+                        anyVisible = true;
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+
+            // Update section visibility based on active filter
+            updateSectionsVisibility(activeFilter);
+
+            // Regenerate cards for mobile
+            generateCardsForSection('table1-data', 'cards1');
+            generateCardsForSection('table2-data', 'cards2');
+
+            document.getElementById('noResults').style.display = anyVisible ? 'none' : 'block';
+        }
+
+        searchInput.addEventListener('input', filterTable);
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                activeFilter = this.dataset.filter;
+                filterTable();
+            });
+        });
+
+        // Initial setup
+        window.addEventListener('load', function() {
+            filterTable();
+        });
+
+        window.addEventListener('resize', function() {
+            updateSectionsVisibility(activeFilter);
+            
+            if (window.innerWidth <= 768) {
+                // Mobile view: ensure cards are shown for visible sections
+                ['1', '2'].forEach(id => {
+                    const tableDiv = document.getElementById('table' + id);
+                    const cardsDiv = document.getElementById('cards' + id);
+                    const icon = document.getElementById('icon' + id).querySelector('i');
+                    
+                    if (tableDiv.style.display !== 'none') {
+                        tableDiv.style.display = 'none';
+                        cardsDiv.style.display = 'grid';
+                        icon.className = 'fas fa-chevron-down';
+                    }
+                });
+            } else {
+                // Desktop view: ensure tables are shown for visible sections
+                ['1', '2'].forEach(id => {
+                    const cardsDiv = document.getElementById('cards' + id);
+                    if (cardsDiv) cardsDiv.style.display = 'none';
+                });
+            }
+        });
+    })();
+</script>
+</body>
+</html>

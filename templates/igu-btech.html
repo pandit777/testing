@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IGU B.Tech Previous Year Papers - Exam Saarthi</title>
+    <link rel="canonical" href="https://www.examsaarthi.com/igu-btech.html" />
+    <meta name="description" content="Download IGU B.Tech all semester previous year question papers. Branch-wise PYQ for CSE, ECE, ME, EE, CE.">
+    <meta name="keywords" content="igu btech pyq, igu btech papers, igu previous year papers, igu engineering papers">
+    
+    <!-- Font Awesome & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- IGU Favicon (fallback logo) -->
+    <link data-default-icon="https://upload.wikimedia.org/wikipedia/en/9/9c/Indira_Gandhi_University%2C_Rewari_Logo.png" rel="icon" sizes="192x192" href="https://upload.wikimedia.org/wikipedia/en/9/9c/Indira_Gandhi_University%2C_Rewari_Logo.png" />
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f4f7fc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        /* Header with IGU branding */
+        .igu-header {
+            background: linear-gradient(145deg, #0b3d5f, #1a4b7a);
+            color: white;
+            padding: 1.2rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            box-shadow: 0 8px 20px rgba(0,40,80,0.2);
+        }
+
+        .igu-logo {
+            width: 70px;
+            height: 70px;
+            background: white;
+            border-radius: 50%;
+            padding: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .igu-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .igu-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .igu-header p {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-top: 4px;
+        }
+
+        .back-link {
+            margin-left: auto;
+            background: rgba(255,255,255,0.15);
+            padding: 0.6rem 1.5rem;
+            border-radius: 40px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            background: #fbbf24;
+            color: #0b1e4a;
+            border-color: #fbbf24;
+        }
+
+        /* Main container */
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Search & filter bar */
+        .toolbar {
+            background: white;
+            border-radius: 60px;
+            padding: 0.6rem 0.6rem 0.6rem 2rem;
+            box-shadow: 0 10px 25px -8px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+            border: 1px solid #e9eef3;
+        }
+
+        .search-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            min-width: 250px;
+        }
+
+        .search-wrapper i {
+            color: #f59e0b;
+            font-size: 1.2rem;
+            margin-right: 0.8rem;
+        }
+
+        .search-wrapper input {
+            border: none;
+            padding: 0.8rem 0;
+            width: 100%;
+            font-size: 1rem;
+            outline: none;
+            background: transparent;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            padding: 0.3rem 0;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            border: 1px solid #d0deff;
+            background: #f0f5ff;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #1a4b7a;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .filter-btn.active {
+            background: #1a4b7a;
+            color: white;
+            border-color: #1a4b7a;
+        }
+
+        .filter-btn:hover {
+            background: #1a4b7a;
+            color: white;
+        }
+
+        /* Year section cards */
+        .year-section {
+            background: white;
+            border-radius: 32px;
+            margin-bottom: 2rem;
+            box-shadow: 0 12px 30px -10px rgba(0,40,80,0.12);
+            overflow: hidden;
+            border: 1px solid rgba(0,70,150,0.08);
+        }
+
+        .section-header {
+            background: linear-gradient(145deg, #f8fbff, #ffffff);
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #ffd966;
+            cursor: pointer;
+        }
+
+        .section-header h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0b3d5f;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-header h2 i {
+            color: #f59e0b;
+            font-size: 2rem;
+        }
+
+        .toggle-icon {
+            background: #0b3d5f;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+
+        /* Table styling */
+        .table-wrapper {
+            overflow-x: auto;
+            padding: 0 1.5rem 1.5rem 1.5rem;
+            transition: all 0.3s;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0.5rem;
+        }
+
+        th {
+            background: #e6f0fa;
+            color: #0b3d5f;
+            font-weight: 700;
+            font-size: 0.9rem;
+            padding: 1rem 0.8rem;
+            text-align: left;
+            border-radius: 16px 16px 0 0;
+        }
+
+        td {
+            padding: 1rem 0.8rem;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.95rem;
+        }
+
+        tr:hover td {
+            background: #fcf9e9;
+        }
+
+        .download-btn {
+            background: linear-gradient(145deg, #0b3d5f, #1e5a85);
+            color: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: 0.2s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,60,120,0.2);
+        }
+
+        .download-btn:hover {
+            background: #fbbf24;
+            color: #0b1e4a;
+            transform: translateY(-2px);
+        }
+
+        /* Mobile card view */
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            padding: 1.2rem;
+            display: none;
+        }
+
+        .paper-card {
+            background: white;
+            border-radius: 24px;
+            padding: 1.2rem;
+            border: 1px solid #e9eef3;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.02);
+            transition: 0.2s;
+        }
+
+        .paper-card:hover {
+            border-color: #fbbf24;
+            box-shadow: 0 12px 24px -10px rgba(251,191,36,0.3);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .card-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #0b3d5f;
+        }
+
+        .card-sem {
+            background: #ffe5b4;
+            color: #7a4b0e;
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.7rem;
+        }
+
+        .card-detail {
+            display: flex;
+            margin: 0.6rem 0;
+            font-size: 0.9rem;
+        }
+
+        .card-label {
+            width: 80px;
+            color: #5f6b7a;
+        }
+
+        .card-value {
+            font-weight: 500;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            background: white;
+            border-radius: 40px;
+            color: #6b7a8f;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #0b3d5f;
+            color: white;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .igu-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .back-link {
+                margin-left: 0;
+            }
+            .toolbar {
+                border-radius: 30px;
+                padding: 1rem;
+            }
+            .search-wrapper {
+                width: 100%;
+            }
+            .table-wrapper {
+                display: none;
+            }
+            .card-grid {
+                display: grid;
+            }
+            .section-header h2 {
+                font-size: 1.4rem;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .card-grid {
+                display: none !important;
+            }
+            .table-wrapper {
+                display: block !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- IGU Header with Logo & Navigation -->
+<div class="igu-header">
+    <div class="igu-logo">
+        <img src="https://upload.wikimedia.org/wikipedia/en/9/9c/Indira_Gandhi_University%2C_Rewari_Logo.png" alt="IGU Logo" onerror="this.src='https://pandit777.github.io/Exam-Saarthi/logo.png'">
+    </div>
+    <div>
+        <h1>IGU B.Tech PYQ Repository</h1>
+        <p>Indira Gandhi University, Rewari • All Branches • 2013-2025</p>
+    </div>
+    <a href="igu.html" class="back-link"><i class="fas fa-arrow-left"></i> All Courses</a>
+</div>
+
+<div class="container">
+    <!-- Search & Filter Toolbar -->
+    <div class="toolbar">
+        <div class="search-wrapper">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Search by paper name, ID, semester or year...">
+        </div>
+        <div class="filter-group">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="1st">1st Sem</button>
+            <button class="filter-btn" data-filter="2nd">2nd Sem</button>
+            <button class="filter-btn" data-filter="3rd">3rd Sem</button>
+            <button class="filter-btn" data-filter="4th">4th Sem</button>
+            <button class="filter-btn" data-filter="5th">5th Sem</button>
+            <button class="filter-btn" data-filter="6th">6th Sem</button>
+            <button class="filter-btn" data-filter="7th">7th Sem</button>
+        </div>
+    </div>
+
+    <!-- All 4 Years Sections (data from your HTML) -->
+    <!-- 1st Year Section -->
+    <div class="year-section" id="section1">
+        <div class="section-header" onclick="toggleSection('1')">
+            <h2><i class="fas fa-book-open"></i> B.Tech 1st Year (Sem 1 & 2)</h2>
+            <span class="toggle-icon" id="icon1"><i class="fas fa-chevron-up"></i></span>
+        </div>
+        <!-- Table View (Desktop) -->
+        <div class="table-wrapper" id="table1">
+            <table id="table1-data">
+                <thead><tr><th>Paper ID</th><th>Paper Name</th><th>Course</th><th>Sem</th><th>Year</th><th>Download</th></tr></thead>
+                <tbody>
+                    <tr><td>12477</td><td>Basic Electrical Engineering</td><td>B.Tech</td><td>1st</td><td>2024</td><td><a href="https://drive.google.com/file/d/1nggK3htInbjiL0IH8l86I1C2leKjp7AG/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>12472</td><td>Semiconductor Physics</td><td>B.Tech</td><td>1st</td><td>2024</td><td><a href="https://drive.google.com/file/d/1MLSSZ1rsXR7XTCDWJGWlCd1axosd-PCQ/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>12731</td><td>Humanities English Language Skill</td><td>B.Tech</td><td>1st</td><td>2023</td><td><a href="https://drive.google.com/file/d/1zoT5Zulsxoz_ewXCz8y4xYInuF_ymuU1/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>12731</td><td>Humanities English and Literature</td><td>B.Tech</td><td>1st</td><td>2023</td><td><a href="https://drive.google.com/file/d/1zn9qhDZsGGTucbfu2VxfCdMp9KwFSHLc/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>12476</td><td>Calculus and Linear Algebra</td><td>B.Tech</td><td>1st</td><td>2023</td><td><a href="https://drive.google.com/file/d/1OaA8SO3oPSUc4tbw4mve-8UVsx0ozwWm/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>12476</td><td>Calculus and Linear Algebra</td><td>B.Tech</td><td>1st</td><td>2024</td><td><a href="https://drive.google.com/file/d/1wZvOzDdxVddptPW42a1sOuoUjol0ZEF_/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>12474</td><td>Chemistry - I</td><td>B.Tech</td><td>2nd</td><td>2019</td><td><a href="https://drive.google.com/file/d/11MtNfJnjAGZ_bAwimR5C2-ze4WtQmxmG/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>22480</td><td>Workshop</td><td>B.Tech</td><td>2nd</td><td>2022</td><td><a href="https://drive.google.com/file/d/1Tu5fRQhmFLENmxY6aK3V_MbXJT53xJHZ/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>22999</td><td>Computer Awareness</td><td>B.Tech</td><td>2nd</td><td>2022</td><td><a href="https://drive.google.com/file/d/1cWAIh_e3WA11QR6MJvK6ClMmx_pPaXs1/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>22480</td><td>Workshop</td><td>B.Tech</td><td>2nd</td><td>2023</td><td><a href="https://drive.google.com/file/d/1W0gjE7eXDHIjrhxhqxYZt2fT8DHRJo0H/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>22476</td><td>Mathematics - II</td><td>B.Tech</td><td>2nd</td><td>2023</td><td><a href="https://drive.google.com/file/d/1hsChMXQv4Q2urLpoKW29M8DdHjzKWLjm/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>22703</td><td>Communication Skills</td><td>B.Tech</td><td>2nd</td><td>2023</td><td><a href="https://drive.google.com/file/d/1G4OMSAQmfkiyZRDe8l_zRBRYWZw3RoLP/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>22999</td><td>Computer Awareness</td><td>B.Tech</td><td>2nd</td><td>2023</td><td><a href="https://drive.google.com/file/d/1yN9oIVPY2EOiQnPN6QlfCZIM87RA3ott/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>22474</td><td>Chemistry</td><td>B.Tech</td><td>2nd</td><td>2024</td><td><a href="https://drive.google.com/file/d/1Y3O_FcbOb0H1zyOUR4zc-e4xj1rMAjWY/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>22470</td><td>Introduction to Electromagnetic</td><td>B.Tech</td><td>2nd</td><td>2024</td><td><a href="https://drive.google.com/file/d/1_9AZdM_jurZmCMqa6FH1O3sVMqefOn7f/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>22475</td><td>Multivariable Calculus</td><td>B.Tech</td><td>2nd</td><td>2024</td><td><a href="https://drive.google.com/file/d/1vwMW1cziktRSB_x41_JqlvsgSJxaMOoE/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>22474</td><td>Chemistry</td><td>B.Tech</td><td>2nd</td><td>2025</td><td><a href="https://drive.google.com/file/d/1cXJdMIx-dSRtavOwdHG0SqfZJ0edzwVN/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>22476</td><td>Math Probabilities & Stats</td><td>B.Tech</td><td>2nd</td><td>2025</td><td><a href="https://drive.google.com/file/d/1QUefYwGsf-S7HxptgbyeEczZ3U8OVGwA/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>22478</td><td>Programming For Problem Solving</td><td>B.Tech</td><td>2nd</td><td>2025</td><td><a href="https://drive.google.com/file/d/1V7WxNkNCpsThBAPbTaY7KBsLnZNbWKwk/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- Mobile Cards for 1st Year -->
+        <div class="card-grid" id="cards1"></div>
+    </div>
+
+    <!-- 2nd Year Section (Sem 3 & 4) -->
+    <div class="year-section" id="section2">
+        <div class="section-header" onclick="toggleSection('2')">
+            <h2><i class="fas fa-laptop"></i> B.Tech 2nd Year (Sem 3 & 4)</h2>
+            <span class="toggle-icon" id="icon2"><i class="fas fa-chevron-up"></i></span>
+        </div>
+        <div class="table-wrapper" id="table2">
+            <table id="table2-data">
+                <thead><tr><th>Paper ID</th><th>Paper Name</th><th>Course</th><th>Sem</th><th>Year</th><th>Download</th></tr></thead>
+                <tbody>
+                    <tr><td>32768</td><td>Electric Circuit Analysis</td><td>B.Tech</td><td>3rd</td><td>2022</td><td><a href="https://drive.google.com/file/d/150eoDLBZoPMKDfvLf3B2YTfOoXVpwkBz/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>32466</td><td>Fundamental of Management</td><td>B.Tech</td><td>3rd</td><td>2022</td><td><a href="https://drive.google.com/file/d/1X529nf3fLTRcoQgq6plPdXv7fin-fYEs/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>32769</td><td>Analog Electronics</td><td>B.Tech</td><td>3rd</td><td>2022</td><td><a href="https://drive.google.com/file/d/1Xz1fYAEMowppMAzEYans7AIGWN9dJJZI/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>32464</td><td>Digital & Analog Comm</td><td>B.Tech</td><td>3rd</td><td>2022</td><td><a href="https://drive.google.com/file/d/1miUWmyoce0WlBr9rcHY-ksoyUnF130Mc/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>32473</td><td>Economics for Engineers</td><td>B.Tech</td><td>3rd</td><td>2022</td><td><a href="https://drive.google.com/file/d/1424pCNmMh1JSbova6vjVVIlvqLIWLVpq/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>32922</td><td>Thermodynamics</td><td>B.Tech</td><td>3rd</td><td>2022</td><td><a href="https://drive.google.com/file/d/17tWoq5XwFPvaaNeWkRIlTV5lWlaaJKLv/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>32469</td><td>Data Structures & Algorithms</td><td>B.Tech</td><td>3rd</td><td>2022</td><td><a href="https://drive.google.com/file/d/1iMwpwLyqxHSBVLxFylwNPFAAx7PAQbWi/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>32747</td><td>Electronic Devices</td><td>B.Tech</td><td>3rd</td><td>2022</td><td><a href="https://drive.google.com/file/d/1MhGkIZ1scKB4xlF_MaVH7qZFpxobdwrb/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>32468</td><td>DBMS</td><td>B.Tech</td><td>3rd</td><td>2022</td><td><a href="https://drive.google.com/file/d/1FwtBkSFH2HHKVlftWQuK9as_x7k_ZkLN/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>32743</td><td>Engineering Mechanics</td><td>B.Tech</td><td>3rd</td><td>2022</td><td><a href="https://drive.google.com/file/d/1RrRF82JOT__HYzViXQy80ldrXuqtNKSv/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>32748</td><td>Digital System Design</td><td>B.Tech</td><td>3rd</td><td>2022</td><td><a href="https://drive.google.com/file/d/1VCLQh1ACYeR056XBLCIi3nHDmRxlghXj/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>32921</td><td>Basic of Mechanical Engg</td><td>B.Tech</td><td>3rd</td><td>2022</td><td><a href="https://drive.google.com/file/d/1IQ0JK6Eqs2MzTXxP-s3mgY9t9y8BSj2W/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>32770</td><td>Electrical Machine</td><td>B.Tech</td><td>3rd</td><td>2023</td><td><a href="https://drive.google.com/file/d/1PivHO8dfxqQfFyoOXRb9Mn6pT_JCuD9Q/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>32468</td><td>Database Management System</td><td>B.Tech</td><td>3rd</td><td>2023</td><td><a href="https://drive.google.com/file/d/1_mtbhZ97KF9QLvCBdvAlVs9rnDP3z43n/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>32473</td><td>Economics of Engineering</td><td>B.Tech</td><td>3rd</td><td>2023</td><td><a href="https://drive.google.com/file/d/1xCWnw-I-cn-n_Yw5j-WE37SecWINSsWL/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>24043</td><td>Digital Electronics</td><td>B.Tech</td><td>3rd</td><td>2013</td><td><a href="https://drive.google.com/file/d/15RGgi1apomKhbgOMtOHVJzvuSgKHLuO1/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>32469</td><td>Data Structure & Algorithms</td><td>B.Tech</td><td>3rd</td><td>2023</td><td><a href="https://drive.google.com/file/d/1d-Eu94C6jmoelnQulKQDl8Ku3TPeymym/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>32794</td><td>Fluid Mechanics</td><td>B.Tech</td><td>3rd</td><td>2023</td><td><a href="https://drive.google.com/file/d/1Oemc9j2JErdR0vTluz3EVSuNm0EZTjqu/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>32795</td><td>Surveying</td><td>B.Tech</td><td>3rd</td><td>2023</td><td><a href="https://drive.google.com/file/d/18iB8bJU_r4gP6zLmJkGwQhrVZICKPP_D/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>32921</td><td>Basic of Mechanical Engg</td><td>B.Tech</td><td>3rd</td><td>2023</td><td><a href="https://drive.google.com/file/d/1Hp9ss-XcW-MQIRB331V_4eSuqW_UoCFT/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>32472</td><td>Math - III</td><td>B.Tech</td><td>3rd</td><td>2023</td><td><a href="https://drive.google.com/file/d/10CEpWTOzXIoLkXWzjphEdYJQlKVn5SYK/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>32793</td><td>Environmental Science</td><td>B.Tech</td><td>3rd</td><td>2023</td><td><a href="https://drive.google.com/file/d/1XKtfPV_YcsY_rfMimyvayhfuoIlcop0J/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>32768</td><td>Electrical Circuit Analysis</td><td>B.Tech</td><td>3rd</td><td>2023</td><td><a href="https://drive.google.com/file/d/1J-A0_NvTUbxo9H_ucMkkoIbLZ3g-U_G8/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>32770</td><td>Electronical Machine</td><td>B.Tech</td><td>3rd</td><td>2023</td><td><a href="https://drive.google.com/file/d/1h5jA_kXs89JBehNKcGMR8K0sRmZ4dsTq/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>12476</td><td>Mathematics - I Calculus</td><td>B.Tech</td><td>3rd</td><td>2023</td><td><a href="https://drive.google.com/file/d/1-9bUBFHMC1fxvmIUV0DM3hpbBFKz3YzX/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>32468</td><td>DBMS</td><td>B.Tech</td><td>3rd</td><td>2024</td><td><a href="https://drive.google.com/file/d/1zXidEN3t601ZRq0bkqe3llbMzOX1fCii/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>32740</td><td>Mathematics-III</td><td>B.Tech</td><td>3rd</td><td>2024</td><td><a href="https://drive.google.com/file/d/13gqnr2HCFM_0VsVo5NNdqCBtXriQfdZx/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>32769</td><td>Analog Electronics</td><td>B.Tech</td><td>3rd</td><td>2024</td><td><a href="https://drive.google.com/file/d/1F6NB9-gd7y8J01Ee66Fx0R_GwVag1DDh/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>32472</td><td>Mathematics-III</td><td>B.Tech</td><td>3rd</td><td>2024</td><td><a href="https://drive.google.com/file/d/1Lb8mXDu4NAsi2RXeJZ72xxMSusq3gbMI/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>32469</td><td>Data Structure & Algorithm</td><td>B.Tech</td><td>3rd</td><td>2024</td><td><a href="https://drive.google.com/file/d/1i4GaKxaW_9WjuXHLHskj9cC8IufB8XUr/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>32473</td><td>Economics for Engineers</td><td>B.Tech</td><td>3rd</td><td>2024</td><td><a href="https://drive.google.com/file/d/1FTq_aNt2SZvxCQa3el-7rrPXFlWu6lgy/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>32470</td><td>Digital Electronics</td><td>B.Tech</td><td>3rd</td><td>2024</td><td><a href="https://drive.google.com/file/d/1ghs7wABAiOp8vpnC_-7fljFh-8hrstB9/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <!-- 4th sem rows -->
+                    <tr><td>42749</td><td>Microcontroller</td><td>B.Tech</td><td>4th</td><td>2022</td><td><a href="https://drive.google.com/file/d/1pNlCG73Nv4kjPl3hBhkWgTsukqFFLp68/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>42468</td><td>Discrete Mathematics</td><td>B.Tech</td><td>4th</td><td>2022</td><td><a href="https://drive.google.com/file/d/1D3wiI9U1rTKCBFaiRfUHrc8x75PGTF0t/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>42769</td><td>Electrical Machine-II</td><td>B.Tech</td><td>4th</td><td>2022</td><td><a href="https://drive.google.com/file/d/1o1gPFGOiq01vdmicfYPg6WjYMqFyzh9w/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>42734</td><td>Kinetics of Machines</td><td>B.Tech</td><td>4th</td><td>2022</td><td><a href="https://drive.google.com/file/d/1pj-knorkEHHx4ehKSpSY8NTzcpAfGOO3/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>42468</td><td>Discrete Mathematics</td><td>B.Tech</td><td>4th</td><td>2023</td><td><a href="https://drive.google.com/file/d/16GmxStnUCutAPrVftBmtVcagPd0W3H0y/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>42472</td><td>Organizational Behavior</td><td>B.Tech</td><td>4th</td><td>2023</td><td><a href="https://drive.google.com/file/d/1ff0b1CD4TKSLVzQqrTRoy1yZopDlomub/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>42469</td><td>Computer Organization</td><td>B.Tech</td><td>4th</td><td>2023</td><td><a href="https://drive.google.com/file/d/1Ke5OMIFdKyrXvBbvCbyuYHj-2L8mBWcM/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>42471</td><td>Object Oriented Programming</td><td>B.Tech</td><td>4th</td><td>2023</td><td><a href="https://drive.google.com/file/d/1uTPFg1pwwyLGsEnGFZDtWPrCAHw3QDmZ/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>42474</td><td>Web Technology</td><td>B.Tech</td><td>4th</td><td>2023</td><td><a href="https://drive.google.com/file/d/1RJNxmvMWUn3SOlW5M7-nwHorrBcOLiXd/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>43741</td><td>Material Engineering</td><td>B.Tech</td><td>4th</td><td>2023</td><td><a href="https://drive.google.com/file/d/1rkCEm_1l2HwY0LrouqtNn3DXupQKtqVU/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>42473</td><td>Environmental Science</td><td>B.Tech</td><td>4th</td><td>2023</td><td><a href="https://drive.google.com/file/d/1nDPQgYW8CICf_gp6NKIOsl4H-igHLuHa/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>42772</td><td>Math-III (Prob & Stats)</td><td>B.Tech</td><td>4th</td><td>2023</td><td><a href="https://drive.google.com/file/d/1_iMcuLcAX5hEijMZv8xBMCr1sq382Goo/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>42468</td><td>Discrete Mathematics</td><td>B.Tech</td><td>4th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1f_-cTxmWqTPAoE-fS8kuG5UH-cHjX1io/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>42472</td><td>Organizational Behavior</td><td>B.Tech</td><td>4th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1gOrE4BHLF10dwj-pOcQ_3q26RCyfZmBK/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>42474</td><td>Web Technology</td><td>B.Tech</td><td>4th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1dfF6cap7kGmhl-ywAEn7mmNO-IK-F_NC/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>42473</td><td>Environmental Science</td><td>B.Tech</td><td>4th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1WaWVTwE1Ix9I1r6unmN2Es7kBEx1rKgH/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>42471</td><td>Object Oriented Programming</td><td>B.Tech</td><td>4th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1qwVCBxpg1lpUEQA4BKjGQ1LKTHTtKKfO/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>42773</td><td>Biology</td><td>B.Tech</td><td>4th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1Ae6M0gxpdIdkEFjGAG3d3_2gn624C6dk/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>42469</td><td>Computer Organization</td><td>B.Tech</td><td>4th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1HdpT09QtrfsAvK2hN5pdNyEGLVF6-79k/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>42470</td><td>Operating System</td><td>B.Tech</td><td>4th</td><td>2025</td><td><a href="https://drive.google.com/file/d/1ogQjXvsfeBg5IGlrv6hseR7aL1hajzH4/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>42471</td><td>OOP</td><td>B.Tech</td><td>4th</td><td>2025</td><td><a href="https://drive.google.com/file/d/1JvBRhNcr17EJVPHrm7attBljjVxX9dBR/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>41472</td><td>Organizational Behavior</td><td>B.Tech</td><td>4th</td><td>2025</td><td><a href="https://drive.google.com/file/d/1nByPFjjPzPQs_2C5gTnpRMgi7K8dy2aZ/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>42473</td><td>Environmental Science</td><td>B.Tech</td><td>4th</td><td>2025</td><td><a href="https://drive.google.com/file/d/1obd2XXxTXat4Ux7yIdzERXsWsrVxsFyc/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>42474</td><td>Web Technology</td><td>B.Tech</td><td>4th</td><td>2025</td><td><a href="https://drive.google.com/file/d/1zQS9_ItPr13iE6usJZZDg_biKRyK6vMB/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-grid" id="cards2"></div>
+    </div>
+
+    <!-- 3rd Year Section (Sem 5 & 6) -->
+    <div class="year-section" id="section3">
+        <div class="section-header" onclick="toggleSection('3')">
+            <h2><i class="fas fa-microchip"></i> B.Tech 3rd Year (Sem 5 & 6)</h2>
+            <span class="toggle-icon" id="icon3"><i class="fas fa-chevron-up"></i></span>
+        </div>
+        <div class="table-wrapper" id="table3">
+            <table id="table3-data">
+                <thead><tr><th>Paper ID</th><th>Paper Name</th><th>Course</th><th>Sem</th><th>Year</th><th>Download</th></tr></thead>
+                <tbody>
+                    <tr><td>24166/24268</td><td>Multi Media Technology</td><td>B.Tech</td><td>5th</td><td>2013</td><td><a href="https://drive.google.com/file/d/1eWND9AkartbDtsoPjiiNY-abRnDZ0M9i/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>56009</td><td>Electrical Material</td><td>B.Tech</td><td>5th</td><td>2022</td><td><a href="https://drive.google.com/file/d/1Q46YO3jD138U_TDPWVGXAIWIGNzLLPrL/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>54054</td><td>Digital Signal Processing</td><td>B.Tech</td><td>5th</td><td>2022</td><td><a href="https://drive.google.com/file/d/1-RW3Di2IvCC4I1Tv3yco3ggohI5rAnwN/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>54053</td><td>Communication Theory</td><td>B.Tech</td><td>5th</td><td>2022</td><td><a href="https://drive.google.com/file/d/1e5wJzePJ9mPI5ehhLA9ykDHIaR5U73_m/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>54003</td><td>Formal Language & Automata</td><td>B.Tech</td><td>5th</td><td>2022</td><td><a href="https://drive.google.com/file/d/1C0fpmZG7FHZE2oNGUZ43c1FzcHASKJok/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>54055</td><td>Power Electronics</td><td>B.Tech</td><td>5th</td><td>2022</td><td><a href="https://drive.google.com/file/d/1nKp-D-H2VHTAqyAjBubeHXRePvPrXxGv/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>54002</td><td>Computer Network</td><td>B.Tech</td><td>5th</td><td>2022</td><td><a href="https://drive.google.com/file/d/1wevQESCqLrggUltfiBeNv2rcGJiwit9c/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>55055</td><td>Fluid Mechanics</td><td>B.Tech</td><td>5th</td><td>2022</td><td><a href="https://drive.google.com/file/d/17BBDjghNSeZ7BBG7ZlEmWMlWVaRdrulw/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>54055</td><td>Measurement & Presentation</td><td>B.Tech</td><td>5th</td><td>2022</td><td><a href="https://drive.google.com/file/d/14jatZB2JiseiBKpHwRqwVBPTMqAmpRrN/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>56012</td><td>Power Plant Engineering</td><td>B.Tech</td><td>5th</td><td>2022</td><td><a href="https://drive.google.com/file/d/1SBbRvSsaPqJ-6o2Rh-o-aRsaHgbmQbBW/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>54001</td><td>Microprocessor</td><td>B.Tech</td><td>5th</td><td>2022</td><td><a href="https://drive.google.com/file/d/1iAUZeKQAZuQUJbdx4LyKkJfPB24PvdAS/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>54065</td><td>Measurement & Instrumentation</td><td>B.Tech</td><td>5th</td><td>2022</td><td><a href="https://drive.google.com/file/d/1Ar03Axfm1KE7I07O3exDxNr5hSBncwva/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>55053</td><td>Manufacturing Technology</td><td>B.Tech</td><td>5th</td><td>2023</td><td><a href="https://drive.google.com/file/d/1Fecp3uQL_q6JGqlAiqaUEpDty8CEEHyJ/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>55001</td><td>Hydrology & Water Resource</td><td>B.Tech</td><td>5th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1GdR392Dtk8sQ3vMrOBSwRTDZHf9Nz4am/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>55005</td><td>Design of Steel Structures</td><td>B.Tech</td><td>5th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1vLJ3AaI1Qt4xKRS9hQkcuQv4huPrB1FY/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>55053</td><td>Manufacturing Technology</td><td>B.Tech</td><td>5th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1afn7hucXh_8XcoKtOH3fVU8Hou0sM93Y/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>56003</td><td>Microprocessor & Controller</td><td>B.Tech</td><td>5th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1h6QHjy4k1x2TmckJO3CDZ8tqBwa5xsq0/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>54007</td><td>System Programming</td><td>B.Tech</td><td>5th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1v7F5Kl6FImEzBPyvvMJz0JGOQ_X_TEqs/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>54004</td><td>Design & Analysis of Algorithms</td><td>B.Tech</td><td>5th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1Bu8GqsZUjXf1PIdeNZraLMGULzvu43Sl/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>54002</td><td>Computer Network</td><td>B.Tech</td><td>5th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1_hd1T1e4swa9mBOeW_B7cp7ZcG8peDru/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>54006</td><td>Software Engineering</td><td>B.Tech</td><td>5th</td><td>2024</td><td><a href="https://drive.google.com/file/d/11195ZCop4vye5Q9wURZHhHyNT7Y0Z3lQ/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>54003</td><td>Formal Language & Automata</td><td>B.Tech</td><td>5th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1kA8x0QD1JGNuyGi3-_E_ob7MuoP_pj8Y/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>54001</td><td>Microprocessor</td><td>B.Tech</td><td>5th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1rM14S9g93kZFR3y9g-53VmXJZYd-ECY9/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>54005</td><td>Programming in Java</td><td>B.Tech</td><td>5th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1uz4JYcdvhN8Qw7xFxcln93i-VfslfwiQ/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <!-- 6th sem -->
+                    <tr><td>64004</td><td>Data Science</td><td>B.Tech</td><td>6th</td><td>2023</td><td><a href="https://drive.google.com/file/d/1nVyx74FnR1pJhRNKGGVN0ySKoYeciCVm/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>64054</td><td>CMOS Design</td><td>B.Tech</td><td>6th</td><td>2023</td><td><a href="https://drive.google.com/file/d/12cIwdmcwJ4l-eawbQW4bWUsb94upXHx0/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>64051</td><td>Control System</td><td>B.Tech</td><td>6th</td><td>2023</td><td><a href="https://drive.google.com/file/d/1y6bdv-RUR2Aklt3U220yEXtsRpSAwtf-/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>64002</td><td>Artificial Intelligence</td><td>B.Tech</td><td>6th</td><td>2023</td><td><a href="https://drive.google.com/file/d/1Apl-dOU8jQRwAksDBoL3rLTlmZZpFvAg/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>65059</td><td>Organizational Behavior</td><td>B.Tech</td><td>6th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1CtjinHOSZb12QltAlZYUJqpMuNRDYVX8/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>64004</td><td>Data Science</td><td>B.Tech</td><td>6th</td><td>2025</td><td><a href="https://drive.google.com/file/d/1dRcINgb3jJDUZc9RXQMHDdP6oAfFP_Ub/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>64002</td><td>Artificial Intelligence</td><td>B.Tech</td><td>6th</td><td>2025</td><td><a href="https://drive.google.com/file/d/1f_e99k03PVFOnvmGcgw_o2v96pm-Q2Yy/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>64003</td><td>Advance Java</td><td>B.Tech</td><td>6th</td><td>2025</td><td><a href="https://drive.google.com/file/d/1O1DrAl1wuOoxG4EySeBvwyldiYdlM0KG/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>64011</td><td>Mobile & Wireless Comm</td><td>B.Tech</td><td>6th</td><td>2025</td><td><a href="https://drive.google.com/file/d/1n2tU7A61bikAO6R4eAi71ytkzTKj4TiG/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>64006</td><td>Mobile Application Dev</td><td>B.Tech</td><td>6th</td><td>2025</td><td><a href="https://drive.google.com/file/d/152eM6mgZXQSfkvxItJLmKs2qM0eXEUfO/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>64001</td><td>Compiler Design</td><td>B.Tech</td><td>6th</td><td>2025</td><td><a href="https://drive.google.com/file/d/153EnYpjmLZ1FPf3mHS3r3Lihx_UZOS7V/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>66004</td><td>Power System Protection</td><td>B.Tech</td><td>6th</td><td>2025</td><td><a href="https://drive.google.com/file/d/191Q18a6wiN4nrztEFNAuA98HK3bq3LHX/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-grid" id="cards3"></div>
+    </div>
+
+    <!-- 4th Year Section (Sem 7) -->
+    <div class="year-section" id="section4">
+        <div class="section-header" onclick="toggleSection('4')">
+            <h2><i class="fas fa-project-diagram"></i> B.Tech 4th Year (Sem 7 & 8)</h2>
+            <span class="toggle-icon" id="icon4"><i class="fas fa-chevron-up"></i></span>
+        </div>
+        <div class="table-wrapper" id="table4">
+            <table id="table4-data">
+                <thead><tr><th>Paper ID</th><th>Paper Name</th><th>Course</th><th>Sem</th><th>Year</th><th>Download</th></tr></thead>
+                <tbody>
+                    <tr><td>72461</td><td>Advanced Computer Architecture</td><td>B.Tech</td><td>7th</td><td>2019</td><td><a href="https://drive.google.com/file/d/1MreEAGoaXmagUEKuwjEkGkRfYCOO_IUV/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>72466</td><td>Advanced DBMS</td><td>B.Tech</td><td>7th</td><td>2019</td><td><a href="https://drive.google.com/file/d/1yBSl3_-ROLW4lHhZEcCvR2W-0lzcLfQ4/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>72465</td><td>Advanced Java</td><td>B.Tech</td><td>7th</td><td>2019</td><td><a href="https://drive.google.com/file/d/1jWAxuFS-c3j0w9pbl88MPrRfd4XDs1m5/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>72463</td><td>Compiler Design</td><td>B.Tech</td><td>7th</td><td>2019</td><td><a href="https://drive.google.com/file/d/1jaA6ao7dypZ_fxEmpC864a3PR1yCZR_H/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>72464</td><td>Neural Networks</td><td>B.Tech</td><td>7th</td><td>2019</td><td><a href="https://drive.google.com/file/d/1mDAK_CqiZcWzvrLoQGtRNUR8ennPsGUL/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>74007</td><td>Network Security & Cryptography</td><td>B.Tech</td><td>7th</td><td>2022</td><td><a href="https://drive.google.com/file/d/1wpsZ-0BO5UoKzRoNoadFD-HTvN7v2n06/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>72783</td><td>Estimating and Costing</td><td>B.Tech</td><td>7th</td><td>2022</td><td><a href="https://drive.google.com/file/d/1rmYFlQDdCrRxMSGteov1hBY5ytXm0Gxz/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>72770</td><td>Extra High Voltage AC/DC</td><td>B.Tech</td><td>7th</td><td>2022</td><td><a href="https://drive.google.com/file/d/1wQwk4YyEuFQLDlz1S9DbULVDcraVZPoB/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>72753</td><td>Digital Signal Processing</td><td>B.Tech</td><td>7th</td><td>2022</td><td><a href="https://drive.google.com/file/d/1LspDYHY9jK2JoW9NfE-gsadIfaMpOV7r/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>72766</td><td>Renewable Energy Resources</td><td>B.Tech</td><td>7th</td><td>2022</td><td><a href="https://drive.google.com/file/d/1BCNs75pEBwOLrBb8WeknsQqjYhG-MZfW/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>74058</td><td>Microwave Theory</td><td>B.Tech</td><td>7th</td><td>2023</td><td><a href="https://drive.google.com/file/d/1kiEA6HtMw4EHcNVnYTKJ8YkxyZU4UixB/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>74003</td><td>Software Project Management</td><td>B.Tech</td><td>7th</td><td>2023</td><td><a href="https://drive.google.com/file/d/1YCWLOYBm7p9QLy1jPDYgOXenewFIlDvk/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>76025</td><td>Fundamentals of Management</td><td>B.Tech</td><td>7th</td><td>2023</td><td><a href="https://drive.google.com/file/d/1jtkwrEio78-ubNSPqF9SoXHZXooYK0mM/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>76015</td><td>Intelligence System & Control</td><td>B.Tech</td><td>7th</td><td>2023</td><td><a href="https://drive.google.com/file/d/1cRapOj7Y8cauyl8P61Q-fdWXk8szE3wI/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>76009</td><td>Computer Aided Power System</td><td>B.Tech</td><td>7th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1L43MikOZ39Fbq5S92xInFfUSqmZw-ivH/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>74001</td><td>Neural Network</td><td>B.Tech</td><td>7th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1tpZLO91fzE4vblZVJaFJQGh_UPB-kk8b/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>74003</td><td>Software Project Management</td><td>B.Tech</td><td>7th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1arxkqpFX4P44uuETznDqXlC2SDRvo835/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>75056</td><td>Automobile Engineering</td><td>B.Tech</td><td>7th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1lkBTz0v3hB-1Y8BmpGhfGXjjGU48DyfA/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>75055</td><td>Design of Machine Elements</td><td>B.Tech</td><td>7th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1IBp7DuPdRvreXwaB5VP3rE8Nw-sp8_Y3/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>76001</td><td>Power Management</td><td>B.Tech</td><td>7th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1KVxAQ7zrqN_4JBDujmOp419PDW0uwnXE/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-grid" id="cards4"></div>
+    </div>
+
+    <div id="noResults" class="no-results" style="display: none;">
+        <i class="fas fa-search"></i>
+        <h3>No matching papers</h3>
+        <p>Try different keywords or semester filter</p>
+    </div>
+</div>
+
+<footer>
+    <i class="fas fa-graduation-cap"></i> Exam Saarthi - IGU B.Tech PYQ Repository | Free for all students
+</footer>
+
+<script>
+    (function() {
+        // Toggle sections (open/close)
+        window.toggleSection = function(id) {
+            const tableDiv = document.getElementById('table' + id);
+            const cardsDiv = document.getElementById('cards' + id);
+            const icon = document.getElementById('icon' + id).querySelector('i');
+            
+            if (window.innerWidth <= 768) {
+                // Mobile: switch between table and cards
+                if (tableDiv.style.display !== 'none') {
+                    tableDiv.style.display = 'none';
+                    cardsDiv.style.display = 'grid';
+                    icon.className = 'fas fa-chevron-down';
+                } else {
+                    tableDiv.style.display = 'block';
+                    cardsDiv.style.display = 'none';
+                    icon.className = 'fas fa-chevron-up';
+                }
+            } else {
+                // Desktop: just hide/show table
+                if (tableDiv.style.display !== 'none') {
+                    tableDiv.style.display = 'none';
+                    icon.className = 'fas fa-chevron-down';
+                } else {
+                    tableDiv.style.display = 'block';
+                    icon.className = 'fas fa-chevron-up';
+                }
+            }
+        };
+
+        // Generate mobile cards from table rows
+        function generateCardsForSection(tableId, cardsId) {
+            const table = document.getElementById(tableId);
+            const cardsContainer = document.getElementById(cardsId);
+            if (!table || !cardsContainer) return;
+            const rows = table.querySelectorAll('tbody tr');
+            cardsContainer.innerHTML = '';
+            
+            rows.forEach(row => {
+                if (row.style.display !== 'none') {
+                    const cells = row.cells;
+                    const pdfLink = row.querySelector('.download-btn') ? row.querySelector('.download-btn').href : '#';
+                    const card = document.createElement('div');
+                    card.className = 'paper-card';
+                    card.innerHTML = `
+                        <div class="card-header">
+                            <span class="card-title">${cells[1]?.textContent || ''}</span>
+                            <span class="card-sem">${cells[3]?.textContent || ''} Sem</span>
+                        </div>
+                        <div class="card-detail"><span class="card-label">Paper ID:</span> <span class="card-value">${cells[0]?.textContent || ''}</span></div>
+                        <div class="card-detail"><span class="card-label">Course:</span> <span class="card-value">${cells[2]?.textContent || ''}</span></div>
+                        <div class="card-detail"><span class="card-label">Year:</span> <span class="card-value">${cells[4]?.textContent || ''}</span></div>
+                        <a href="${pdfLink}" class="download-btn" target="_blank" style="margin-top:10px;"><i class="fas fa-download"></i> Download</a>
+                    `;
+                    cardsContainer.appendChild(card);
+                }
+            });
+        }
+
+        // Function to expand/collapse sections based on filter
+        function updateSectionsVisibility(selectedSem) {
+            const sections = [
+                { id: 'section1', name: '1st Year', sems: ['1st', '2nd'] },
+                { id: 'section2', name: '2nd Year', sems: ['3rd', '4th'] },
+                { id: 'section3', name: '3rd Year', sems: ['5th', '6th'] },
+                { id: 'section4', name: '4th Year', sems: ['7th', '8th'] }
+            ];
+
+            sections.forEach(section => {
+                const tableDiv = document.getElementById('table' + section.id.slice(-1));
+                const cardsDiv = document.getElementById('cards' + section.id.slice(-1));
+                const icon = document.getElementById('icon' + section.id.slice(-1)).querySelector('i');
+                
+                // Check if this section contains the selected semester
+                const containsSelectedSem = selectedSem === 'all' || section.sems.some(sem => 
+                    sem.toLowerCase().includes(selectedSem.toLowerCase())
+                );
+
+                if (window.innerWidth <= 768) {
+                    // Mobile view
+                    if (containsSelectedSem) {
+                        // Show this section's cards
+                        tableDiv.style.display = 'none';
+                        cardsDiv.style.display = 'grid';
+                        icon.className = 'fas fa-chevron-down';
+                    } else {
+                        // Hide this section
+                        tableDiv.style.display = 'none';
+                        cardsDiv.style.display = 'none';
+                        icon.className = 'fas fa-chevron-down';
+                    }
+                } else {
+                    // Desktop view
+                    if (containsSelectedSem) {
+                        // Show this section's table
+                        tableDiv.style.display = 'block';
+                        icon.className = 'fas fa-chevron-up';
+                    } else {
+                        // Hide this section
+                        tableDiv.style.display = 'none';
+                        icon.className = 'fas fa-chevron-down';
+                    }
+                }
+            });
+        }
+
+        // Search and filter functionality
+        const searchInput = document.getElementById('searchInput');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        let activeFilter = 'all';
+
+        function filterTable() {
+            const searchTerm = searchInput.value.toLowerCase();
+            let anyVisible = false;
+            
+            // First, filter the rows based on search and semester
+            ['table1-data', 'table2-data', 'table3-data', 'table4-data'].forEach(tableId => {
+                const table = document.getElementById(tableId);
+                if (!table) return;
+                const rows = table.querySelectorAll('tbody tr');
+                
+                rows.forEach(row => {
+                    const cells = row.cells;
+                    const paperName = cells[1]?.textContent.toLowerCase() || '';
+                    const paperId = cells[0]?.textContent.toLowerCase() || '';
+                    const sem = cells[3]?.textContent.toLowerCase() || '';
+                    const year = cells[4]?.textContent.toLowerCase() || '';
+
+                    const matchesSearch = paperName.includes(searchTerm) || paperId.includes(searchTerm) || year.includes(searchTerm);
+                    const matchesFilter = activeFilter === 'all' || sem.includes(activeFilter.toLowerCase());
+
+                    if (matchesSearch && matchesFilter) {
+                        row.style.display = '';
+                        anyVisible = true;
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+
+            // Update section visibility based on active filter
+            updateSectionsVisibility(activeFilter);
+
+            // Regenerate cards for mobile
+            generateCardsForSection('table1-data', 'cards1');
+            generateCardsForSection('table2-data', 'cards2');
+            generateCardsForSection('table3-data', 'cards3');
+            generateCardsForSection('table4-data', 'cards4');
+
+            document.getElementById('noResults').style.display = anyVisible ? 'none' : 'block';
+        }
+
+        searchInput.addEventListener('input', filterTable);
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                activeFilter = this.dataset.filter;
+                filterTable();
+            });
+        });
+
+        // Initial setup
+        window.addEventListener('load', function() {
+            filterTable(); // also generates cards
+        });
+
+        window.addEventListener('resize', function() {
+            // Reapply visibility based on current filter
+            updateSectionsVisibility(activeFilter);
+            
+            if (window.innerWidth <= 768) {
+                // Mobile view: ensure cards are shown for visible sections
+                ['1', '2', '3', '4'].forEach(id => {
+                    const section = document.getElementById('section' + id);
+                    const tableDiv = document.getElementById('table' + id);
+                    const cardsDiv = document.getElementById('cards' + id);
+                    const icon = document.getElementById('icon' + id).querySelector('i');
+                    
+                    if (tableDiv.style.display !== 'none') {
+                        tableDiv.style.display = 'none';
+                        cardsDiv.style.display = 'grid';
+                        icon.className = 'fas fa-chevron-down';
+                    }
+                });
+            } else {
+                // Desktop view: ensure tables are shown for visible sections
+                ['1', '2', '3', '4'].forEach(id => {
+                    const section = document.getElementById('section' + id);
+                    const tableDiv = document.getElementById('table' + id);
+                    const cardsDiv = document.getElementById('cards' + id);
+                    const icon = document.getElementById('icon' + id).querySelector('i');
+                    
+                    if (tableDiv.style.display !== 'none') {
+                        cardsDiv.style.display = 'none';
+                        icon.className = 'fas fa-chevron-up';
+                    }
+                });
+            }
+        });
+
+        // Ensure download links open in new tab
+        document.querySelectorAll('.download-btn').forEach(btn => {
+            btn.setAttribute('target', '_blank');
+        });
+    })();
+</script>
+</body>
+</html>

@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IGU BSc Previous Year Papers - Exam Saarthi</title>
+    <link rel="canonical" href="https://www.examsaarthi.com/igu-bsc.html" />
+    <meta name="description" content="Download IGU BSc all semester previous year question papers. BSc 1st, 2nd, 3rd year PYQ for Physics, Chemistry, Mathematics, Botany, Zoology.">
+    <meta name="keywords" content="igu bsc pyq, igu bsc papers, igu previous year papers, bsc question papers">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- IGU Favicon -->
+    <link data-default-icon="https://upload.wikimedia.org/wikipedia/en/9/9c/Indira_Gandhi_University%2C_Rewari_Logo.png" rel="icon" sizes="192x192" href="https://upload.wikimedia.org/wikipedia/en/9/9c/Indira_Gandhi_University%2C_Rewari_Logo.png" />
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f5f7fa;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        /* IGU Header with Logo */
+        .igu-header {
+            background: linear-gradient(145deg, #b45309, #92400e);
+            color: white;
+            padding: 1.2rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            box-shadow: 0 8px 20px rgba(180,83,9,0.2);
+        }
+
+        .igu-logo {
+            width: 70px;
+            height: 70px;
+            background: white;
+            border-radius: 50%;
+            padding: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .igu-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .igu-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .igu-header p {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-top: 4px;
+        }
+
+        .back-link {
+            margin-left: auto;
+            background: rgba(255,255,255,0.15);
+            padding: 0.6rem 1.5rem;
+            border-radius: 40px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            background: #fbbf24;
+            color: #0b1e4a;
+            border-color: #fbbf24;
+        }
+
+        /* Main container */
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Search & filter bar */
+        .toolbar {
+            background: white;
+            border-radius: 60px;
+            padding: 0.6rem 0.6rem 0.6rem 2rem;
+            box-shadow: 0 10px 25px -8px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+            border: 1px solid #e9eef3;
+        }
+
+        .search-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            min-width: 250px;
+        }
+
+        .search-wrapper i {
+            color: #b45309;
+            font-size: 1.2rem;
+            margin-right: 0.8rem;
+        }
+
+        .search-wrapper input {
+            border: none;
+            padding: 0.8rem 0;
+            width: 100%;
+            font-size: 1rem;
+            outline: none;
+            background: transparent;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            padding: 0.3rem 0;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            border: 1px solid #fed7aa;
+            background: #fff3e0;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #b45309;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .filter-btn.active {
+            background: #b45309;
+            color: white;
+            border-color: #b45309;
+        }
+
+        .filter-btn:hover {
+            background: #b45309;
+            color: white;
+        }
+
+        /* Year sections */
+        .year-section {
+            background: white;
+            border-radius: 32px;
+            margin-bottom: 2rem;
+            box-shadow: 0 12px 30px -10px rgba(180,83,9,0.12);
+            overflow: hidden;
+            border: 1px solid rgba(180,83,9,0.08);
+        }
+
+        .section-header {
+            background: linear-gradient(145deg, #fff7ed, #ffffff);
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #fdba74;
+            cursor: pointer;
+        }
+
+        .section-header h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #b45309;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-header h2 i {
+            color: #b45309;
+            font-size: 2rem;
+        }
+
+        .toggle-icon {
+            background: #b45309;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+
+        /* Table styling */
+        .table-wrapper {
+            overflow-x: auto;
+            padding: 0 1.5rem 1.5rem 1.5rem;
+            transition: all 0.3s;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0.5rem;
+        }
+
+        th {
+            background: #ffedd5;
+            color: #b45309;
+            font-weight: 700;
+            font-size: 0.9rem;
+            padding: 1rem 0.8rem;
+            text-align: left;
+            border-radius: 16px 16px 0 0;
+        }
+
+        td {
+            padding: 1rem 0.8rem;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.95rem;
+        }
+
+        tr:hover td {
+            background: #fff7ed;
+        }
+
+        .download-btn {
+            background: linear-gradient(145deg, #b45309, #92400e);
+            color: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: 0.2s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(180,83,9,0.2);
+        }
+
+        .download-btn:hover {
+            background: #fbbf24;
+            color: #0b1e4a;
+            transform: translateY(-2px);
+        }
+
+        /* Mobile card view */
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            padding: 1.2rem;
+            display: none;
+        }
+
+        .paper-card {
+            background: white;
+            border-radius: 24px;
+            padding: 1.2rem;
+            border: 1px solid #e9eef3;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.02);
+            transition: 0.2s;
+        }
+
+        .paper-card:hover {
+            border-color: #b45309;
+            box-shadow: 0 12px 24px -10px rgba(180,83,9,0.3);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .card-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #b45309;
+        }
+
+        .card-sem {
+            background: #ffedd5;
+            color: #b45309;
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.7rem;
+        }
+
+        .card-detail {
+            display: flex;
+            margin: 0.6rem 0;
+            font-size: 0.9rem;
+        }
+
+        .card-label {
+            width: 80px;
+            color: #5f6b7a;
+        }
+
+        .card-value {
+            font-weight: 500;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            background: white;
+            border-radius: 40px;
+            color: #6b7a8f;
+            display: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #b45309;
+            color: white;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .igu-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .back-link {
+                margin-left: 0;
+            }
+            .toolbar {
+                border-radius: 30px;
+                padding: 1rem;
+            }
+            .search-wrapper {
+                width: 100%;
+            }
+            .table-wrapper {
+                display: none;
+            }
+            .card-grid {
+                display: grid;
+            }
+            .section-header h2 {
+                font-size: 1.4rem;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .card-grid {
+                display: none !important;
+            }
+            .table-wrapper {
+                display: block !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- IGU Header with Logo & Navigation -->
+<div class="igu-header">
+    <div class="igu-logo">
+        <img src="https://upload.wikimedia.org/wikipedia/en/9/9c/Indira_Gandhi_University%2C_Rewari_Logo.png" alt="IGU Logo" onerror="this.src='https://pandit777.github.io/Exam-Saarthi/logo.png'">
+    </div>
+    <div>
+        <h1>IGU BSc PYQ Repository</h1>
+        <p>Indira Gandhi University, Rewari • Physics • Chemistry • Maths • Botany • Zoology</p>
+    </div>
+    <a href="igu.html" class="back-link"><i class="fas fa-arrow-left"></i> All Courses</a>
+</div>
+
+<div class="container">
+    <!-- Search & Filter Toolbar -->
+    <div class="toolbar">
+        <div class="search-wrapper">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Search by paper name, ID, semester or year...">
+        </div>
+        <div class="filter-group">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="1st">1st Sem</button>
+            <button class="filter-btn" data-filter="2nd">2nd Sem</button>
+            <button class="filter-btn" data-filter="3rd">3rd Sem</button>
+            <button class="filter-btn" data-filter="4th">4th Sem</button>
+            <button class="filter-btn" data-filter="5th">5th Sem</button>
+            <button class="filter-btn" data-filter="6th">6th Sem</button>
+        </div>
+    </div>
+
+    <!-- 1st Year Section (Sem 1 & 2) -->
+    <div class="year-section" id="section1">
+        <div class="section-header" onclick="toggleSection('1')">
+            <h2><i class="fas fa-flask"></i> BSc 1st Year (Sem 1 & 2)</h2>
+            <span class="toggle-icon" id="icon1"><i class="fas fa-chevron-up"></i></span>
+        </div>
+        <!-- Table View (Desktop) -->
+        <div class="table-wrapper" id="table1">
+            <table id="table1-data">
+                <thead>
+                    <tr>
+                        <th>Paper ID</th>
+                        <th>Paper Name</th>
+                        <th>Course</th>
+                        <th>Sem</th>
+                        <th>Year</th>
+                        <th>Download</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>22999</td><td>Computer Awareness</td><td>BSc</td><td>2nd</td><td>2022</td><td><a href="https://drive.google.com/file/d/1JcPaDYTfFZWkFp_5uOBV1_ttz2VJI0GB/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>5122</td><td>Physics Properties of matter and kinetic theory of gases</td><td>BSc</td><td>2nd</td><td>2020</td><td><a href="https://drive.google.com/file/d/1QzR_JUMEbEw9EeQXvEXP_L2HLp1gjp2y/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>21222</td><td>Zoology-II</td><td>BSc</td><td>2nd</td><td>2023</td><td><a href="https://drive.google.com/file/d/1-f9TYlJ8-tjpVVpTCcvzARRzlQXXTwmH/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>22703</td><td>Communication Skills and Personality Development</td><td>BSc</td><td>2nd</td><td>2023</td><td><a href="https://drive.google.com/file/d/1IQ2O0R6l-ss_85GYPjCnAM62dHgD2L3z/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>22999</td><td>Computer Awareness</td><td>BSc</td><td>2nd</td><td>2023</td><td><a href="https://drive.google.com/file/d/1wX8M0V26BWSAWwXU-E6G8Zo4-SRPPaGL/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>21211</td><td>Botany-I Diversity of Archegoniate</td><td>BSc</td><td>2nd</td><td>2023</td><td><a href="https://drive.google.com/file/d/1Fvy0szt8In0xJgF9keG56qWJezdOHSwJ/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>21202</td><td>Chemistry-II Physical Chemistry</td><td>BSc</td><td>2nd</td><td>2023</td><td><a href="https://drive.google.com/file/d/1ugDAIrzcwQHi8YBEqD1zfB3WouBEe_3c/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>21203</td><td>Chemistry-III Organic Chemistry</td><td>BSc</td><td>2nd</td><td>2023</td><td><a href="https://drive.google.com/file/d/1q7n13e37LuDNedt9H6B2aSskerBxiVjA/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>21381</td><td>English</td><td>BSc</td><td>2nd</td><td>2023</td><td><a href="https://drive.google.com/file/d/1CGVWb1-SbF67MEgmg14ZBcGOX5nBKq6L/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>21251</td><td>Hons - Mathematics Number Theory and Trigonometry</td><td>BSc</td><td>2nd</td><td>2023</td><td><a href="https://drive.google.com/file/d/1Vr8AjX7876EqUm4_kwHNwoT8hBRZRNES/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>21201</td><td>Inorganic Chemistry</td><td>BSc</td><td>2nd</td><td>2023</td><td><a href="https://drive.google.com/file/d/1-wlHi4oVCmeUyd4ThRCgIk_p1879_qx0/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>21221</td><td>Zoology-I Life and Diversity form Annelid to Hemichordate</td><td>BSc</td><td>2nd</td><td>2023</td><td><a href="https://drive.google.com/file/d/1eThZzw_pC66CPkSh-JNBBGfb3_sHra82/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>21222</td><td>Zoology-II Genetics</td><td>BSc</td><td>2nd</td><td>2023</td><td><a href="https://drive.google.com/file/d/1Kh2Rbe2OLJlFHGAgzguFiIm4MFb0JWxf/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>22999</td><td>Computer Education</td><td>BSc</td><td>2nd</td><td>2024</td><td><a href="https://drive.google.com/file/d/1B24ZNtkYkDkB3fVuep2MhrvH8olO8FnE/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>21212</td><td>Botany-II Genetics</td><td>BSc</td><td>2nd</td><td>2024</td><td><a href="https://drive.google.com/file/d/15C-v2QrFWrL0SP3hI1-RsHyHjYS2vAub/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>21201</td><td>Chemistry-I Inorganic Chemistry</td><td>BSc</td><td>2nd</td><td>2024</td><td><a href="https://drive.google.com/file/d/1ImRJM-ipTg0YROODx8lXuNuqlCLKBjy6/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>21202</td><td>Chemistry-II Physical Chemistry</td><td>BSc</td><td>2nd</td><td>2024</td><td><a href="https://drive.google.com/file/d/1UmQpaOICAKqy7yxr8VzImw_evsPDVUKV/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>27652</td><td>Environmental Studies</td><td>BSc</td><td>2nd</td><td>2025</td><td><a href="https://drive.google.com/file/d/18HahP-BaS--eQDIZ3VBL0wpg01abVFh5/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>27084</td><td>Indian Society and Culture</td><td>BSc</td><td>2nd</td><td>2025</td><td><a href="https://drive.google.com/file/d/1aP5rqqWJwbaaKFuThMPoJ86X23zKLte6/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>27271</td><td>Pteridophytes Gymnosperms and Fossils</td><td>BSc</td><td>2nd</td><td>2025</td><td><a href="https://drive.google.com/file/d/1373vwmvOUUhEgGUKr8rv0Q4XPudCRATz/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>22999</td><td>Basic Computer Education</td><td>BSc</td><td>2nd</td><td>2025</td><td><a href="https://drive.google.com/file/d/128VxRz_WWDEzOWZawavUxVwBgX8U60xH/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- Mobile Cards -->
+        <div class="card-grid" id="cards1"></div>
+    </div>
+
+    <!-- 2nd Year Section (Sem 3 & 4) -->
+    <div class="year-section" id="section2">
+        <div class="section-header" onclick="toggleSection('2')">
+            <h2><i class="fas fa-dna"></i> BSc 2nd Year (Sem 3 & 4)</h2>
+            <span class="toggle-icon" id="icon2"><i class="fas fa-chevron-up"></i></span>
+        </div>
+        <div class="table-wrapper" id="table2">
+            <table id="table2-data">
+                <thead>
+                    <tr>
+                        <th>Paper ID</th>
+                        <th>Paper Name</th>
+                        <th>Course</th>
+                        <th>Sem</th>
+                        <th>Year</th>
+                        <th>Download</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>31181</td><td>Advanced Calculus</td><td>BSc</td><td>3rd</td><td>2022</td><td><a href="https://drive.google.com/file/d/1oU9dQ3t4lNxLG8VTcloAj-rYk5iJbA0K/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>5210</td><td>Organic Chemistry</td><td>BSc</td><td>3rd</td><td>2022</td><td><a href="https://drive.google.com/file/d/1UjVJA_EE3gq8JL-C7WedtVZ-svAQyu8q/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>31561</td><td>Hindi</td><td>BSc</td><td>3rd</td><td>2022</td><td><a href="https://drive.google.com/file/d/1EmdX8HkJm99eXyngGoez80j6I5aDqUJN/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>31201</td><td>Inorganic Chemistry</td><td>BSc</td><td>3rd</td><td>2022</td><td><a href="https://drive.google.com/file/d/1JlBACen1tlLpcDVFBFN-Gv7Tdx2WJ3Xc/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>31182</td><td>Partial Differential Equations</td><td>BSc</td><td>3rd</td><td>2022</td><td><a href="https://drive.google.com/file/d/1HQbc-iwKu_rcvR-RbObeTeRPZStB-lv5/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>31202</td><td>Physical Chemistry</td><td>BSc</td><td>3rd</td><td>2022</td><td><a href="https://drive.google.com/file/d/1XHEAHRi0VlNuRXoc-o_vCFf0hIxwevQV/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>31192</td><td>Physics Optics</td><td>BSc</td><td>3rd</td><td>2022</td><td><a href="https://drive.google.com/file/d/1PI1TOBXW3jYNH0qOAJ9EijzpSGWiGWhs/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>31183</td><td>Statics</td><td>BSc</td><td>3rd</td><td>2022</td><td><a href="https://drive.google.com/file/d/1jFX9VhwwZugvgXYV1zJFD03pfYKkG3dh/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>31211</td><td>Botany-I Biology and Diversity of Seed Plant</td><td>BSc</td><td>3rd</td><td>2023</td><td><a href="https://drive.google.com/file/d/1_uQ6G5XdUqWtWtKAmH5qZ7fyHwdnN8km/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>31212</td><td>Botany-II Plant Anatomy</td><td>BSc</td><td>3rd</td><td>2023</td><td><a href="https://drive.google.com/file/d/1qHKRn9d0Tj-Gfq2tRgNUFh2B3vRYaPws/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>31201</td><td>Chemistry-I Inorganic Chemistry</td><td>BSc</td><td>3rd</td><td>2023</td><td><a href="https://drive.google.com/file/d/15onmRePjJWsbjABzyXl4AmQ38Zc3I5BZ/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>31202</td><td>Chemistry-II Physical Chemistry</td><td>BSc</td><td>3rd</td><td>2023</td><td><a href="https://drive.google.com/file/d/1KzU4-E5copoG5NjXm1BGG57OFWkXQ0JW/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>31203</td><td>Chemistry-III Organic Chemistry</td><td>BSc</td><td>3rd</td><td>2023</td><td><a href="https://drive.google.com/file/d/1c3g0fZZ4IAM4fO5ovM8DzC-nTcpL99BE/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>31561</td><td>Hindi</td><td>BSc</td><td>3rd</td><td>2023</td><td><a href="https://drive.google.com/file/d/15A6DRSxuZghQ3WG9L5lBd4PsvWI3MGmL/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>31181</td><td>Mathematics Advanced Calculus</td><td>BSc</td><td>3rd</td><td>2023</td><td><a href="https://drive.google.com/file/d/1pbTQiw9WDP-UtnDqPcWo7OJeJneqcY2H/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>31192</td><td>Physics Optics</td><td>BSc</td><td>3rd</td><td>2023</td><td><a href="https://drive.google.com/file/d/1oqimopBRDhvYiOPeRmSURxmH7SnCMNA3/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>31571</td><td>Sanskrit</td><td>BSc</td><td>3rd</td><td>2023</td><td><a href="https://drive.google.com/file/d/1GQFNUWikfrMue8WGHKixLmb1vM_dMT54/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>31221</td><td>Zoology-I Life and Diversity of Chordates-I</td><td>BSc</td><td>3rd</td><td>2023</td><td><a href="https://drive.google.com/file/d/1TwrBx7MotoR7mI7TRSLhFZhU0U0W9izU/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>31222</td><td>Zoology-II Mammalian Physiology</td><td>BSc</td><td>3rd</td><td>2023</td><td><a href="https://drive.google.com/file/d/1MlTfa9NETygzIaMJ5pO8bZ5Y89D2ZY1Z/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>5212</td><td>Chemistry Inorganic Chemistry</td><td>BSc</td><td>4th</td><td>2020</td><td><a href="https://drive.google.com/file/d/1yx2TDqSzU9Z_gTsbTv3Vh2kMGaHVTg_L/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>41202</td><td>Physical Chemistry</td><td>BSc</td><td>4th</td><td>2020</td><td><a href="https://drive.google.com/file/d/1fuvdjlEyt4WbNMQ1ZNb_yBM-HWDbITB9/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>41201</td><td>Chemistry-I Inorganic Chemistry</td><td>BSc</td><td>4th</td><td>2023</td><td><a href="https://drive.google.com/file/d/1l762tcS2CBZtV9bVP_ayzs93kycgWQ4b/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>41202</td><td>Chemistry-II Physical Chemistry</td><td>BSc</td><td>4th</td><td>2023</td><td><a href="https://drive.google.com/file/d/10-TbEheI2MiU1nzxuPBwtN6-pRrDDZaK/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>41203</td><td>Chemistry-III Organic Chemistry</td><td>BSc</td><td>4th</td><td>2023</td><td><a href="https://drive.google.com/file/d/1f4tFZQVf1jXEtLOBWsS6j7lfIGRBfm4_/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>41561</td><td>Hindi</td><td>BSc</td><td>4th</td><td>2023</td><td><a href="https://drive.google.com/file/d/1HdENQYXErxUjIRcA0Zr3o9lqfKz30uIE/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>41181</td><td>Mathematics-I Sequences and Series</td><td>BSc</td><td>4th</td><td>2023</td><td><a href="https://drive.google.com/file/d/1mZwp7_Fkrig8KVTqHisngu2n0J7rB5bu/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>41182</td><td>Mathematics-II Special Functions and Integral Transforms</td><td>BSc</td><td>4th</td><td>2023</td><td><a href="https://drive.google.com/file/d/1xcKiMmCsC2JIEsWMdePui_iOTgILvDKq/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>41183</td><td>Mathematics Programming in C and Numerical Methods</td><td>BSc</td><td>4th</td><td>2023</td><td><a href="https://drive.google.com/file/d/1bkuz569wpZOdv0BdvDZtmCEdnYM3nRFx/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>41191</td><td>Physics-I Statistical Mechanics</td><td>BSc</td><td>4th</td><td>2023</td><td><a href="https://drive.google.com/file/d/1keh9rOXUnJ5BnN-AiuSNgxWoB_Nn4y08/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>41212</td><td>Botany-II Plant Embryology</td><td>BSc</td><td>4th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1z2P6QC10UUK-QB9mcFIS8Z1BeP6RnIrb/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>41211</td><td>Botany Biology and Diversity of Seed Plants-II</td><td>BSc</td><td>4th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1FFgVYpCIZDmIBM-R_XprmOTYzTGgZaMP/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>41201</td><td>Chemistry-I Inorganic Chemistry</td><td>BSc</td><td>4th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1iJfNn3pE-24WVkIVhn5JtvZDakslKeV3/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>41202</td><td>Chemistry-II Physical Chemistry</td><td>BSc</td><td>4th</td><td>2024</td><td><a href="https://drive.google.com/file/d/18p2tuEWtO38n2m7y3EP-0qrQV3htISte/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>41203</td><td>Chemistry-III Organic Chemistry</td><td>BSc</td><td>4th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1KqVgumjQAOtlPic_fWivZZVNrysn52oa/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>41232</td><td>Computer Science Operating System</td><td>BSc</td><td>4th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1UgBJFkb2GSSSn6K2OKmwfM1tFKmVlkOO/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>41561</td><td>Hindi</td><td>BSc</td><td>4th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1M_kbmNMKMEhPo2hLMn0kSaD_ZWP8c0V0/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>41221</td><td>Zoology-I Life and Diversity of Chordates-II</td><td>BSc</td><td>4th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1E6sy0qaG4QY5JrFgjeBnacxl6LVOpJFT/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>41222</td><td>Zoology-II Mammalian Physiology-II</td><td>BSc</td><td>4th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1yuFBSO4IVWUNc8kInhgLqEfzfcssK3G4/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>41201</td><td>Chemistry-I Inorganic Chemistry</td><td>BSc</td><td>4th</td><td>2025</td><td><a href="https://drive.google.com/file/d/1ouO-EdZc_1YCJxXSr5WQuMlFo0QxOXYp/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>41202</td><td>Chemistry-II Physical Chemistry</td><td>BSc</td><td>4th</td><td>2025</td><td><a href="https://drive.google.com/file/d/12M6tl01hOS85kIbdvG9zoNfaNX7Cz0AP/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>41203</td><td>Chemistry-III Organic Chemistry</td><td>BSc</td><td>4th</td><td>2025</td><td><a href="https://drive.google.com/file/d/1KKqSzWk_hthjZ04vyzYP6HPnHBne6Gxn/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>41181</td><td>Mathematics-I Sequences and Series</td><td>BSc</td><td>4th</td><td>2025</td><td><a href="https://drive.google.com/file/d/1ILkBLh7nLLsvcq1cfvACRZweFn5QFXpT/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>41182</td><td>Mathematics-II Special Functions and Transforms</td><td>BSc</td><td>4th</td><td>2025</td><td><a href="https://drive.google.com/file/d/1IMR8M_MvYNdit4lcAtSPl_Ug7OoRUYgu/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>41191</td><td>Physics-I Statistical Mechanics</td><td>BSc</td><td>4th</td><td>2025</td><td><a href="https://drive.google.com/file/d/1CX0Yclcrk7NS4wXHnlgZ52MLBmNwip0_/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>41192</td><td>Physics Optics-II</td><td>BSc</td><td>4th</td><td>2025</td><td><a href="https://drive.google.com/file/d/10G7adzNMVASg6eKc0dgXbbIax4RjfIyE/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>41571</td><td>Sanskrit</td><td>BSc</td><td>4th</td><td>2025</td><td><a href="https://drive.google.com/file/d/1RA3Q5g-kBhvpFRPZwIQ6jI4DPs5gvfxV/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-grid" id="cards2"></div>
+    </div>
+
+    <!-- 3rd Year Section (Sem 5 & 6) -->
+    <div class="year-section" id="section3">
+        <div class="section-header" onclick="toggleSection('3')">
+            <h2><i class="fas fa-atom"></i> BSc 3rd Year (Sem 5 & 6)</h2>
+            <span class="toggle-icon" id="icon3"><i class="fas fa-chevron-up"></i></span>
+        </div>
+        <div class="table-wrapper" id="table3">
+            <table id="table3-data">
+                <thead>
+                    <tr>
+                        <th>Paper ID</th>
+                        <th>Paper Name</th>
+                        <th>Course</th>
+                        <th>Sem</th>
+                        <th>Year</th>
+                        <th>Download</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>5240</td><td>Mathematics Group and Rings</td><td>BSc</td><td>5th</td><td>2020</td><td><a href="https://drive.google.com/file/d/1AVvTbK96oShOz8Oil-7S3fiz-iozT6Uk/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>5241</td><td>Mathematics Numerical Analysis</td><td>BSc</td><td>5th</td><td>2020</td><td><a href="https://drive.google.com/file/d/1y2Z84cxWdENgD7jm6GmJOzYLzRf8tn0n/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>5241</td><td>Mathematics Numerical Analysis V2</td><td>BSc</td><td>5th</td><td>2020</td><td><a href="https://drive.google.com/file/d/1WofOo_0nwwopeZBZ5C3Ns-vFOJAeKM_5/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>51212</td><td>Botany-II Ecology</td><td>BSc</td><td>5th</td><td>2022</td><td><a href="https://drive.google.com/file/d/1khmBitgWQIzKOjfcXyAbn4PIljPsfSxB/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>51211</td><td>Botany Plant Physiology</td><td>BSc</td><td>5th</td><td>2022</td><td><a href="https://drive.google.com/file/d/1jlVXxkE3rYcCpCdMgd62xdpr9tMrJ0o2/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>51203</td><td>Chemistry-III Organic Chemistry</td><td>BSc</td><td>5th</td><td>2022</td><td><a href="https://drive.google.com/file/d/1lQ-psHVgNj0IOLuuG0iKdW0s9TIEIrFC/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>51202</td><td>Chemistry Physical Chemistry</td><td>BSc</td><td>5th</td><td>2022</td><td><a href="https://drive.google.com/file/d/1msqxTbMl8AamyhNwAaEgZ5YWxbGvsyvw/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>51182</td><td>Groups and Rings</td><td>BSc</td><td>5th</td><td>2022</td><td><a href="https://drive.google.com/file/d/1u9j8A6U9GgDe4Lrv1bOmRV3sUjEfRYmw/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>51201</td><td>Inorganic Chemistry</td><td>BSc</td><td>5th</td><td>2022</td><td><a href="https://drive.google.com/file/d/1oI1AQMS-6rZ4BAqfIjH0f2H7MlHX6B--/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>51202</td><td>Physical Chemistry</td><td>BSc</td><td>5th</td><td>2022</td><td><a href="https://drive.google.com/file/d/1PCSuotnFr8f6p8jq6dVx9OmZ-OH_tM61/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>51192</td><td>Quantum Mechanics</td><td>BSc</td><td>5th</td><td>2022</td><td><a href="https://drive.google.com/file/d/1u-sCzPamfw_3fdSD-xp5cEW4E9KnPwXW/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>51221</td><td>Zoology Fish and Fisheries</td><td>BSc</td><td>5th</td><td>2022</td><td><a href="https://drive.google.com/file/d/1iE7KQJsEvbb4c8JipQ92irrUxAiAnz-P/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>51212</td><td>Botany-II Ecology</td><td>BSc</td><td>5th</td><td>2023</td><td><a href="https://drive.google.com/file/d/1_0unMNML8Rr-FAsBJ4VXhL2cyyRwRatm/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>51211</td><td>Botany Plant Physiology</td><td>BSc</td><td>5th</td><td>2023</td><td><a href="https://drive.google.com/file/d/1E7bGhChqTAcSlydH7mKLhe2iwAe5fpHl/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>51203</td><td>Chemistry-III Organic Chemistry</td><td>BSc</td><td>5th</td><td>2023</td><td><a href="https://drive.google.com/file/d/1ddlOgl3qPeWeIxxmV192OvAdBy4B_myp/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>51202</td><td>Chemistry Physical Chemistry</td><td>BSc</td><td>5th</td><td>2023</td><td><a href="https://drive.google.com/file/d/1RuFFKLr9QqFdkAHzemg5byDG-e7ddy2F/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>51182</td><td>Groups and Rings</td><td>BSc</td><td>5th</td><td>2023</td><td><a href="https://drive.google.com/file/d/1JGp1ab-Qt17K7gVNEKRiSzvQium3IJep/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>51201</td><td>Inorganic Chemistry</td><td>BSc</td><td>5th</td><td>2023</td><td><a href="https://drive.google.com/file/d/1G8SrmK-0UAFihiyu06SnsfbN8EP7L1r7/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>51202</td><td>Physical Chemistry</td><td>BSc</td><td>5th</td><td>2023</td><td><a href="https://drive.google.com/file/d/1IxsPzzfoeQIVXoO3-Zb4FyJbyzcmlQmi/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>51192</td><td>Quantum Mechanics</td><td>BSc</td><td>5th</td><td>2023</td><td><a href="https://drive.google.com/file/d/1UXW0kg10g2TdPE-BSRFhfNK2Ry9lUX2p/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>51212</td><td>Ecology</td><td>BSc</td><td>5th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1jjiafe8SASlUyGnRQTwTG61b0ztt6wwM/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>51222</td><td>Ecology and Evolution</td><td>BSc</td><td>5th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1XvPIKd64lpjQvt_5xSqEanxZ8gWX2tgU/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>51221</td><td>Fish and fisheries</td><td>BSc</td><td>5th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1k3PV5iZASwlbso0sJD1oFoCOZ-AFjKZq/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>51201</td><td>Inorganic Chemistry</td><td>BSc</td><td>5th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1_oDQNArYEsrpizPartoakivfOOZ9rtts/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>51203</td><td>Organic Chemistry</td><td>BSc</td><td>5th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1Sw4RPOMZ5W3-V9cQHQb9mlKmoHwqNWKV/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>51202</td><td>Physical Chemistry</td><td>BSc</td><td>5th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1sLEl8crOMl0qhKYjnigjFhny3RYEdpD2/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                    <tr><td>51211</td><td>Plant Physiology</td><td>BSc</td><td>5th</td><td>2024</td><td><a href="https://drive.google.com/file/d/1xb1SKcd-uEdBGmkmiSvLcL1Lhm6e-G9e/view" class="download-btn" target="_blank"><i class="fas fa-download"></i> PDF</a></td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-grid" id="cards3"></div>
+    </div>
+
+    <!-- No Results Message -->
+    <div id="noResults" class="no-results">
+        <i class="fas fa-search"></i>
+        <h3>No matching papers found</h3>
+        <p>Try different keywords or semester filter</p>
+    </div>
+</div>
+
+<footer>
+    <i class="fas fa-graduation-cap"></i> Exam Saarthi - IGU BSc PYQ Repository | Free for all students
+</footer>
+
+<script>
+    (function() {
+        // Toggle sections (open/close)
+        window.toggleSection = function(id) {
+            const tableDiv = document.getElementById('table' + id);
+            const cardsDiv = document.getElementById('cards' + id);
+            const icon = document.getElementById('icon' + id).querySelector('i');
+            
+            if (window.innerWidth <= 768) {
+                // Mobile: switch between table and cards
+                if (tableDiv.style.display !== 'none') {
+                    tableDiv.style.display = 'none';
+                    cardsDiv.style.display = 'grid';
+                    icon.className = 'fas fa-chevron-down';
+                } else {
+                    tableDiv.style.display = 'block';
+                    cardsDiv.style.display = 'none';
+                    icon.className = 'fas fa-chevron-up';
+                }
+            } else {
+                // Desktop: just hide/show table
+                if (tableDiv.style.display !== 'none') {
+                    tableDiv.style.display = 'none';
+                    icon.className = 'fas fa-chevron-down';
+                } else {
+                    tableDiv.style.display = 'block';
+                    icon.className = 'fas fa-chevron-up';
+                }
+            }
+        };
+
+        // Generate mobile cards from table rows
+        function generateCardsForSection(tableId, cardsId) {
+            const table = document.getElementById(tableId);
+            const cardsContainer = document.getElementById(cardsId);
+            if (!table || !cardsContainer) return;
+            const rows = table.querySelectorAll('tbody tr');
+            cardsContainer.innerHTML = '';
+            
+            rows.forEach(row => {
+                if (row.style.display !== 'none') {
+                    const cells = row.cells;
+                    const downloadBtn = row.querySelector('.download-btn');
+                    const pdfUrl = downloadBtn ? downloadBtn.href : '#';
+                    
+                    const card = document.createElement('div');
+                    card.className = 'paper-card';
+                    card.innerHTML = `
+                        <div class="card-header">
+                            <span class="card-title">${cells[1]?.textContent || ''}</span>
+                            <span class="card-sem">${cells[3]?.textContent || ''} Sem</span>
+                        </div>
+                        <div class="card-detail"><span class="card-label">Paper ID:</span> <span class="card-value">${cells[0]?.textContent || ''}</span></div>
+                        <div class="card-detail"><span class="card-label">Course:</span> <span class="card-value">${cells[2]?.textContent || ''}</span></div>
+                        <div class="card-detail"><span class="card-label">Year:</span> <span class="card-value">${cells[4]?.textContent || ''}</span></div>
+                        <a href="${pdfUrl}" class="download-btn" target="_blank" style="margin-top:10px;"><i class="fas fa-download"></i> Download</a>
+                    `;
+                    cardsContainer.appendChild(card);
+                }
+            });
+        }
+
+        // Function to expand/collapse sections based on filter
+        function updateSectionsVisibility(selectedSem) {
+            const sections = [
+                { id: 'section1', name: '1st Year', sems: ['1st', '2nd'] },
+                { id: 'section2', name: '2nd Year', sems: ['3rd', '4th'] },
+                { id: 'section3', name: '3rd Year', sems: ['5th', '6th'] }
+            ];
+
+            sections.forEach(section => {
+                const sectionId = section.id.slice(-1);
+                const tableDiv = document.getElementById('table' + sectionId);
+                const cardsDiv = document.getElementById('cards' + sectionId);
+                const icon = document.getElementById('icon' + sectionId).querySelector('i');
+                
+                // Check if this section contains the selected semester
+                const containsSelectedSem = selectedSem === 'all' || section.sems.some(sem => 
+                    sem.toLowerCase().includes(selectedSem.toLowerCase())
+                );
+
+                if (window.innerWidth <= 768) {
+                    // Mobile view
+                    if (containsSelectedSem) {
+                        // Show this section's cards
+                        tableDiv.style.display = 'none';
+                        cardsDiv.style.display = 'grid';
+                        icon.className = 'fas fa-chevron-down';
+                    } else {
+                        // Hide this section
+                        tableDiv.style.display = 'none';
+                        cardsDiv.style.display = 'none';
+                        icon.className = 'fas fa-chevron-down';
+                    }
+                } else {
+                    // Desktop view
+                    if (containsSelectedSem) {
+                        // Show this section's table
+                        tableDiv.style.display = 'block';
+                        icon.className = 'fas fa-chevron-up';
+                    } else {
+                        // Hide this section
+                        tableDiv.style.display = 'none';
+                        icon.className = 'fas fa-chevron-down';
+                    }
+                }
+            });
+        }
+
+        // Search and filter functionality
+        const searchInput = document.getElementById('searchInput');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        let activeFilter = 'all';
+
+        function filterTable() {
+            const searchTerm = searchInput.value.toLowerCase();
+            let anyVisible = false;
+            
+            // Filter the rows based on search and semester
+            ['table1-data', 'table2-data', 'table3-data'].forEach(tableId => {
+                const table = document.getElementById(tableId);
+                if (!table) return;
+                const rows = table.querySelectorAll('tbody tr');
+                
+                rows.forEach(row => {
+                    const cells = row.cells;
+                    const paperName = cells[1]?.textContent.toLowerCase() || '';
+                    const paperId = cells[0]?.textContent.toLowerCase() || '';
+                    const sem = cells[3]?.textContent.toLowerCase() || '';
+                    const year = cells[4]?.textContent.toLowerCase() || '';
+
+                    const matchesSearch = paperName.includes(searchTerm) || 
+                                         paperId.includes(searchTerm) || 
+                                         year.includes(searchTerm);
+                    const matchesFilter = activeFilter === 'all' || sem.includes(activeFilter.toLowerCase());
+
+                    if (matchesSearch && matchesFilter) {
+                        row.style.display = '';
+                        anyVisible = true;
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+
+            // Update section visibility based on active filter
+            updateSectionsVisibility(activeFilter);
+
+            // Regenerate cards for mobile
+            generateCardsForSection('table1-data', 'cards1');
+            generateCardsForSection('table2-data', 'cards2');
+            generateCardsForSection('table3-data', 'cards3');
+
+            document.getElementById('noResults').style.display = anyVisible ? 'none' : 'block';
+        }
+
+        searchInput.addEventListener('input', filterTable);
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                activeFilter = this.dataset.filter;
+                filterTable();
+            });
+        });
+
+        // Initial setup
+        window.addEventListener('load', function() {
+            filterTable();
+        });
+
+        window.addEventListener('resize', function() {
+            updateSectionsVisibility(activeFilter);
+            
+            if (window.innerWidth <= 768) {
+                // Mobile view: ensure cards are shown for visible sections
+                ['1', '2', '3'].forEach(id => {
+                    const tableDiv = document.getElementById('table' + id);
+                    const cardsDiv = document.getElementById('cards' + id);
+                    const icon = document.getElementById('icon' + id).querySelector('i');
+                    
+                    if (tableDiv.style.display !== 'none') {
+                        tableDiv.style.display = 'none';
+                        cardsDiv.style.display = 'grid';
+                        icon.className = 'fas fa-chevron-down';
+                    }
+                });
+            } else {
+                // Desktop view: ensure tables are shown for visible sections
+                ['1', '2', '3'].forEach(id => {
+                    const cardsDiv = document.getElementById('cards' + id);
+                    if (cardsDiv) cardsDiv.style.display = 'none';
+                });
+            }
+        });
+    })();
+</script>
+</body>
+</html>
