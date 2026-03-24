@@ -7,6 +7,7 @@ import secrets
 from functools import wraps
 from datetime import timedelta
 import requests
+import re
 
 load_dotenv()
 
@@ -51,7 +52,7 @@ if not web3forms_key:
     print("=" * 50)
 else:
     print("=" * 50)
-    print(f"Web3Forms API Key loaded")
+    print(f"Web3Forms API Key loaded successfully")
     print("=" * 50)
 
 DB_FILE = "database.db"
@@ -201,7 +202,7 @@ def logout():
 
 @app.route("/submit_contact", methods=["POST"])
 def submit_contact():
-    """Handle contact form submission via backend"""
+    """Handle contact form submission via backend - API key hidden"""
     try:
         name = request.form.get("name", "").strip()
         email = request.form.get("email", "").strip()
@@ -214,7 +215,6 @@ def submit_contact():
             return jsonify({"success": False, "message": "Please fill all required fields"})
 
         # Email validation
-        import re
         email_pattern = r'^[^\s@]+@[^\s@]+\.[^\s@]+$'
         if not re.match(email_pattern, email):
             return jsonify({"success": False, "message": "Please enter a valid email address"})
@@ -234,7 +234,7 @@ def submit_contact():
             "subject": f"Query from {name} - {university}"
         }
 
-        response = requests.post("https://api.web3forms.com/submit", data=form_data)
+        response = requests.post("https://api.web3forms.com/submit", data=form_data, timeout=30)
         result = response.json()
 
         if result.get("success"):
@@ -242,6 +242,10 @@ def submit_contact():
         else:
             return jsonify({"success": False, "message": result.get("message", "Failed to send message")})
 
+    except requests.exceptions.Timeout:
+        return jsonify({"success": False, "message": "Request timeout. Please try again."})
+    except requests.exceptions.ConnectionError:
+        return jsonify({"success": False, "message": "Network error. Please check your connection."})
     except Exception as e:
         print(f"Error in contact form: {e}")
         return jsonify({"success": False, "message": "An error occurred. Please try again."})
