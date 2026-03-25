@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   <link rel="canonical" href="https://www.examsaarthi.com/Universities.html">
   <link rel="manifest" href="/manifest.json">
   <title>Exam Saarthi - All Universities PYQ</title>
@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     /* ---------------------------------------------------------------------- */
-    /* ENHANCED PROFESSIONAL COLOR VARIABLES - Same as Homepage */
+    /* COMPLETE COLOR SCHEME WITH DARK MODE SUPPORT */
     /* ---------------------------------------------------------------------- */
     :root {
       --primary-deep-blue: #0b1e4a;
@@ -39,11 +39,8 @@
       --footer-text: #ffffff;
       --marquee-text: #0b1e4a;
       --marquee-bg: linear-gradient(145deg, #fbbf24 0%, #f59e0b 100%);
-      --btn-login-bg: rgba(255,255,255,0.12);
-      --btn-login-hover: rgba(255,255,255,0.25);
     }
 
-    /* Dark mode */
     [data-theme="dark"] {
       --primary-deep-blue: #0f172a;
       --primary-rich-blue: #1e2b4f;
@@ -64,14 +61,10 @@
       --footer-text: #e2e8f0;
       --marquee-text: #0b1e4a;
       --marquee-bg: linear-gradient(145deg, #fbbf24 0%, #d97706 100%);
-      --btn-login-bg: rgba(255,255,255,0.1);
-      --btn-login-hover: rgba(255,255,255,0.2);
     }
 
-    html { 
-      scroll-behavior: smooth; 
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       font-family: 'Inter', sans-serif;
       color: var(--text-main);
@@ -79,14 +72,11 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      overflow-x: hidden;
-      margin: 0;
-      padding: 0;
       transition: background 0.3s ease, color 0.2s ease;
     }
 
     /* ---------------------------------------------------------------------- */
-    /* ENHANCED HEADER & NAVIGATION - Premium Design (Same as Homepage) */
+    /* ENHANCED HEADER & NAVIGATION - SAME AS INDEX PAGE */
     /* ---------------------------------------------------------------------- */
     header {
       background: var(--gradient-primary);
@@ -95,7 +85,6 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      transition: all 0.3s ease;
       width: 100%;
     }
 
@@ -104,188 +93,79 @@
       align-items: center;
       justify-content: space-between;
       padding: 0.8rem 2rem;
-      position: relative;
-      z-index: 100;
       max-width: 1400px;
       margin: 0 auto;
     }
 
-    /* Logo Area with Animation */
     .logo-area {
       display: flex;
       align-items: center;
-      cursor: pointer;
-      padding: 0.5rem 0;
       text-decoration: none;
       transition: transform 0.3s ease;
     }
-    .logo-area:hover {
-      transform: scale(1.02);
-    }
-
+    .logo-area:hover { transform: scale(1.02); }
     .logo-img {
       width: 50px;
       height: 50px;
       margin-right: 0.75rem;
       border-radius: 12px;
-      object-fit: contain;
-      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
       background: white;
       padding: 5px;
-      transition: all 0.3s ease;
     }
-    .logo-area:hover .logo-img {
-      transform: rotate(5deg);
-    }
-
     .header-title {
       font-size: 1.5rem;
       font-weight: 900;
-      letter-spacing: -0.5px;
       background: linear-gradient(135deg, #ffffff 0%, #ffeb3b 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
 
-    /* Desktop Navigation - Premium */
-    .desktop-nav { 
-      display: none; 
-      align-items: center;
-      gap: 8px;
-    }
-    .desktop-nav ul {
-      display: flex;
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      gap: 8px;
-      align-items: center;
-    }
+    .desktop-nav { display: none; align-items: center; gap: 8px; }
+    .desktop-nav ul { display: flex; list-style: none; gap: 8px; }
     .desktop-nav ul li a {
       color: white;
       text-decoration: none;
       font-weight: 600;
       padding: 10px 20px;
       border-radius: 50px;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      border: 1px solid transparent;
-      position: relative;
-      overflow: hidden;
-    }
-    .desktop-nav ul li a::before {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      width: 0;
-      height: 2px;
-      background: var(--accent-bright-yellow);
-      transition: all 0.3s ease;
-      transform: translateX(-50%);
-    }
-    .desktop-nav ul li a:hover::before {
-      width: 70%;
+      transition: all 0.3s;
     }
     .desktop-nav ul li a:hover {
-      background-color: rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.1);
       color: var(--accent-bright-yellow);
-      transform: translateY(-2px);
     }
     .active-nav-link {
-      background-color: rgba(255,255,255,0.15) !important;
+      background: rgba(255,255,255,0.15) !important;
       color: var(--accent-bright-yellow) !important;
       border: 1px solid rgba(255,255,255,0.3) !important;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
-    }
-    .active-nav-link::before {
-      width: 70% !important;
     }
 
-    /* Login Button - Premium */
     .login-btn {
       background: linear-gradient(135deg, var(--accent-bright-yellow), var(--accent-deep-gold));
-      border: none;
       color: #0b1e4a;
       padding: 10px 24px;
       border-radius: 50px;
       font-weight: 700;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-size: 0.95rem;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
-      position: relative;
-      overflow: hidden;
     }
-    .login-btn::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 0;
-      height: 0;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.3);
-      transform: translate(-50%, -50%);
-      transition: width 0.6s, height 0.6s;
-    }
-    .login-btn:hover::before {
-      width: 300px;
-      height: 300px;
-    }
-    .login-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(251, 191, 36, 0.5);
-      color: #0b1e4a;
-    }
-
-    /* User Info - Premium */
     .user-info {
       background: rgba(255,255,255,0.15);
-      backdrop-filter: blur(10px);
       padding: 6px 20px;
       border-radius: 50px;
       display: flex;
       align-items: center;
       gap: 12px;
-      border: 1px solid rgba(255,255,255,0.2);
-      transition: all 0.3s ease;
-    }
-    .user-info:hover {
-      background: rgba(255,255,255,0.25);
-      transform: translateY(-2px);
-    }
-    .user-info i {
-      font-size: 1.2rem;
-      color: var(--accent-bright-yellow);
-    }
-    .user-info span {
-      font-weight: 600;
-      font-size: 0.95rem;
     }
     .logout-btn {
       background: rgba(255,255,255,0.2);
-      border: 1px solid rgba(255,255,255,0.3);
       color: white;
       padding: 6px 14px;
       border-radius: 40px;
-      cursor: pointer;
       text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 600;
-      transition: all 0.3s ease;
     }
-    .logout-btn:hover {
-      background: rgba(255,255,255,0.35);
-      transform: translateY(-2px);
-    }
-
-    /* Theme Toggle - Enhanced */
     .theme-toggle {
       background: rgba(255,255,255,0.15);
       border: 1px solid rgba(255,255,255,0.3);
@@ -298,17 +178,7 @@
       justify-content: center;
       cursor: pointer;
       margin-left: 12px;
-      transition: all 0.3s ease;
-      font-size: 1.2rem;
-      backdrop-filter: blur(5px);
     }
-    .theme-toggle:hover {
-      background: rgba(255,255,255,0.3);
-      transform: rotate(20deg) scale(1.1);
-      box-shadow: 0 0 15px rgba(251, 191, 36, 0.5);
-    }
-
-    /* Mobile Menu Button */
     .mobile-menu-btn {
       display: block;
       background: rgba(255,255,255,0.15);
@@ -316,184 +186,38 @@
       color: white;
       font-size: 1.3rem;
       cursor: pointer;
-      z-index: 100;
       border-radius: 50px;
       padding: 10px 18px;
-      transition: all 0.3s ease;
     }
-    .mobile-menu-btn:hover {
-      background: rgba(255,255,255,0.25);
-      transform: scale(1.05);
-    }
-
     .mobile-nav {
       display: none;
       background: var(--gradient-primary);
       padding: 1rem;
-      box-shadow: var(--shadow-strong);
       width: 100%;
       position: absolute;
       top: 100%;
       left: 0;
       z-index: 99;
-      animation: slideDown 0.3s ease-out;
-      box-sizing: border-box;
-      backdrop-filter: blur(10px);
-    }
-    @keyframes slideDown {
-      from { opacity: 0; transform: translateY(-15px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .mobile-nav ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    .mobile-nav ul li {
-      margin: 10px 0;
     }
     .mobile-nav ul li a {
       color: white;
-      text-decoration: none;
       display: block;
       padding: 12px 20px;
       border-radius: 50px;
-      transition: all 0.3s ease;
-      border: 1px solid transparent;
-      font-weight: 600;
       text-align: center;
     }
-    .mobile-nav ul li a:hover {
-      background-color: rgba(255,255,255,0.15);
-      transform: translateX(5px);
-      border-color: rgba(255,255,255,0.3);
-    }
-
-    .mobile-user-info {
-      text-align: center;
-      padding: 15px;
-      background: rgba(255,255,255,0.1);
-      border-radius: 50px;
-      margin: 10px 0;
-    }
-    .mobile-logout-btn {
-      background: rgba(255,255,255,0.2);
-      border: 1px solid rgba(255,255,255,0.3);
-      color: white;
-      padding: 10px;
-      border-radius: 50px;
-      text-align: center;
-      text-decoration: none;
-      display: block;
-      margin-top: 10px;
-      font-weight: 600;
-    }
-    .mobile-login-btn {
-      background: var(--accent-bright-yellow);
-      color: #0b1e4a;
-      padding: 12px;
-      border-radius: 50px;
-      text-align: center;
-      text-decoration: none;
-      display: block;
-      font-weight: 700;
-    }
-
-    .mobile-theme-toggle {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 15px 20px;
-      color: white;
-      border-top: 1px solid rgba(255,255,255,0.2);
-      margin-top: 15px;
-    }
-    .mobile-theme-toggle span {
-      font-weight: 600;
-    }
-    .mobile-theme-toggle button {
-      background: rgba(255,255,255,0.2);
-      border: 1px solid white;
-      color: white;
-      border-radius: 40px;
-      padding: 8px 20px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-    .mobile-theme-toggle button:hover {
-      background: rgba(255,255,255,0.3);
-    }
-
-    /* Marquee */
-    marquee {
-      background: var(--marquee-bg);
-      color: var(--marquee-text);
-      padding: 12px 0;
-      font-weight: 700;
-      font-size: 0.95rem;
-      width: 100%;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    /* Footer */
-    footer {
-      margin-top: auto;
-      background: var(--gradient-primary);
-      color: var(--footer-text);
-      text-align: center;
-      padding: 1.75rem;
-      width: 100%;
-      font-weight: 500;
-      letter-spacing: 0.5px;
-      box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.2);
-      position: relative;
-      font-size: 0.95rem;
-      box-sizing: border-box;
-    }
-    footer:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: var(--gradient-accent);
-    }
-
-    /* Flash Messages */
-    .flash-messages {
-      max-width: 1200px;
-      margin: 1rem auto;
-      padding: 0 1.2rem;
-    }
-    .alert {
-      padding: 1rem;
-      border-radius: 12px;
-      margin-bottom: 1rem;
-      animation: fadeIn 0.5s ease-out;
-    }
-    .alert-success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
-    .alert-danger { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
-    .alert-warning { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
-    .alert-info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .content-section { animation: fadeIn 0.7s ease-out; }
-
-    /* Container */
-    main {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 1.2rem;
-      flex: 1;
-      width: 100%;
-      box-sizing: border-box;
-    }
+    .mobile-user-info { text-align: center; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 50px; margin: 10px 0; }
+    .mobile-login-btn { background: var(--accent-bright-yellow); color: #0b1e4a; padding: 12px; border-radius: 50px; text-align: center; display: block; font-weight: 700; }
+    .mobile-theme-toggle { display: flex; justify-content: space-between; padding: 15px 20px; color: white; border-top: 1px solid rgba(255,255,255,0.2); }
+    marquee { background: var(--marquee-bg); color: var(--marquee-text); padding: 12px 0; font-weight: 700; }
+    footer { margin-top: auto; background: var(--gradient-primary); color: var(--footer-text); text-align: center; padding: 1.75rem; position: relative; }
+    footer:before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--gradient-accent); }
+    .flash-messages { max-width: 1200px; margin: 1rem auto; padding: 0 1.2rem; }
+    .alert { padding: 1rem; border-radius: 12px; margin-bottom: 1rem; }
+    .alert-success { background: #d4edda; color: #155724; }
+    .alert-danger { background: #f8d7da; color: #721c24; }
+    .alert-warning { background: #fff3cd; color: #856404; }
+    main { max-width: 1200px; margin: 0 auto; padding: 1.2rem; flex: 1; }
 
     /* Universities specific styles */
     .welcome-section {
@@ -511,6 +235,15 @@
     .welcome-section:hover {
       transform: translateY(-10px);
       box-shadow: var(--shadow-strong);
+    }
+    .welcome-section:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: var(--gradient-accent);
     }
 
     .hero-title {
@@ -689,6 +422,7 @@
       .desktop-nav { display: flex; }
       .mobile-menu-btn { display: none; }
       .search-wrapper { margin: 3rem auto 2.5rem; }
+      .hero-title { font-size: 2.8rem; }
     }
     @media (max-width: 767px) {
       .desktop-nav { display: none !important; }
@@ -698,6 +432,8 @@
       .uni-badge { margin-left: 0; width: 100%; text-align: center; }
     }
     @media (max-width: 480px) {
+      .header-content { padding: 0.8rem 1rem; }
+      .logo-img { width: 45px; height: 45px; }
       .header-title { font-size: 1.2rem; }
       .search-wrapper { flex-wrap: wrap; background: transparent; box-shadow: none; padding: 0; }
       .search-wrapper i { display: none; }
@@ -711,7 +447,7 @@
   <header>
     <div class="header-content">
       <a href="/" class="logo-area">
-        <img src="https://examsaarthi.com/logo.png" alt="Exam Saarthi Logo" class="logo-img" onerror="this.src='https://via.placeholder.com/55/0b1e4a/ffffff?text=ES'">
+        <img src="https://examsaarthi.com/logo.png" alt="Exam Saarthi Logo" class="logo-img" onerror="this.src='https://via.placeholder.com/50/0b1e4a/ffffff?text=ES'">
         <h1 class="header-title">Exam Saarthi</h1>
       </a>
       <nav class="desktop-nav">
@@ -725,18 +461,14 @@
           <div class="user-info">
             <i class="fas fa-user-circle"></i>
             <span>Welcome, {{ user }}!</span>
-            <a href="/logout" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            <a href="/logout" class="logout-btn">Logout</a>
           </div>
         {% else %}
-          <a href="/login" class="login-btn"><i class="fas fa-sign-in-alt"></i> Login</a>
+          <a href="/login" class="login-btn">Login</a>
         {% endif %}
-        <div class="theme-toggle" id="themeToggle">
-          <i class="fas fa-moon"></i>
-        </div>
+        <div class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></div>
       </nav>
-      <button class="mobile-menu-btn" id="mobileMenuBtn">
-        <i class="fas fa-bars"></i>
-      </button>
+      <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
     </div>
     <marquee behavior="scroll" direction="left" scrollamount="6">
       <i class="fas fa-bullhorn"></i> 🎓 All Universities PYQ at one place — Search your university & download previous year papers for free!
@@ -749,31 +481,19 @@
         <li><a href="/contact">Contact</a></li>
       </ul>
       {% if user %}
-        <div class="mobile-user-info">
-          <i class="fas fa-user-circle"></i> {{ user }}
-          <a href="/logout" class="mobile-logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
-        </div>
+        <div class="mobile-user-info">{{ user }}<a href="/logout" style="display:block; margin-top:10px; background:rgba(255,255,255,0.2); padding:8px; border-radius:40px;">Logout</a></div>
       {% else %}
-        <div style="padding: 15px;">
-          <a href="/login" class="mobile-login-btn"><i class="fas fa-sign-in-alt"></i> Login to Access PYQs</a>
-        </div>
+        <div style="padding:15px;"><a href="/login" class="mobile-login-btn">Login</a></div>
       {% endif %}
-      <div class="mobile-theme-toggle">
-        <span>🌓 Dark Mode</span>
-        <button id="mobileThemeToggle">Switch</button>
-      </div>
+      <div class="mobile-theme-toggle"><span>Dark Mode</span><button id="mobileThemeToggle">Switch</button></div>
     </div>
   </header>
 
-  <!-- Flash Messages -->
   {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
       <div class="flash-messages">
         {% for category, message in messages %}
-          <div class="alert alert-{{ category }}">
-            <i class="fas fa-{% if category == 'success' %}check-circle{% elif category == 'danger' %}exclamation-circle{% else %}info-circle{% endif %} me-2"></i>
-            {{ message }}
-          </div>
+          <div class="alert alert-{{ category }}">{{ message }}</div>
         {% endfor %}
       </div>
     {% endif %}
@@ -814,37 +534,22 @@
         if (icon) icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
         if (mobileThemeToggle) mobileThemeToggle.textContent = theme === 'dark' ? 'Light' : 'Dark';
       }
-
       const saved = localStorage.getItem('theme') || 'light';
       setTheme(saved);
-
-      themeToggle?.addEventListener('click', () => {
-        const current = html.getAttribute('data-theme');
-        setTheme(current === 'light' ? 'dark' : 'light');
-      });
-      mobileThemeToggle?.addEventListener('click', () => {
-        const current = html.getAttribute('data-theme');
-        setTheme(current === 'light' ? 'dark' : 'light');
-      });
+      themeToggle?.addEventListener('click', () => setTheme(html.getAttribute('data-theme') === 'light' ? 'dark' : 'light'));
+      mobileThemeToggle?.addEventListener('click', () => setTheme(html.getAttribute('data-theme') === 'light' ? 'dark' : 'light'));
 
       // Mobile Menu
       const menuBtn = document.getElementById('mobileMenuBtn');
       const mobileNav = document.getElementById('mobileNav');
-      
       if (menuBtn && mobileNav) {
         menuBtn.addEventListener('click', function(e) {
           e.stopPropagation();
-          const isOpen = mobileNav.style.display === 'block';
-          mobileNav.style.display = isOpen ? 'none' : 'block';
-          const icon = menuBtn.querySelector('i');
-          if (icon) icon.className = isOpen ? 'fas fa-bars' : 'fas fa-times';
+          mobileNav.style.display = mobileNav.style.display === 'block' ? 'none' : 'block';
         });
-
         document.addEventListener('click', function(e) {
           if (mobileNav.style.display === 'block' && !mobileNav.contains(e.target) && !menuBtn.contains(e.target)) {
             mobileNav.style.display = 'none';
-            const icon = menuBtn.querySelector('i');
-            if (icon) icon.className = 'fas fa-bars';
           }
         });
       }
@@ -852,8 +557,6 @@
       function checkViewport() {
         if (window.innerWidth <= 768 && mobileNav) {
           mobileNav.style.display = 'none';
-          const icon = menuBtn?.querySelector('i');
-          if (icon) icon.className = 'fas fa-bars';
         }
       }
       checkViewport();
