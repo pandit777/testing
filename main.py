@@ -199,7 +199,6 @@ def submit_contact():
 # ============ MAIN ROUTES ============
 
 @app.route("/")
-@login_required
 def home():
     """Home page - requires login"""
     return render_template("index.html", user=session.get('fullname'))
