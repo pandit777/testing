@@ -14,6 +14,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    /* ---------------------------------------------------------------------- */
+    /* COMPLETE COLOR SCHEME WITH DARK MODE SUPPORT */
+    /* ---------------------------------------------------------------------- */
     :root {
       --primary-deep-blue: #0b1e4a;
       --primary-rich-blue: #142b6e;
@@ -26,6 +29,8 @@
       --text-soft: #334155;
       --text-muted: #64748b;
       --bg-soft-gradient: linear-gradient(145deg, #f1f5f9 0%, #d9e2ef 100%);
+      --card-bg-light: #ffffff;
+      --stat-label-light: #334155;
       --shadow-soft: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
       --shadow-medium: 0 20px 30px -10px rgba(0, 20, 60, 0.15);
       --shadow-strong: 0 30px 45px -15px rgba(0, 20, 60, 0.25);
@@ -46,6 +51,8 @@
       --text-soft: #cbd5e1;
       --text-muted: #9aa9bc;
       --bg-soft-gradient: linear-gradient(145deg, #0f1422 0%, #1a1f32 100%);
+      --card-bg-light: transparent;
+      --stat-label-light: #b9c7da;
       --shadow-soft: 0 15px 30px -10px rgba(0, 0, 0, 0.6);
       --shadow-medium: 0 25px 40px -12px rgba(0, 0, 0, 0.8);
       --shadow-strong: 0 35px 55px -15px rgba(0, 0, 0, 0.9);
@@ -66,6 +73,9 @@
       transition: background 0.3s ease, color 0.2s ease;
     }
 
+    /* ---------------------------------------------------------------------- */
+    /* ENHANCED HEADER & NAVIGATION - SAME AS ALL PAGES */
+    /* ---------------------------------------------------------------------- */
     header {
       background: var(--gradient-primary);
       color: white;
@@ -204,8 +214,10 @@
     .alert { padding: 1rem; border-radius: 12px; margin-bottom: 1rem; }
     .alert-success { background: #d4edda; color: #155724; }
     .alert-danger { background: #f8d7da; color: #721c24; }
+    .alert-warning { background: #fff3cd; color: #856404; }
     main { max-width: 1200px; margin: 0 auto; padding: 1.2rem; flex: 1; }
 
+    /* Contact Page Styles */
     .contact-card {
       background: var(--gradient-card-light);
       border-radius: 32px;
@@ -214,8 +226,22 @@
       margin-bottom: 2rem;
       position: relative;
       overflow: hidden;
+      transition: all 0.4s ease;
     }
-    .contact-card:before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px; background: var(--gradient-accent); }
+    .contact-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-strong);
+    }
+    .contact-card:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: var(--gradient-accent);
+    }
+
     .section-title {
       font-size: 2rem;
       font-weight: 800;
@@ -225,11 +251,36 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    [data-theme="dark"] .section-title { background: linear-gradient(145deg, #fcd34d, #fbbf24); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .description-text { font-size: 1.1rem; color: var(--text-soft); text-align: center; margin-bottom: 2rem; line-height: 1.6; }
-    .contact-info-wrapper { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; margin: 2rem 0; }
-    .contact-item { flex: 0 1 280px; text-align: center; }
-    .contact-item p { font-weight: 700; margin-bottom: 0.75rem; color: var(--text-main); }
+    [data-theme="dark"] .section-title {
+      background: linear-gradient(145deg, #fcd34d, #fbbf24);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .description-text {
+      font-size: 1.1rem;
+      color: var(--text-soft);
+      text-align: center;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .contact-info-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    .contact-item {
+      flex: 0 1 280px;
+      text-align: center;
+    }
+    .contact-item p {
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: var(--text-main);
+    }
     .contact-link {
       display: inline-flex;
       align-items: center;
@@ -243,8 +294,17 @@
       font-weight: 600;
       transition: all 0.3s;
     }
-    .contact-link:hover { background: var(--gradient-accent); color: #0b1e4a; transform: translateY(-3px); }
-    .social-links { display: flex; justify-content: center; gap: 1.5rem; margin-top: 2rem; }
+    .contact-link:hover {
+      background: var(--gradient-accent);
+      color: #0b1e4a;
+      transform: translateY(-3px);
+    }
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
     .social-link {
       width: 50px;
       height: 50px;
@@ -259,7 +319,11 @@
       text-decoration: none;
       border: 1px solid rgba(251, 191, 36, 0.2);
     }
-    .social-link:hover { transform: translateY(-8px) scale(1.1); background: var(--gradient-accent); color: #0b1e4a; }
+    .social-link:hover {
+      transform: translateY(-8px) scale(1.1);
+      background: var(--gradient-accent);
+      color: #0b1e4a;
+    }
     .query-btn {
       background: var(--gradient-accent);
       color: #0b1e4a;
@@ -275,8 +339,16 @@
       transition: all 0.3s;
       margin: 0 auto;
     }
-    .query-btn:hover { transform: translateY(-6px); box-shadow: 0 20px 30px -5px rgba(251, 191, 36, 0.7); }
-    .help-text { color: var(--text-muted); text-align: center; margin-top: 1.5rem; }
+    .query-btn:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 30px -5px rgba(251, 191, 36, 0.7);
+    }
+    .help-text {
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+
     .form-overlay {
       display: none;
       position: fixed;
@@ -346,6 +418,7 @@
       border-radius: 20px;
       margin-bottom: 1.5rem;
       text-align: center;
+      display: none;
     }
     .success-modal {
       display: none;
@@ -379,9 +452,17 @@
       cursor: pointer;
       margin-top: 1rem;
     }
-    .quick-contact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 1rem; }
+    .quick-contact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-top: 1rem;
+    }
 
     @media (min-width: 768px) {
+      .header-content { padding: 0.8rem 2.5rem; }
+      .logo-img { width: 55px; height: 55px; }
+      .header-title { font-size: 1.8rem; }
       .desktop-nav { display: flex; }
       .mobile-menu-btn { display: none; }
       .section-title { font-size: 2.5rem; }
@@ -391,6 +472,8 @@
       .logo-img { width: 45px; height: 45px; }
       .header-title { font-size: 1.2rem; }
       .contact-card { padding: 1.5rem; }
+      .contact-info-wrapper { flex-direction: column; align-items: center; }
+      .contact-item { width: 100%; max-width: 300px; }
     }
   </style>
 </head>
@@ -412,10 +495,10 @@
           <div class="user-info">
             <i class="fas fa-user-circle"></i>
             <span>Welcome, {{ user }}!</span>
-            <a href="/logout" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            <a href="/logout" class="logout-btn">Logout</a>
           </div>
         {% else %}
-          <a href="/login" class="login-btn"><i class="fas fa-sign-in-alt"></i> Login</a>
+          <a href="/login" class="login-btn">Login</a>
         {% endif %}
         <div class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></div>
       </nav>
@@ -432,11 +515,11 @@
         <li><a href="/contact" class="active-nav-link">Contact</a></li>
       </ul>
       {% if user %}
-        <div class="mobile-user-info"><i class="fas fa-user-circle"></i> {{ user }}<a href="/logout" style="display: block; margin-top: 10px; background: rgba(255,255,255,0.2); padding: 8px; border-radius: 40px;">Logout</a></div>
+        <div class="mobile-user-info">{{ user }}<a href="/logout" style="display:block; margin-top:10px; background:rgba(255,255,255,0.2); padding:8px; border-radius:40px;">Logout</a></div>
       {% else %}
-        <div style="padding: 15px;"><a href="/login" class="mobile-login-btn"><i class="fas fa-sign-in-alt"></i> Login</a></div>
+        <div style="padding:15px;"><a href="/login" class="mobile-login-btn">Login</a></div>
       {% endif %}
-      <div class="mobile-theme-toggle"><span>🌓 Dark Mode</span><button id="mobileThemeToggle">Switch</button></div>
+      <div class="mobile-theme-toggle"><span>Dark Mode</span><button id="mobileThemeToggle">Switch</button></div>
     </div>
   </header>
 
@@ -444,16 +527,14 @@
     {% if messages %}
       <div class="flash-messages">
         {% for category, message in messages %}
-          <div class="alert alert-{{ category }}">
-            <i class="fas fa-{% if category == 'success' %}check-circle{% elif category == 'danger' %}exclamation-circle{% else %}info-circle{% endif %} me-2"></i>
-            {{ message }}
-          </div>
+          <div class="alert alert-{{ category }}">{{ message }}</div>
         {% endfor %}
       </div>
     {% endif %}
   {% endwith %}
 
   <main>
+    <!-- Query Button Section -->
     <div class="contact-card">
       <h1 class="section-title">📬 Contact Exam Saarthi</h1>
       <p class="description-text">
@@ -461,35 +542,78 @@
         <strong style="color: var(--accent-bright-yellow);">Exam Saarthi</strong> team. We'll get back to you as soon as possible.
       </p>
       <div style="text-align: center;">
-        <button class="query-btn" id="queryBtn"><i class="fas fa-question-circle"></i> Submit Your Query</button>
+        <button class="query-btn" id="queryBtn">
+          <i class="fas fa-question-circle"></i> Submit Your Query
+        </button>
       </div>
-      <div class="help-text"><p>Need help with PYQs? Tell us which university and course you need help with</p></div>
+      <div class="help-text">
+        <p>Need help with PYQs? Tell us which university and course you need help with</p>
+      </div>
     </div>
 
+    <!-- Contact Information Section -->
     <div class="contact-card">
       <h2 class="section-title">📍 Get in Touch</h2>
-      <p class="description-text">Exam Saarthi is your one-stop solution for all university previous year question papers (PYQs).<br>We provide comprehensive PYQs for multiple universities to help students excel in their exams.</p>
+      <p class="description-text">
+        Exam Saarthi is your one-stop solution for all university previous year question papers (PYQs).<br>
+        We provide comprehensive PYQs for multiple universities to help students excel in their exams.
+      </p>
+      
       <div class="contact-info-wrapper">
-        <div class="contact-item"><p><i class="fas fa-envelope"></i> Official Email</p><a href="mailto:igupyq@gmail.com" class="contact-link"><i class="fas fa-envelope"></i> igupyq@gmail.com</a></div>
-        <div class="contact-item"><p><i class="fas fa-headset"></i> Support Email</p><a href="mailto:igupyq.support@gmail.com" class="contact-link"><i class="fas fa-headset"></i> igupyq.support@gmail.com</a></div>
-        <div class="contact-item"><p><i class="fab fa-instagram"></i> Instagram</p><a href="https://instagram.com/velogourav" target="_blank" class="contact-link"><i class="fab fa-instagram"></i> @velogourav</a></div>
-        <div class="contact-item"><p><i class="fab fa-github"></i> GitHub</p><a href="https://github.com/pandit777" target="_blank" class="contact-link"><i class="fab fa-github"></i> pandit777</a></div>
+        <div class="contact-item">
+          <p><i class="fas fa-envelope"></i> Official Email</p>
+          <a href="mailto:igupyq@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i> igupyq@gmail.com
+          </a>
+        </div>
+        <div class="contact-item">
+          <p><i class="fas fa-headset"></i> Support Email</p>
+          <a href="mailto:igupyq.support@gmail.com" class="contact-link">
+            <i class="fas fa-headset"></i> igupyq.support@gmail.com
+          </a>
+        </div>
+        <div class="contact-item">
+          <p><i class="fab fa-instagram"></i> Instagram</p>
+          <a href="https://instagram.com/velogourav" target="_blank" class="contact-link">
+            <i class="fab fa-instagram"></i> @velogourav
+          </a>
+        </div>
+        <div class="contact-item">
+          <p><i class="fab fa-github"></i> GitHub</p>
+          <a href="https://github.com/pandit777" target="_blank" class="contact-link">
+            <i class="fab fa-github"></i> pandit777
+          </a>
+        </div>
       </div>
+      
       <div class="social-links">
-        <a href="mailto:igupyq@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
-        <a href="mailto:igupyq.support@gmail.com" class="social-link"><i class="fas fa-headset"></i></a>
-        <a href="https://instagram.com/velogourav" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
-        <a href="https://github.com/pandit777" target="_blank" class="social-link"><i class="fab fa-github"></i></a>
+        <a href="mailto:igupyq@gmail.com" class="social-link" title="Email"><i class="fas fa-envelope"></i></a>
+        <a href="mailto:igupyq.support@gmail.com" class="social-link" title="Support"><i class="fas fa-headset"></i></a>
+        <a href="https://instagram.com/velogourav" target="_blank" class="social-link" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://github.com/pandit777" target="_blank" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
       </div>
     </div>
 
+    <!-- Quick Contact Section for Mobile -->
     <div class="contact-card" id="quickContactMobile" style="display: none;">
       <h2 class="section-title">📱 Quick Contact</h2>
       <div class="quick-contact-grid">
-        <a href="mailto:igupyq@gmail.com" class="contact-link" style="flex-direction: column; padding: 1rem;"><i class="fas fa-envelope fa-2x"></i><span>Email</span></a>
-        <a href="mailto:igupyq.support@gmail.com" class="contact-link" style="flex-direction: column; padding: 1rem;"><i class="fas fa-headset fa-2x"></i><span>Support</span></a>
-        <a href="https://instagram.com/velogourav" target="_blank" class="contact-link" style="flex-direction: column; padding: 1rem;"><i class="fab fa-instagram fa-2x"></i><span>Instagram</span></a>
-        <a href="https://github.com/pandit777" target="_blank" class="contact-link" style="flex-direction: column; padding: 1rem;"><i class="fab fa-github fa-2x"></i><span>GitHub</span></a>
+        <a href="mailto:igupyq@gmail.com" class="contact-link" style="flex-direction: column; padding: 1rem;">
+          <i class="fas fa-envelope fa-2x"></i>
+          <span>Email</span>
+        </a>
+        <a href="mailto:igupyq.support@gmail.com" class="contact-link" style="flex-direction: column; padding: 1rem;">
+          <i class="fas fa-headset fa-2x"></i>
+          <span>Support</span>
+        </a>
+        <a href="https://instagram.com/velogourav" target="_blank" class="contact-link" style="flex-direction: column; padding: 1rem;">
+          <i class="fab fa-instagram fa-2x"></i>
+          <span>Instagram</span>
+        </a>
+        <a href="https://github.com/pandit777" target="_blank" class="contact-link" style="flex-direction: column; padding: 1rem;">
+          <i class="fab fa-github fa-2x"></i>
+          <span>GitHub</span>
+        </a>
       </div>
     </div>
   </main>
@@ -499,10 +623,16 @@
       <button class="close-btn" id="closeForm"><i class="fas fa-times"></i></button>
       <h2 class="section-title" style="font-size: 1.8rem;">📝 Contact Form</h2>
       <p class="description-text">Fill out the form below and we'll get back to you as soon as possible.</p>
-      <div id="formError" style="display: none;" class="error-message"></div>
+      <div id="formError" class="error-message"></div>
       <form id="contactForm">
-        <div class="form-group"><label>Full Name <span class="required-field">*</span></label><input type="text" id="name" name="name" placeholder="Enter your full name" required></div>
-        <div class="form-group"><label>Email Address <span class="required-field">*</span></label><input type="email" id="email" name="email" placeholder="Enter your email address" required></div>
+        <div class="form-group">
+          <label>Full Name <span class="required-field">*</span></label>
+          <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+        </div>
+        <div class="form-group">
+          <label>Email Address <span class="required-field">*</span></label>
+          <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+        </div>
         <div class="form-group">
           <label>University <span class="required-field">*</span></label>
           <select id="university" name="university" required>
@@ -519,8 +649,14 @@
             <option value="Other University">🎓 Other University</option>
           </select>
         </div>
-        <div class="form-group"><label>Course/Subject</label><input type="text" id="course" name="course" placeholder="e.g., B.Tech CSE, B.Com, M.A. English"></div>
-        <div class="form-group"><label>Your Message <span class="required-field">*</span></label><textarea id="message" name="message" rows="4" placeholder="Please describe your query in detail..." required></textarea></div>
+        <div class="form-group">
+          <label>Course/Subject</label>
+          <input type="text" id="course" name="course" placeholder="e.g., B.Tech CSE, B.Com, M.A. English">
+        </div>
+        <div class="form-group">
+          <label>Your Message <span class="required-field">*</span></label>
+          <textarea id="message" name="message" rows="4" placeholder="Please describe your query in detail..." required></textarea>
+        </div>
         <button type="submit" class="submit-btn" id="submitBtn">Send Message</button>
       </form>
     </div>
@@ -541,6 +677,7 @@
 
   <script>
     (function() {
+      // Theme Toggle
       const themeToggle = document.getElementById('themeToggle');
       const mobileThemeToggle = document.getElementById('mobileThemeToggle');
       const html = document.documentElement;
@@ -557,38 +694,41 @@
       themeToggle?.addEventListener('click', () => setTheme(html.getAttribute('data-theme') === 'light' ? 'dark' : 'light'));
       mobileThemeToggle?.addEventListener('click', () => setTheme(html.getAttribute('data-theme') === 'light' ? 'dark' : 'light'));
 
+      // Mobile Menu
       const menuBtn = document.getElementById('mobileMenuBtn');
       const mobileNav = document.getElementById('mobileNav');
       if (menuBtn && mobileNav) {
         menuBtn.addEventListener('click', function(e) {
           e.stopPropagation();
-          const isOpen = mobileNav.style.display === 'block';
-          mobileNav.style.display = isOpen ? 'none' : 'block';
-          const icon = menuBtn.querySelector('i');
-          if (icon) icon.className = isOpen ? 'fas fa-bars' : 'fas fa-times';
+          mobileNav.style.display = mobileNav.style.display === 'block' ? 'none' : 'block';
         });
         document.addEventListener('click', function(e) {
           if (mobileNav.style.display === 'block' && !mobileNav.contains(e.target) && !menuBtn.contains(e.target)) {
             mobileNav.style.display = 'none';
-            const icon = menuBtn.querySelector('i');
-            if (icon) icon.className = 'fas fa-bars';
           }
         });
       }
+
       function checkViewport() {
         if (window.innerWidth <= 768 && mobileNav) {
           mobileNav.style.display = 'none';
-          const icon = menuBtn?.querySelector('i');
-          if (icon) icon.className = 'fas fa-bars';
         }
       }
       checkViewport();
       window.addEventListener('resize', checkViewport);
 
+      // Show mobile quick contact on small screens
       const quickContactMobile = document.getElementById('quickContactMobile');
-      if (quickContactMobile && window.innerWidth <= 768) quickContactMobile.style.display = 'block';
-      window.addEventListener('resize', () => { if (quickContactMobile) quickContactMobile.style.display = window.innerWidth <= 768 ? 'block' : 'none'; });
+      if (quickContactMobile && window.innerWidth <= 768) {
+        quickContactMobile.style.display = 'block';
+      }
+      window.addEventListener('resize', () => {
+        if (quickContactMobile) {
+          quickContactMobile.style.display = window.innerWidth <= 768 ? 'block' : 'none';
+        }
+      });
 
+      // Form Modal
       const queryBtn = document.getElementById('queryBtn');
       const formOverlay = document.getElementById('formOverlay');
       const closeForm = document.getElementById('closeForm');
@@ -598,42 +738,96 @@
       const submitBtn = document.getElementById('submitBtn');
       const formError = document.getElementById('formError');
 
-      queryBtn?.addEventListener('click', () => { formOverlay.style.display = 'flex'; document.body.style.overflow = 'hidden'; });
-      closeForm?.addEventListener('click', () => { formOverlay.style.display = 'none'; document.body.style.overflow = 'auto'; formError.style.display = 'none'; });
-      formOverlay?.addEventListener('click', (e) => { if (e.target === formOverlay) { formOverlay.style.display = 'none'; document.body.style.overflow = 'auto'; formError.style.display = 'none'; } });
+      queryBtn?.addEventListener('click', () => {
+        formOverlay.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      });
 
-      function showError(message) { formError.textContent = message; formError.style.display = 'flex'; setTimeout(() => { formError.style.display = 'none'; }, 5000); }
-      function isValidEmail(email) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); }
+      closeForm?.addEventListener('click', () => {
+        formOverlay.style.display = 'none';
+        document.body.style.overflow = 'auto';
+        formError.style.display = 'none';
+      });
+
+      formOverlay?.addEventListener('click', (e) => {
+        if (e.target === formOverlay) {
+          formOverlay.style.display = 'none';
+          document.body.style.overflow = 'auto';
+          formError.style.display = 'none';
+        }
+      });
+
+      function showError(message) {
+        formError.textContent = message;
+        formError.style.display = 'block';
+        setTimeout(() => {
+          formError.style.display = 'none';
+        }, 5000);
+      }
+
+      function isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      }
 
       contactForm?.addEventListener('submit', async (e) => {
         e.preventDefault();
+        
         const name = document.getElementById('name').value.trim();
         const email = document.getElementById('email').value.trim();
         const university = document.getElementById('university').value;
         const course = document.getElementById('course').value.trim();
         const message = document.getElementById('message').value.trim();
 
-        if (!name || !email || !university || !message) return showError('Please fill all required fields');
-        if (!isValidEmail(email)) return showError('Please enter a valid email address');
+        if (!name || !email || !university || !message) {
+          showError('Please fill all required fields');
+          return;
+        }
+
+        if (!isValidEmail(email)) {
+          showError('Please enter a valid email address');
+          return;
+        }
 
         const formData = new FormData();
-        formData.append('name', name); formData.append('email', email); formData.append('university', university);
-        formData.append('course', course); formData.append('message', message);
+        formData.append('name', name);
+        formData.append('email', email);
+        formData.append('university', university);
+        formData.append('course', course);
+        formData.append('message', message);
         
-        submitBtn.disabled = true; submitBtn.textContent = 'Sending...';
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+
         try {
-          const response = await fetch('/submit_contact', { method: 'POST', body: formData });
+          const response = await fetch('/submit_contact', {
+            method: 'POST',
+            body: formData
+          });
+          
           const result = await response.json();
+          
           if (result.success) {
-            formOverlay.style.display = 'none'; successModal.style.display = 'flex';
-            document.body.style.overflow = 'auto'; contactForm.reset(); formError.style.display = 'none';
-          } else showError(result.message || 'There was an error sending your message.');
-        } catch (error) { showError('Network error. Please check your connection.'); }
-        finally { submitBtn.disabled = false; submitBtn.textContent = 'Send Message'; }
+            formOverlay.style.display = 'none';
+            successModal.style.display = 'flex';
+            document.body.style.overflow = 'auto';
+            contactForm.reset();
+            formError.style.display = 'none';
+          } else {
+            showError(result.message || 'Error sending message. Please try again.');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          showError('Network error. Please check your connection.');
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Send Message';
+        }
       });
 
-      continueBtn?.addEventListener('click', () => { successModal.style.display = 'none'; window.location.href = '/'; });
-      successModal?.addEventListener('click', (e) => { if (e.target === successModal) successModal.style.display = 'none'; });
+      continueBtn?.addEventListener('click', () => {
+        successModal.style.display = 'none';
+        window.location.href = '/';
+      });
     })();
   </script>
 </body>
