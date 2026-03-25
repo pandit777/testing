@@ -47,14 +47,14 @@ TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 print("=" * 50)
 print("Exam Saarthi - Telegram Bot Configuration")
 if TELEGRAM_BOT_TOKEN:
-    print(f"✅ Bot Token: {TELEGRAM_BOT_TOKEN[:10]}...")
+    print(f"[OK] Bot Token: {TELEGRAM_BOT_TOKEN[:10]}...")
 else:
-    print("❌ Bot Token: Not Found")
+    print("[ERROR] Bot Token: Not Found")
     
 if TELEGRAM_CHAT_ID:
-    print(f"✅ Chat ID: {TELEGRAM_CHAT_ID}")
+    print(f"[OK] Chat ID: {TELEGRAM_CHAT_ID}")
 else:
-    print("❌ Chat ID: Not Found")
+    print("[ERROR] Chat ID: Not Found")
 print("=" * 50)
 
 DB_FILE = "database.db"
@@ -120,21 +120,21 @@ def send_telegram_message(name, email, university, course, message):
         print("Telegram not configured")
         return False
     
-    # Format message with emojis
+    # Format message (without markdown to avoid issues)
     msg = f"""
-*📬 NEW CONTACT FORM SUBMISSION*
+*NEW CONTACT FORM SUBMISSION*
 
-👤 *Name:* {name}
-📧 *Email:* {email}
-🏛️ *University:* {university}
-📚 *Course:* {course if course else 'Not specified'}
+Name: {name}
+Email: {email}
+University: {university}
+Course: {course if course else 'Not specified'}
 
-💬 *Message:*
+Message:
 {message}
 
 ---
-⏰ *Time:* {__import__('datetime').datetime.now().strftime('%d-%m-%Y %H:%M:%S')}
-🌐 *Source:* Exam Saarthi Website
+Time: {__import__('datetime').datetime.now().strftime('%d-%m-%Y %H:%M:%S')}
+Source: Exam Saarthi Website
     """
     
     try:
@@ -180,10 +180,10 @@ def submit_contact():
         if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
             success = send_telegram_message(name, email, university, course, message)
             if success:
-                print(f"✅ Message sent to Telegram for {name}")
+                print(f"Message sent to Telegram for {name}")
                 return jsonify({"success": True, "message": "Message sent successfully! We'll get back to you soon."})
             else:
-                print(f"❌ Failed to send Telegram message for {name}")
+                print(f"Failed to send Telegram message for {name}")
                 return jsonify({"success": False, "message": "Failed to send message. Please try again."})
         else:
             # Log the message if Telegram not configured
@@ -529,18 +529,18 @@ def admin_logout():
 
 if __name__ == "__main__":
     print("=" * 50)
-    print("🚀 Exam Saarthi Server Starting...")
-    print(f"📁 Database: {DB_FILE}")
-    print(f"🔑 Admin Password: {'*' * len(app.config['ADMIN_PASSWORD'])}")
+    print("Exam Saarthi Server Starting...")
+    print(f"Database: {DB_FILE}")
+    print(f"Admin Password: {'*' * len(app.config['ADMIN_PASSWORD'])}")
     if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
-        print("🤖 Telegram Bot: Configured ✅")
-        print("📨 Messages will be sent to your Telegram")
+        print("Telegram Bot: Configured [OK]")
+        print("Messages will be sent to your Telegram")
     else:
-        print("🤖 Telegram Bot: Not Configured ❌")
+        print("Telegram Bot: Not Configured [X]")
         print("Add TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID to .env file")
     print("=" * 50)
-    print("🌐 Server running at: http://127.0.0.1:5000")
-    print("📞 Test Telegram: http://127.0.0.1:5000/test-telegram")
-    print("⏹️  Press Ctrl+C to stop the server")
+    print("Server running at: http://127.0.0.1:5000")
+    print("Test Telegram: http://127.0.0.1:5000/test-telegram")
+    print("Press Ctrl+C to stop the server")
     print("=" * 50)
     app.run(debug=True, host='0.0.0.0', port=5000)
