@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     /* ---------------------------------------------------------------------- */
-    /* ENHANCED COLOR VARIABLES - Same as Homepage */
+    /* COMPLETE COLOR SCHEME WITH DARK MODE SUPPORT */
     /* ---------------------------------------------------------------------- */
     :root {
       --primary-deep-blue: #0b1e4a;
@@ -39,8 +39,6 @@
       --footer-text: #ffffff;
       --marquee-text: #0b1e4a;
       --marquee-bg: linear-gradient(145deg, #fbbf24 0%, #f59e0b 100%);
-      --btn-login-bg: rgba(255,255,255,0.12);
-      --btn-login-hover: rgba(255,255,255,0.25);
     }
 
     [data-theme="dark"] {
@@ -63,20 +61,10 @@
       --footer-text: #e2e8f0;
       --marquee-text: #0b1e4a;
       --marquee-bg: linear-gradient(145deg, #fbbf24 0%, #d97706 100%);
-      --btn-login-bg: rgba(255,255,255,0.1);
-      --btn-login-hover: rgba(255,255,255,0.2);
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html { 
-      scroll-behavior: smooth; 
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       font-family: 'Inter', sans-serif;
       color: var(--text-main);
@@ -84,12 +72,11 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      overflow-x: hidden;
       transition: background 0.3s ease, color 0.2s ease;
     }
 
     /* ---------------------------------------------------------------------- */
-    /* ENHANCED HEADER & NAVIGATION - Same as Homepage */
+    /* ENHANCED HEADER & NAVIGATION - SAME AS ALL PAGES */
     /* ---------------------------------------------------------------------- */
     header {
       background: var(--gradient-primary);
@@ -98,7 +85,6 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      transition: all 0.3s ease;
       width: 100%;
     }
 
@@ -107,8 +93,6 @@
       align-items: center;
       justify-content: space-between;
       padding: 0.8rem 2rem;
-      position: relative;
-      z-index: 100;
       max-width: 1400px;
       margin: 0 auto;
     }
@@ -116,139 +100,72 @@
     .logo-area {
       display: flex;
       align-items: center;
-      cursor: pointer;
-      padding: 0.5rem 0;
       text-decoration: none;
       transition: transform 0.3s ease;
     }
-    .logo-area:hover {
-      transform: scale(1.02);
-    }
-
+    .logo-area:hover { transform: scale(1.02); }
     .logo-img {
       width: 50px;
       height: 50px;
       margin-right: 0.75rem;
       border-radius: 12px;
-      object-fit: contain;
-      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
       background: white;
       padding: 5px;
-      transition: all 0.3s ease;
     }
-    .logo-area:hover .logo-img {
-      transform: rotate(5deg);
-    }
-
     .header-title {
       font-size: 1.5rem;
       font-weight: 900;
-      letter-spacing: -0.5px;
       background: linear-gradient(135deg, #ffffff 0%, #ffeb3b 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
 
-    .desktop-nav { 
-      display: none; 
-      align-items: center;
-      gap: 8px;
-    }
-    .desktop-nav ul {
-      display: flex;
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      gap: 8px;
-      align-items: center;
-    }
+    .desktop-nav { display: none; align-items: center; gap: 8px; }
+    .desktop-nav ul { display: flex; list-style: none; gap: 8px; }
     .desktop-nav ul li a {
       color: white;
       text-decoration: none;
       font-weight: 600;
       padding: 10px 20px;
       border-radius: 50px;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      border: 1px solid transparent;
-      position: relative;
-      overflow: hidden;
-    }
-    .desktop-nav ul li a::before {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      width: 0;
-      height: 2px;
-      background: var(--accent-bright-yellow);
-      transition: all 0.3s ease;
-      transform: translateX(-50%);
-    }
-    .desktop-nav ul li a:hover::before {
-      width: 70%;
+      transition: all 0.3s;
     }
     .desktop-nav ul li a:hover {
-      background-color: rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.1);
       color: var(--accent-bright-yellow);
-      transform: translateY(-2px);
     }
     .active-nav-link {
-      background-color: rgba(255,255,255,0.15) !important;
+      background: rgba(255,255,255,0.15) !important;
       color: var(--accent-bright-yellow) !important;
       border: 1px solid rgba(255,255,255,0.3) !important;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
     }
 
     .login-btn {
       background: linear-gradient(135deg, var(--accent-bright-yellow), var(--accent-deep-gold));
-      border: none;
       color: #0b1e4a;
       padding: 10px 24px;
       border-radius: 50px;
       font-weight: 700;
-      transition: all 0.3s ease;
-      font-size: 0.95rem;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
     }
-    .login-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(251, 191, 36, 0.5);
-    }
-
     .user-info {
       background: rgba(255,255,255,0.15);
-      backdrop-filter: blur(10px);
       padding: 6px 20px;
       border-radius: 50px;
       display: flex;
       align-items: center;
       gap: 12px;
-      border: 1px solid rgba(255,255,255,0.2);
-    }
-    .user-info i {
-      font-size: 1.2rem;
-      color: var(--accent-bright-yellow);
     }
     .logout-btn {
       background: rgba(255,255,255,0.2);
-      border: 1px solid rgba(255,255,255,0.3);
       color: white;
       padding: 6px 14px;
       border-radius: 40px;
       text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 600;
     }
-    .logout-btn:hover {
-      background: rgba(255,255,255,0.35);
-    }
-
     .theme-toggle {
       background: rgba(255,255,255,0.15);
       border: 1px solid rgba(255,255,255,0.3);
@@ -261,14 +178,7 @@
       justify-content: center;
       cursor: pointer;
       margin-left: 12px;
-      transition: all 0.3s ease;
-      font-size: 1.2rem;
     }
-    .theme-toggle:hover {
-      background: rgba(255,255,255,0.3);
-      transform: rotate(20deg) scale(1.1);
-    }
-
     .mobile-menu-btn {
       display: block;
       background: rgba(255,255,255,0.15);
@@ -278,150 +188,36 @@
       cursor: pointer;
       border-radius: 50px;
       padding: 10px 18px;
-      transition: all 0.3s ease;
     }
-    .mobile-menu-btn:hover {
-      background: rgba(255,255,255,0.25);
-      transform: scale(1.05);
-    }
-
     .mobile-nav {
       display: none;
       background: var(--gradient-primary);
       padding: 1rem;
-      box-shadow: var(--shadow-strong);
       width: 100%;
       position: absolute;
       top: 100%;
       left: 0;
       z-index: 99;
-      animation: slideDown 0.3s ease-out;
-      box-sizing: border-box;
-    }
-    @keyframes slideDown {
-      from { opacity: 0; transform: translateY(-15px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .mobile-nav ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    .mobile-nav ul li {
-      margin: 10px 0;
     }
     .mobile-nav ul li a {
       color: white;
-      text-decoration: none;
       display: block;
       padding: 12px 20px;
       border-radius: 50px;
-      transition: all 0.3s ease;
-      font-weight: 600;
       text-align: center;
     }
-    .mobile-nav ul li a:hover {
-      background-color: rgba(255,255,255,0.15);
-    }
-
-    .mobile-user-info {
-      text-align: center;
-      padding: 15px;
-      background: rgba(255,255,255,0.1);
-      border-radius: 50px;
-      margin: 10px 0;
-    }
-    .mobile-login-btn {
-      background: var(--accent-bright-yellow);
-      color: #0b1e4a;
-      padding: 12px;
-      border-radius: 50px;
-      text-align: center;
-      text-decoration: none;
-      display: block;
-      font-weight: 700;
-    }
-
-    .mobile-theme-toggle {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 15px 20px;
-      color: white;
-      border-top: 1px solid rgba(255,255,255,0.2);
-      margin-top: 15px;
-    }
-    .mobile-theme-toggle button {
-      background: rgba(255,255,255,0.2);
-      border: 1px solid white;
-      color: white;
-      border-radius: 40px;
-      padding: 8px 20px;
-      cursor: pointer;
-      font-weight: 600;
-    }
-
-    marquee {
-      background: var(--marquee-bg);
-      color: var(--marquee-text);
-      padding: 12px 0;
-      font-weight: 700;
-      font-size: 0.95rem;
-      width: 100%;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    footer {
-      margin-top: auto;
-      background: var(--gradient-primary);
-      color: var(--footer-text);
-      text-align: center;
-      padding: 1.75rem;
-      width: 100%;
-      font-weight: 500;
-      box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.2);
-      position: relative;
-    }
-    footer:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: var(--gradient-accent);
-    }
-
-    .flash-messages {
-      max-width: 1200px;
-      margin: 1rem auto;
-      padding: 0 1.2rem;
-    }
-    .alert {
-      padding: 1rem;
-      border-radius: 12px;
-      margin-bottom: 1rem;
-      animation: fadeIn 0.5s ease-out;
-    }
-    .alert-success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
-    .alert-danger { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
-    .alert-warning { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .content-section { animation: fadeIn 0.7s ease-out; }
-
-    main {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 1.2rem;
-      flex: 1;
-      width: 100%;
-      box-sizing: border-box;
-    }
+    .mobile-user-info { text-align: center; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 50px; margin: 10px 0; }
+    .mobile-login-btn { background: var(--accent-bright-yellow); color: #0b1e4a; padding: 12px; border-radius: 50px; text-align: center; display: block; font-weight: 700; }
+    .mobile-theme-toggle { display: flex; justify-content: space-between; padding: 15px 20px; color: white; border-top: 1px solid rgba(255,255,255,0.2); }
+    marquee { background: var(--marquee-bg); color: var(--marquee-text); padding: 12px 0; font-weight: 700; }
+    footer { margin-top: auto; background: var(--gradient-primary); color: var(--footer-text); text-align: center; padding: 1.75rem; position: relative; }
+    footer:before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--gradient-accent); }
+    .flash-messages { max-width: 1200px; margin: 1rem auto; padding: 0 1.2rem; }
+    .alert { padding: 1rem; border-radius: 12px; margin-bottom: 1rem; }
+    .alert-success { background: #d4edda; color: #155724; }
+    .alert-danger { background: #f8d7da; color: #721c24; }
+    .alert-warning { background: #fff3cd; color: #856404; }
+    main { max-width: 1200px; margin: 0 auto; padding: 1.2rem; flex: 1; }
 
     /* IGU Specific Styles */
     .uni-header-card {
@@ -437,8 +233,12 @@
       position: relative;
       overflow: hidden;
       border: 2px solid rgba(251, 191, 36, 0.2);
+      transition: all 0.4s ease;
     }
-    
+    .uni-header-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-strong);
+    }
     .uni-header-card::after {
       content: "🏛️";
       position: absolute;
@@ -462,22 +262,18 @@
       transition: transform 0.4s ease;
       max-width: 140px;
     }
-    
     .uni-logo-container:hover {
       transform: scale(1.05) rotate(2deg);
     }
-    
     .uni-logo {
       width: 120px;
       height: auto;
       object-fit: contain;
       border-radius: 20px;
     }
-    
     .uni-header-info {
       flex: 1;
     }
-    
     .uni-header-info h1 {
       font-size: 2.4rem;
       font-weight: 900;
@@ -485,7 +281,6 @@
       margin-bottom: 0.5rem;
       line-height: 1.2;
     }
-    
     .uni-location-badge {
       display: inline-block;
       background: var(--gradient-accent);
@@ -497,18 +292,15 @@
       margin: 0.8rem 0;
       box-shadow: 0 4px 10px rgba(251,191,36,0.3);
     }
-    
     [data-theme="dark"] .uni-location-badge {
       color: #0f172a;
     }
-    
     .uni-meta-stats {
       display: flex;
       gap: 1.5rem;
       margin-top: 1rem;
       flex-wrap: wrap;
     }
-    
     .uni-stat {
       display: flex;
       align-items: center;
@@ -519,7 +311,6 @@
       box-shadow: var(--shadow-soft);
       border: 1px solid rgba(251,191,36,0.2);
     }
-    
     .uni-stat i {
       color: var(--accent-deep-gold);
       font-size: 1.2rem;
@@ -531,7 +322,6 @@
       gap: 1.5rem;
       margin: 2.5rem 0 4rem;
     }
-    
     .course-card {
       background: var(--gradient-card-light);
       border-radius: 30px;
@@ -548,7 +338,6 @@
       text-decoration: none;
       color: inherit;
     }
-    
     .course-card:before {
       content: '';
       position: absolute;
@@ -558,31 +347,26 @@
       height: 100%;
       background: var(--gradient-accent);
     }
-    
     .course-card:hover {
       transform: translateY(-8px) scale(1.01);
       box-shadow: var(--shadow-strong);
       border-color: rgba(251, 191, 36, 0.4);
     }
-    
     .course-icon {
       font-size: 2.8rem;
       min-width: 60px;
       text-align: center;
       filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
     }
-    
     .course-info {
       flex: 1;
     }
-    
     .course-name {
       font-size: 1.5rem;
       font-weight: 800;
       color: var(--text-main);
       margin-bottom: 0.25rem;
     }
-    
     .course-meta {
       display: flex;
       gap: 1.5rem;
@@ -592,7 +376,6 @@
       align-items: center;
       flex-wrap: wrap;
     }
-    
     .course-badge {
       background: var(--gradient-accent);
       color: #0b1e4a;
@@ -602,11 +385,9 @@
       font-size: 0.8rem;
       white-space: nowrap;
     }
-    
     [data-theme="dark"] .course-badge {
       color: #0f172a;
     }
-    
     .section-header {
       display: flex;
       align-items: center;
@@ -615,18 +396,15 @@
       flex-wrap: wrap;
       gap: 1rem;
     }
-    
     .section-header h2 {
       font-size: 1.8rem;
       font-weight: 800;
       color: var(--text-main);
     }
-    
     .section-header h2 i {
       color: var(--accent-deep-gold);
       margin-right: 0.75rem;
     }
-    
     .course-count {
       background: var(--gradient-primary);
       color: white;
@@ -634,15 +412,13 @@
       border-radius: 40px;
       font-weight: 600;
     }
-    
+
     @media (min-width: 640px) {
       .course-grid { grid-template-columns: repeat(2, 1fr); }
     }
-    
     @media (min-width: 1024px) {
       .course-grid { grid-template-columns: repeat(3, 1fr); }
     }
-    
     @media (min-width: 768px) {
       .header-content { padding: 0.8rem 2.5rem; }
       .logo-img { width: 55px; height: 55px; }
@@ -650,11 +426,9 @@
       .desktop-nav { display: flex; }
       .mobile-menu-btn { display: none; }
     }
-    
     @media (max-width: 767px) {
       .desktop-nav { display: none !important; }
     }
-    
     @media (max-width: 640px) {
       .uni-header-card { 
         flex-direction: column; 
@@ -678,10 +452,10 @@
       .course-name {
         font-size: 1.3rem;
       }
-      .header-title { font-size: 1.2rem; }
+      .header-content { padding: 0.8rem 1rem; }
       .logo-img { width: 45px; height: 45px; }
+      .header-title { font-size: 1.2rem; }
     }
-    
     @media (max-width: 480px) {
       .uni-stat {
         width: 100%;
@@ -697,7 +471,7 @@
   <header>
     <div class="header-content">
       <a href="/" class="logo-area">
-        <img src="https://examsaarthi.com/logo.png" alt="Exam Saarthi Logo" class="logo-img" onerror="this.src='https://via.placeholder.com/55/0b1e4a/ffffff?text=ES'">
+        <img src="https://examsaarthi.com/logo.png" alt="Exam Saarthi Logo" class="logo-img" onerror="this.src='https://via.placeholder.com/50/0b1e4a/ffffff?text=ES'">
         <h1 class="header-title">Exam Saarthi</h1>
       </a>
       <nav class="desktop-nav">
@@ -711,18 +485,14 @@
           <div class="user-info">
             <i class="fas fa-user-circle"></i>
             <span>Welcome, {{ user }}!</span>
-            <a href="/logout" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            <a href="/logout" class="logout-btn">Logout</a>
           </div>
         {% else %}
-          <a href="/login" class="login-btn"><i class="fas fa-sign-in-alt"></i> Login</a>
+          <a href="/login" class="login-btn">Login</a>
         {% endif %}
-        <div class="theme-toggle" id="themeToggle">
-          <i class="fas fa-moon"></i>
-        </div>
+        <div class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></div>
       </nav>
-      <button class="mobile-menu-btn" id="mobileMenuBtn">
-        <i class="fas fa-bars"></i>
-      </button>
+      <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
     </div>
     <marquee behavior="scroll" direction="left" scrollamount="6">
       <i class="fas fa-bullhorn"></i> 📚 Indira Gandhi University (IGU) Previous Year Papers — B.Tech, BCA, BBA, M.Sc & more! Free Download Available.
@@ -735,19 +505,11 @@
         <li><a href="/contact">Contact</a></li>
       </ul>
       {% if user %}
-        <div class="mobile-user-info">
-          <i class="fas fa-user-circle"></i> {{ user }}
-          <a href="/logout" class="logout-btn" style="display: block; margin-top: 10px;"><i class="fas fa-sign-out-alt"></i> Logout</a>
-        </div>
+        <div class="mobile-user-info">{{ user }}<a href="/logout" style="display:block; margin-top:10px; background:rgba(255,255,255,0.2); padding:8px; border-radius:40px;">Logout</a></div>
       {% else %}
-        <div style="padding: 15px;">
-          <a href="/login" class="mobile-login-btn"><i class="fas fa-sign-in-alt"></i> Login</a>
-        </div>
+        <div style="padding:15px;"><a href="/login" class="mobile-login-btn">Login</a></div>
       {% endif %}
-      <div class="mobile-theme-toggle">
-        <span>🌓 Dark Mode</span>
-        <button id="mobileThemeToggle">Switch</button>
-      </div>
+      <div class="mobile-theme-toggle"><span>Dark Mode</span><button id="mobileThemeToggle">Switch</button></div>
     </div>
   </header>
 
@@ -755,10 +517,7 @@
     {% if messages %}
       <div class="flash-messages">
         {% for category, message in messages %}
-          <div class="alert alert-{{ category }}">
-            <i class="fas fa-{% if category == 'success' %}check-circle{% elif category == 'danger' %}exclamation-circle{% else %}info-circle{% endif %} me-2"></i>
-            {{ message }}
-          </div>
+          <div class="alert alert-{{ category }}">{{ message }}</div>
         {% endfor %}
       </div>
     {% endif %}
@@ -819,37 +578,22 @@
         if (icon) icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
         if (mobileThemeToggle) mobileThemeToggle.textContent = theme === 'dark' ? 'Light' : 'Dark';
       }
-
       const saved = localStorage.getItem('theme') || 'light';
       setTheme(saved);
-
-      themeToggle?.addEventListener('click', () => {
-        const current = html.getAttribute('data-theme');
-        setTheme(current === 'light' ? 'dark' : 'light');
-      });
-      mobileThemeToggle?.addEventListener('click', () => {
-        const current = html.getAttribute('data-theme');
-        setTheme(current === 'light' ? 'dark' : 'light');
-      });
+      themeToggle?.addEventListener('click', () => setTheme(html.getAttribute('data-theme') === 'light' ? 'dark' : 'light'));
+      mobileThemeToggle?.addEventListener('click', () => setTheme(html.getAttribute('data-theme') === 'light' ? 'dark' : 'light'));
 
       // Mobile Menu
       const menuBtn = document.getElementById('mobileMenuBtn');
       const mobileNav = document.getElementById('mobileNav');
-      
       if (menuBtn && mobileNav) {
         menuBtn.addEventListener('click', function(e) {
           e.stopPropagation();
-          const isOpen = mobileNav.style.display === 'block';
-          mobileNav.style.display = isOpen ? 'none' : 'block';
-          const icon = menuBtn.querySelector('i');
-          if (icon) icon.className = isOpen ? 'fas fa-bars' : 'fas fa-times';
+          mobileNav.style.display = mobileNav.style.display === 'block' ? 'none' : 'block';
         });
-
         document.addEventListener('click', function(e) {
           if (mobileNav.style.display === 'block' && !mobileNav.contains(e.target) && !menuBtn.contains(e.target)) {
             mobileNav.style.display = 'none';
-            const icon = menuBtn.querySelector('i');
-            if (icon) icon.className = 'fas fa-bars';
           }
         });
       }
@@ -857,8 +601,6 @@
       function checkViewport() {
         if (window.innerWidth <= 768 && mobileNav) {
           mobileNav.style.display = 'none';
-          const icon = menuBtn?.querySelector('i');
-          if (icon) icon.className = 'fas fa-bars';
         }
       }
       checkViewport();
@@ -875,11 +617,7 @@
         { name: "BA (Bachelor of Arts)", icon: "🎭", years: "2018-2025", page: "/igu-ba" },
         { name: "MA (Master of Arts)", icon: "📖", years: "2019-2025", page: "/igu-ma" }, 
         { name: "B.Com (Bachelor of Commerce)", icon: "🧾", years: "2018-2025", page: "/igu-bcom" },
-        { name: "M.Com (Master of Commerce)", icon: "📋", years: "2019-2025", page: "/igu-mcom" },
-        { name: "B.Ed (Bachelor of Education)", icon: "📚", years: "2019-2025", page: "/igu-bed" },
-        { name: "LLB (Bachelor of Laws)", icon: "⚖️", years: "2019-2025", page: "/igu-llb" },
-        { name: "MCA (Master of Computer Applications)", icon: "💻", years: "2020-2025", page: "/igu-mca" },
-        { name: "MBA (Master of Business Administration)", icon: "📈", years: "2019-2025", page: "/igu-mba" }
+        { name: "M.Com (Master of Commerce)", icon: "📋", years: "2019-2025", page: "/igu-mcom" }
       ];
 
       function renderCourses() {
@@ -902,9 +640,6 @@
           `;
         });
         container.innerHTML = html;
-        
-        // Add click handlers for login check if needed (optional)
-        // The href already handles navigation, so no extra handlers needed
       }
 
       renderCourses();
