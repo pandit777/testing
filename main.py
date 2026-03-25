@@ -157,9 +157,8 @@ Source: Exam Saarthi Website
 
 # ============ CONTACT FORM HANDLER ============
 @app.route("/submit_contact", methods=["POST"])
-@login_required  # Contact form submission also requires login
 def submit_contact():
-    """Handle contact form submission and send to Telegram"""
+    """Handle contact form submission - PUBLIC (so anyone can contact)"""
     try:
         name = request.form.get("name", "").strip()
         email = request.form.get("email", "").strip()
@@ -197,22 +196,7 @@ def submit_contact():
         print(f"Error in contact form: {e}")
         return jsonify({"success": False, "message": "An error occurred. Please try again."})
 
-# ============ TEST TELEGRAM ROUTE ============
-@app.route("/test-telegram")
-@login_required  # Test route also requires login
-def test_telegram():
-    """Test Telegram bot connection"""
-    if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
-        return jsonify({"success": False, "message": "Telegram not configured"})
-    
-    test_msg = send_telegram_message("Test User", "test@example.com", "Test University", "Test Course", "This is a test message from Exam Saarthi")
-    
-    if test_msg:
-        return jsonify({"success": True, "message": "Test message sent to Telegram!"})
-    else:
-        return jsonify({"success": False, "message": "Failed to send test message"})
-
-# ============ MAIN ROUTES (ALL PROTECTED) ============
+# ============ MAIN ROUTES ============
 
 @app.route("/")
 @login_required
@@ -304,25 +288,25 @@ def logout():
     flash("Logged out successfully ✅", "success")
     return redirect(url_for("login"))
 
-# ============ PROTECTED ROUTES (ALL PAGES) ============
+# ============ PUBLIC ROUTES (No Login Required) ============
+
+@app.route("/about")
+def about():
+    """About page - PUBLIC (no login required)"""
+    return render_template("about.html", user=session.get('fullname'))
+
+@app.route("/contact")
+def contact():
+    """Contact page - PUBLIC (no login required)"""
+    return render_template("contact.html", user=session.get('fullname'))
+
+# ============ PROTECTED ROUTES (Login Required) ============
 
 @app.route("/university")
 @login_required
 def university():
     """Universities page - requires login"""
     return render_template("university.html", user=session.get('fullname'))
-
-@app.route("/about")
-@login_required
-def about():
-    """About page - requires login"""
-    return render_template("about.html", user=session.get('fullname'))
-
-@app.route("/contact")
-@login_required
-def contact():
-    """Contact page - requires login"""
-    return render_template("contact.html", user=session.get('fullname'))
 
 # ============ IGU UNIVERSITY ROUTES (ALL PROTECTED) ============
 
@@ -514,12 +498,11 @@ def bangalore():
     """Bangalore University Page - requires login"""
     return render_template("bangalore.html", user=session.get('fullname'))
 
-# ============ API ENDPOINTS (PROTECTED) ============
+# ============ API ENDPOINTS ============
 
 @app.route("/check_session")
-@login_required
 def check_session():
-    """Check if user is logged in (for AJAX calls)"""
+    """Check if user is logged in (for AJAX calls) - PUBLIC"""
     if 'user_id' in session:
         return jsonify({
             'logged_in': True,
@@ -626,11 +609,11 @@ if __name__ == "__main__":
     print("ACCESS RULES:")
     print("- Home Page: Login Required")
     print("- Universities: Login Required")
-    print("- About: Login Required")
-    print("- Contact: Login Required")
     print("- IGU Pages: Login Required")
     print("- All University Pages: Login Required")
-    print("- Register: Public (so new users can sign up)")
+    print("- About: Public (No Login Required)")
+    print("- Contact: Public (No Login Required)")
+    print("- Register: Public")
     print("- Login: Public")
     print("=" * 50)
     print("Server running at: http://127.0.0.1:5000")
