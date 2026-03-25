@@ -40,20 +40,22 @@ if not admin_password:
     
 app.config["ADMIN_PASSWORD"] = admin_password
 
-# ============ WEB3FORMS API KEY ============
-web3forms_key = os.getenv("WEB3FORMS_ACCESS_KEY")
-if not web3forms_key:
-    web3forms_key = ""
-    print("=" * 50)
-    print("WARNING: No WEB3FORMS_ACCESS_KEY found in .env file!")
-    print("Contact form will not work without it.")
-    print("Get your free key from: https://web3forms.com/")
-    print("Add WEB3FORMS_ACCESS_KEY=your-key-here to .env file")
-    print("=" * 50)
+# ============ TELEGRAM BOT CONFIGURATION ============
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
+
+print("=" * 50)
+print("Exam Saarthi - Telegram Bot Configuration")
+if TELEGRAM_BOT_TOKEN:
+    print(f"✅ Bot Token: {TELEGRAM_BOT_TOKEN[:10]}...")
 else:
-    print("=" * 50)
-    print(f"Web3Forms API Key loaded successfully")
-    print("=" * 50)
+    print("❌ Bot Token: Not Found")
+    
+if TELEGRAM_CHAT_ID:
+    print(f"✅ Chat ID: {TELEGRAM_CHAT_ID}")
+else:
+    print("❌ Chat ID: Not Found")
+print("=" * 50)
 
 DB_FILE = "database.db"
 
@@ -110,6 +112,105 @@ def login_required(f):
 
 # Initialize DB
 init_db()
+
+# ============ TELEGRAM MESSAGE FUNCTION ============
+def send_telegram_message(name, email, university, course, message):
+    """Send message to Telegram"""
+    if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
+        print("Telegram not configured")
+        return False
+    
+    # Format message with emojis
+    msg = f"""
+*📬 NEW CONTACT FORM SUBMISSION*
+
+👤 *Name:* {name}
+📧 *Email:* {email}
+🏛️ *University:* {university}
+📚 *Course:* {course if course else 'Not specified'}
+
+💬 *Message:*
+{message}
+
+---
+⏰ *Time:* {__import__('datetime').datetime.now().strftime('%d-%m-%Y %H:%M:%S')}
+🌐 *Source:* Exam Saarthi Website
+    """
+    
+    try:
+        url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+        payload = {
+            "chat_id": TELEGRAM_CHAT_ID,
+            "text": msg,
+            "parse_mode": "Markdown"
+        }
+        response = requests.post(url, data=payload, timeout=10)
+        
+        if response.status_code == 200:
+            print(f"Telegram message sent successfully for {name}")
+            return True
+        else:
+            print(f"Telegram error: {response.text}")
+            return False
+    except Exception as e:
+        print(f"Telegram error: {e}")
+        return False
+
+# ============ CONTACT FORM HANDLER ============
+@app.route("/submit_contact", methods=["POST"])
+def submit_contact():
+    """Handle contact form submission and send to Telegram"""
+    try:
+        name = request.form.get("name", "").strip()
+        email = request.form.get("email", "").strip()
+        university = request.form.get("university", "").strip()
+        course = request.form.get("course", "").strip()
+        message = request.form.get("message", "").strip()
+
+        # Validation
+        if not name or not email or not university or not message:
+            return jsonify({"success": False, "message": "Please fill all required fields"})
+
+        # Email validation
+        email_pattern = r'^[^\s@]+@[^\s@]+\.[^\s@]+$'
+        if not re.match(email_pattern, email):
+            return jsonify({"success": False, "message": "Please enter a valid email address"})
+
+        # Send to Telegram
+        if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
+            success = send_telegram_message(name, email, university, course, message)
+            if success:
+                print(f"✅ Message sent to Telegram for {name}")
+                return jsonify({"success": True, "message": "Message sent successfully! We'll get back to you soon."})
+            else:
+                print(f"❌ Failed to send Telegram message for {name}")
+                return jsonify({"success": False, "message": "Failed to send message. Please try again."})
+        else:
+            # Log the message if Telegram not configured
+            print(f"Contact Form Submission (Telegram not configured):")
+            print(f"Name: {name}")
+            print(f"Email: {email}")
+            print(f"University: {university}")
+            print(f"Message: {message}")
+            return jsonify({"success": True, "message": "Message received! (Demo mode - Telegram not configured)"})
+
+    except Exception as e:
+        print(f"Error in contact form: {e}")
+        return jsonify({"success": False, "message": "An error occurred. Please try again."})
+
+# ============ TEST TELEGRAM ROUTE ============
+@app.route("/test-telegram")
+def test_telegram():
+    """Test Telegram bot connection"""
+    if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
+        return jsonify({"success": False, "message": "Telegram not configured"})
+    
+    test_msg = send_telegram_message("Test User", "test@example.com", "Test University", "Test Course", "This is a test message from Exam Saarthi")
+    
+    if test_msg:
+        return jsonify({"success": True, "message": "Test message sent to Telegram!"})
+    else:
+        return jsonify({"success": False, "message": "Failed to send test message"})
 
 # ============ MAIN ROUTES ============
 
@@ -197,58 +298,6 @@ def logout():
     session.clear()
     flash("Logged out successfully ✅", "success")
     return redirect(url_for("home"))
-
-# ============ CONTACT FORM HANDLER (BACKEND) ============
-
-@app.route("/submit_contact", methods=["POST"])
-def submit_contact():
-    """Handle contact form submission via backend - API key hidden"""
-    try:
-        name = request.form.get("name", "").strip()
-        email = request.form.get("email", "").strip()
-        university = request.form.get("university", "").strip()
-        course = request.form.get("course", "").strip()
-        message = request.form.get("message", "").strip()
-
-        # Validation
-        if not name or not email or not university or not message:
-            return jsonify({"success": False, "message": "Please fill all required fields"})
-
-        # Email validation
-        email_pattern = r'^[^\s@]+@[^\s@]+\.[^\s@]+$'
-        if not re.match(email_pattern, email):
-            return jsonify({"success": False, "message": "Please enter a valid email address"})
-
-        # Check if Web3Forms key is configured
-        if not web3forms_key:
-            return jsonify({"success": False, "message": "Contact form is not configured. Please contact administrator."})
-
-        # Send to Web3Forms API
-        form_data = {
-            "access_key": web3forms_key,
-            "name": name,
-            "email": email,
-            "university": university,
-            "course": course,
-            "message": message,
-            "subject": f"Query from {name} - {university}"
-        }
-
-        response = requests.post("https://api.web3forms.com/submit", data=form_data, timeout=30)
-        result = response.json()
-
-        if result.get("success"):
-            return jsonify({"success": True, "message": "Message sent successfully!"})
-        else:
-            return jsonify({"success": False, "message": result.get("message", "Failed to send message")})
-
-    except requests.exceptions.Timeout:
-        return jsonify({"success": False, "message": "Request timeout. Please try again."})
-    except requests.exceptions.ConnectionError:
-        return jsonify({"success": False, "message": "Network error. Please check your connection."})
-    except Exception as e:
-        print(f"Error in contact form: {e}")
-        return jsonify({"success": False, "message": "An error occurred. Please try again."})
 
 # ============ PROTECTED ROUTES ============
 
@@ -393,18 +442,6 @@ def ignou():
 def bangalore():
     return render_template("bangalore.html", user=session.get('fullname'))
 
-@app.route("/madras")
-def madras():
-    return render_template("madras.html", user=session.get('fullname'))
-
-@app.route("/kerala")
-def kerala():
-    return render_template("kerala.html", user=session.get('fullname'))
-
-@app.route("/andhra")
-def andhra():
-    return render_template("andhra.html", user=session.get('fullname'))
-
 # ============ API ENDPOINTS ============
 
 @app.route("/check_session")
@@ -492,15 +529,18 @@ def admin_logout():
 
 if __name__ == "__main__":
     print("=" * 50)
-    print("Exam Saarthi Server Starting...")
-    print(f"Database: {DB_FILE}")
-    print(f"Admin Password: {'*' * len(app.config['ADMIN_PASSWORD'])}")
-    if web3forms_key:
-        print("Web3Forms API Key: Loaded (Hidden from frontend)")
+    print("🚀 Exam Saarthi Server Starting...")
+    print(f"📁 Database: {DB_FILE}")
+    print(f"🔑 Admin Password: {'*' * len(app.config['ADMIN_PASSWORD'])}")
+    if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
+        print("🤖 Telegram Bot: Configured ✅")
+        print("📨 Messages will be sent to your Telegram")
     else:
-        print("Web3Forms API Key: Not Found")
+        print("🤖 Telegram Bot: Not Configured ❌")
+        print("Add TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID to .env file")
     print("=" * 50)
-    print("Server running at: http://127.0.0.1:5000")
-    print("Press Ctrl+C to stop the server")
+    print("🌐 Server running at: http://127.0.0.1:5000")
+    print("📞 Test Telegram: http://127.0.0.1:5000/test-telegram")
+    print("⏹️  Press Ctrl+C to stop the server")
     print("=" * 50)
     app.run(debug=True, host='0.0.0.0', port=5000)
