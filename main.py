@@ -285,7 +285,7 @@ def logout():
     """User logout - PUBLIC"""
     session.clear()
     flash("Logged out successfully ✅", "success")
-    return redirect(url_for("login"))
+    return redirect(url_for("/"))
 
 # ============ PUBLIC ROUTES (No Login Required) ============
 
@@ -556,7 +556,6 @@ def admin():
     return render_template("admin_login.html")
 
 @app.route("/admin/panel")
-@login_required
 def admin_panel():
     """Admin panel - requires both admin login and user login"""
     if not session.get("admin_logged_in"):
