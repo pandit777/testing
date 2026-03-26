@@ -10,10 +10,6 @@ import requests
 import re
 import random
 import string
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-import ssl
 
 load_dotenv()
 
@@ -46,23 +42,12 @@ if not admin_password:
     
 app.config["ADMIN_PASSWORD"] = admin_password
 
-# ============ EMAIL CONFIGURATION ============
-EMAIL_USER = os.getenv("EMAIL_USER")
-EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
-
-print("=" * 50)
-print("Exam Saarthi - Configuration")
-if EMAIL_USER and EMAIL_PASSWORD:
-    print(f"[OK] Email: {EMAIL_USER}")
-else:
-    print("[WARNING] Email not configured. Forgot password will not work.")
-    print("Add EMAIL_USER and EMAIL_PASSWORD to .env file")
-    print("Get App Password from: https://myaccount.google.com/apppasswords")
-
 # ============ TELEGRAM BOT CONFIGURATION ============
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
+print("=" * 50)
+print("Exam Saarthi - Telegram Bot Configuration")
 if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
     print(f"[OK] Telegram Bot: Configured")
 else:
@@ -142,7 +127,7 @@ def no_cache(f):
         return response
     return decorated_function
 
-# Login required decorator
+# Login required decorator (only for protected pages)
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -152,88 +137,18 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
+# Admin login required decorator
+def admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not session.get('admin_logged_in'):
+            flash('Please login as admin first', 'danger')
+            return redirect(url_for('admin'))
+        return f(*args, **kwargs)
+    return decorated_function
+
 # Initialize DB
 init_db()
-
-# ============ EMAIL SENDING FUNCTION ============
-def send_reset_email(to_email, token):
-    """Send password reset email with token"""
-    if not EMAIL_USER or not EMAIL_PASSWORD:
-        print("Email not configured")
-        return False
-    
-    try:
-        # Create message
-        msg = MIMEMultipart()
-        msg['From'] = EMAIL_USER
-        msg['To'] = to_email
-        msg['Subject'] = "Exam Saarthi - Password Reset Request"
-        
-        # Email body
-        body = f"""
-        <html>
-        <head>
-            <style>
-                body {{ font-family: Arial, sans-serif; line-height: 1.6; color: #333; }}
-                .container {{ max-width: 600px; margin: 0 auto; padding: 20px; }}
-                .header {{ background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; text-align: center; border-radius: 10px 10px 0 0; }}
-                .content {{ background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; }}
-                .token {{ background: #e3f2fd; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 20px; text-align: center; margin: 20px 0; letter-spacing: 2px; }}
-                .btn {{ background: #667eea; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block; }}
-                .footer {{ text-align: center; margin-top: 20px; font-size: 12px; color: #999; }}
-            </style>
-        </head>
-        <body>
-            <div class="container">
-                <div class="header">
-                    <h2>Exam Saarthi</h2>
-                    <p>Password Reset Request</p>
-                </div>
-                <div class="content">
-                    <p>Hello,</p>
-                    <p>We received a request to reset your password for your Exam Saarthi account.</p>
-                    <p>Use the following token to reset your password:</p>
-                    <div class="token">
-                        <strong>{token}</strong>
-                    </div>
-                    <p style="text-align: center;">
-                        <a href="http://127.0.0.1:5000/reset-password" class="btn">Reset Password</a>
-                    </p>
-                    <p>Or copy and paste this link in your browser:</p>
-                    <p>http://127.0.0.1:5000/reset-password</p>
-                    <p><strong>This token will expire in 1 hour.</strong></p>
-                    <p>If you didn't request this, please ignore this email.</p>
-                </div>
-                <div class="footer">
-                    <p>&copy; 2025 Exam Saarthi. All rights reserved.</p>
-                </div>
-            </div>
-        </body>
-        </html>
-        """
-        
-        msg.attach(MIMEText(body, 'html'))
-        
-        # Send email using Gmail SMTP
-        context = ssl.create_default_context()
-        server = smtplib.SMTP('smtp.gmail.com', 587)
-        server.starttls(context=context)
-        server.login(EMAIL_USER, EMAIL_PASSWORD)
-        server.send_message(msg)
-        server.quit()
-        
-        print(f"[OK] Reset email sent to {to_email}")
-        return True
-    except smtplib.SMTPAuthenticationError as e:
-        print(f"[ERROR] Authentication failed: {e}")
-        print("Troubleshooting:")
-        print("1. Make sure you're using App Password, not regular password")
-        print("2. Generate App Password: https://myaccount.google.com/apppasswords")
-        print("3. Select 'Mail' and 'Other (Custom name)'")
-        return False
-    except Exception as e:
-        print(f"[ERROR] Email error: {e}")
-        return False
 
 # ============ RESET TOKEN FUNCTIONS ============
 def generate_reset_token():
@@ -347,7 +262,7 @@ def submit_contact():
 @app.route("/forgot-password", methods=["GET", "POST"])
 @no_cache
 def forgot_password():
-    """Forgot password page - sends email with token"""
+    """Forgot password page - PUBLIC"""
     if request.method == "POST":
         email = request.form.get("email", "").strip()
         
@@ -363,12 +278,10 @@ def forgot_password():
             token = generate_reset_token()
             
             if save_reset_token(email, token):
-                if send_reset_email(email, token):
-                    flash(f"Password reset email sent to {email}! Check your inbox.", "success")
-                    session['reset_email'] = email
-                    return redirect(url_for("reset_password"))
-                else:
-                    flash("Failed to send email. Please try again.", "danger")
+                # Show token on screen (works on Render without email)
+                flash(f"Your reset token is: {token}", "info")
+                session['reset_email'] = email
+                return redirect(url_for("reset_password"))
             else:
                 flash("Failed to generate reset token. Please try again.", "danger")
         else:
@@ -380,7 +293,7 @@ def forgot_password():
 @app.route("/reset-password", methods=["GET", "POST"])
 @no_cache
 def reset_password():
-    """Reset password page - verify token and reset password"""
+    """Reset password page - PUBLIC"""
     if request.method == "POST":
         token = request.form.get("token", "").strip().upper()
         new_password = request.form.get("new_password", "")
@@ -426,16 +339,32 @@ def reset_password():
     
     return render_template("reset_password.html")
 
-# ============ MAIN ROUTES ============
+# ============ MAIN ROUTES (PUBLIC - No Login Required) ============
 
 @app.route("/")
 @no_cache
 def home():
+    """Home page - PUBLIC"""
     return render_template("index.html", user=session.get('fullname'))
+
+@app.route("/about")
+@no_cache
+def about():
+    """About page - PUBLIC"""
+    return render_template("about.html", user=session.get('fullname'))
+
+@app.route("/contact")
+@no_cache
+def contact():
+    """Contact page - PUBLIC"""
+    return render_template("contact.html", user=session.get('fullname'))
+
+# ============ AUTH ROUTES ============
 
 @app.route("/register", methods=["GET", "POST"])
 @no_cache
 def register():
+    """User registration page - PUBLIC"""
     if request.method == "POST":
         fullname = request.form.get("fullname", "").strip()
         mobile = request.form.get("mobile", "").strip()
@@ -480,6 +409,7 @@ def register():
 @app.route("/login", methods=["GET", "POST"])
 @no_cache
 def login():
+    """User login page - PUBLIC"""
     if 'user_id' in session:
         return redirect(url_for("home"))
         
@@ -516,6 +446,7 @@ def login():
 @app.route("/logout")
 @no_cache
 def logout():
+    """User logout - PUBLIC"""
     try:
         user_name = session.get('fullname', 'User')
         session.clear()
@@ -534,27 +465,16 @@ def logout():
         response.headers['Expires'] = '-1'
         return response
 
-# ============ PUBLIC ROUTES ============
-
-@app.route("/about")
-@no_cache
-def about():
-    return render_template("about.html", user=session.get('fullname'))
-
-@app.route("/contact")
-@no_cache
-def contact():
-    return render_template("contact.html", user=session.get('fullname'))
-
-# ============ PROTECTED ROUTES ============
+# ============ PROTECTED ROUTES (Login Required) ============
 
 @app.route("/university")
 @login_required
 @no_cache
 def university():
+    """Universities page - requires login"""
     return render_template("university.html", user=session.get('fullname'))
 
-# ============ IGU ROUTES ============
+# ============ IGU ROUTES (Login Required) ============
 @app.route("/igu")
 @login_required
 @no_cache
@@ -645,7 +565,7 @@ def igu_mca():
 def igu_mba():
     return render_template("igu-mba.html", user=session.get('fullname'))
 
-# ============ OTHER UNIVERSITY ROUTES ============
+# ============ OTHER UNIVERSITY ROUTES (Login Required) ============
 @app.route("/du")
 @login_required
 @no_cache
@@ -786,6 +706,7 @@ def get_universities():
 @app.route("/admin", methods=["GET", "POST"])
 @no_cache
 def admin():
+    """Admin login page - PUBLIC"""
     if session.get("admin_logged_in"):
         return redirect(url_for("admin_panel"))
     
@@ -801,23 +722,19 @@ def admin():
     return render_template("admin_login.html")
 
 @app.route("/admin/panel")
+@admin_required
 @no_cache
 def admin_panel():
-    if not session.get("admin_logged_in"):
-        flash("Please login as admin first", "danger")
-        return redirect(url_for("admin"))
-
+    """Admin panel - requires admin login only (no user login needed)"""
     conn = get_db_connection()
     users = conn.execute("SELECT * FROM users ORDER BY id").fetchall()
     conn.close()
-
     return render_template("admin_panel.html", users=users)
 
 @app.route("/admin/delete_user", methods=["POST"])
+@admin_required
 def admin_delete_user():
-    if not session.get("admin_logged_in"):
-        return jsonify({"success": False, "message": "Admin access required"})
-    
+    """Delete user - admin only"""
     user_id = request.form.get("user_id")
     try:
         conn = get_db_connection()
@@ -827,14 +744,12 @@ def admin_delete_user():
         flash("User deleted successfully", "success")
     except Exception as e:
         flash(f"Error deleting user: {e}", "danger")
-    
     return redirect(url_for("admin_panel"))
 
 @app.route("/admin/forgot_user", methods=["POST"])
+@admin_required
 def admin_forgot_user():
-    if not session.get("admin_logged_in"):
-        return jsonify({"success": False, "message": "Admin access required"})
-    
+    """Admin can reset user password"""
     user_id = request.form.get("user_id")
     new_password = request.form.get("new_password", "").strip()
     
@@ -862,9 +777,10 @@ def admin_forgot_user():
 @app.route("/admin/logout")
 @no_cache
 def admin_logout():
+    """Admin logout"""
     session.pop("admin_logged_in", None)
     flash("Admin logged out successfully", "success")
-    response = make_response(redirect(url_for("login")))
+    response = make_response(redirect(url_for("home")))
     response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0'
     response.headers['Pragma'] = 'no-cache'
     response.headers['Expires'] = '-1'
@@ -885,14 +801,15 @@ def internal_server_error(e):
     return redirect(url_for("home"))
 
 if __name__ == "__main__":
+    import os
+    port = int(os.environ.get("PORT", 5000))
+    debug_mode = os.environ.get("DEBUG", "False").lower() == "true"
+    
     print("=" * 50)
     print("Exam Saarthi Server Starting...")
     print(f"Database: {DB_FILE}")
+    print(f"Port: {port}")
     print(f"Admin Password: {'*' * len(app.config['ADMIN_PASSWORD'])}")
-    if EMAIL_USER and EMAIL_PASSWORD:
-        print(f"Email: Configured ({EMAIL_USER})")
-    else:
-        print("Email: Not Configured")
     if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
         print("Telegram Bot: Configured")
     else:
@@ -900,15 +817,17 @@ if __name__ == "__main__":
     print("=" * 50)
     print("ACCESS RULES:")
     print("- Home Page: Public")
-    print("- Universities: Login Required")
+    print("- About Page: Public")
+    print("- Contact Page: Public")
+    print("- Register Page: Public")
+    print("- Login Page: Public")
+    print("- Forgot Password: Public")
+    print("- Admin Login: Public")
+    print("- Universities Page: Login Required")
     print("- All University Pages: Login Required")
-    print("- About: Public")
-    print("- Contact: Public")
-    print("- Register: Public")
-    print("- Login: Public")
-    print("- Forgot Password: Public (Email Required)")
+    print("- Admin Panel: Admin Login Required")
     print("=" * 50)
     print("Server running at: http://127.0.0.1:5000")
     print("Press Ctrl+C to stop the server")
     print("=" * 50)
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=debug_mode, host='0.0.0.0', port=port)
