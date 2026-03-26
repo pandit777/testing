@@ -1,121 +1,818 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Admin Panel</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Admin Panel - Exam Saarthi</title>
+    <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* General Body Styles */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f6f9;
+        * {
             margin: 0;
-            padding: 20px;
-            color: #333;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        h2 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 20px;
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(145deg, #f1f5f9 0%, #d9e2ef 100%);
+            min-height: 100vh;
+            color: #1e293b;
         }
 
-        a {
-            display: inline-block;
-            margin-bottom: 20px;
+        /* Sidebar Styles */
+        .sidebar {
+            background: linear-gradient(145deg, #0b1e4a 0%, #1a3182 60%, #2540a8 100%);
+            width: 280px;
+            min-height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            padding: 2rem 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-header h2 {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar-header h2 i {
+            color: #fbbf24;
+            font-size: 1.8rem;
+        }
+
+        .sidebar-nav {
+            padding: 0 1rem;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
-            color: #fff;
-            background-color: #e74c3c;
-            padding: 8px 15px;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
         }
 
-        a:hover {
-            background-color: #c0392b;
+        .sidebar-nav a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fbbf24;
+            transform: translateX(5px);
+        }
+
+        .sidebar-nav a.active {
+            background: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+            border-left: 3px solid #fbbf24;
+        }
+
+        .sidebar-nav a i {
+            width: 24px;
+            font-size: 1.2rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .page-header {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .page-header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(145deg, #0b1e4a, #1a3182);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logout-btn {
+            background: linear-gradient(145deg, #ef4444, #dc2626);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(239, 68, 68, 0.3);
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-info h3 {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #0b1e4a;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(145deg, #fbbf24, #f59e0b);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
         }
 
         /* Table Styles */
+        .table-container {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            overflow-x: auto;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .table-header h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .search-box input {
+            padding: 8px 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: 40px;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .search-box button {
+            background: linear-gradient(145deg, #0b1e4a, #1a3182);
+            border: none;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-box button:hover {
+            transform: translateY(-2px);
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
-            background-color: #fff;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
         }
 
         th {
-            background-color: #3498db;
-            color: #fff;
-            text-transform: uppercase;
-            font-size: 14px;
+            text-align: left;
+            padding: 15px 12px;
+            background: #f8fafc;
+            color: #334155;
+            font-weight: 600;
+            border-bottom: 2px solid #e2e8f0;
         }
 
-        tr:nth-child(even) {
-            background-color: #f2f6fc;
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #475569;
         }
 
         tr:hover {
-            background-color: #dbe9fb;
-            transition: 0.3s;
+            background: #f8fafc;
         }
 
-        /* Responsive Table */
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-reset {
+            background: #fbbf24;
+            color: #0b1e4a;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-reset:hover {
+            background: #f59e0b;
+            transform: translateY(-2px);
+        }
+
+        .btn-delete {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-delete:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 24px;
+            padding: 2rem;
+            max-width: 450px;
+            width: 90%;
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #64748b;
+        }
+
+        .modal-body {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-body input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            margin-top: 0.5rem;
+        }
+
+        .modal-body label {
+            display: block;
+            margin-top: 1rem;
+            font-weight: 600;
+            color: #334155;
+        }
+
+        .modal-body label:first-of-type {
+            margin-top: 0;
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        .btn-cancel {
+            background: #e2e8f0;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-cancel:hover {
+            background: #cbd5e1;
+        }
+
+        .btn-confirm {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-confirm:hover {
+            background: #dc2626;
+        }
+
+        .btn-save {
+            background: linear-gradient(145deg, #0b1e4a, #1a3182);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(11, 30, 74, 0.3);
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            table, thead, tbody, th, td, tr {
+            .sidebar {
+                transform: translateX(-100%);
+                position: fixed;
+                z-index: 1000;
+            }
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 1rem;
+            }
+            .table-container {
+                padding: 1rem;
+            }
+            th, td {
+                padding: 10px 8px;
+                font-size: 0.85rem;
+            }
+            .action-buttons {
+                flex-direction: column;
+                gap: 0.3rem;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .menu-toggle {
+                display: none;
+            }
+        }
+
+        .menu-toggle {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            background: #0b1e4a;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            z-index: 1001;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
                 display: block;
             }
-            th {
-                position: absolute;
-                top: -9999px;
-                left: -9999px;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 40px;
+            display: none;
+            z-index: 2000;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
             }
-            tr {
-                margin-bottom: 15px;
-                border-bottom: 2px solid #ddd;
+            to {
+                transform: translateX(0);
+                opacity: 1;
             }
-            td {
-                border: none;
-                position: relative;
-                padding-left: 50%;
-            }
-            td:before {
-                position: absolute;
-                left: 15px;
-                width: 45%;
-                white-space: nowrap;
-                font-weight: bold;
-            }
-            td:nth-of-type(1):before { content: "ID"; }
-            td:nth-of-type(2):before { content: "Full Name"; }
-            td:nth-of-type(3):before { content: "Mobile"; }
-            td:nth-of-type(4):before { content: "Email"; }
-            td:nth-of-type(5):before { content: "Username"; }
         }
     </style>
 </head>
 <body>
-    <h2>Admin Panel - Users</h2>
-    <a href="{{ url_for('logout') }}">Logout</a>
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Full Name</th>
-            <th>Mobile</th>
-            <th>Email</th>
-            <th>Username</th>
-        </tr>
-        {% for user in users %}
-        <tr>
-            <td>{{ user['id'] }}</td>
-            <td>{{ user['fullname'] }}</td>
-            <td>{{ user['mobile'] }}</td>
-            <td>{{ user['email'] }}</td>
-            <td>{{ user['username'] }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+    <button class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>
+                <i class="fas fa-graduation-cap"></i>
+                Exam Saarthi
+            </h2>
+        </div>
+        <div class="sidebar-nav">
+            <a href="/admin/panel" class="active">
+                <i class="fas fa-users"></i>
+                <span>Users Management</span>
+            </a>
+            <a href="/admin/logout">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="page-header">
+            <h1><i class="fas fa-user-shield"></i> Admin Dashboard</h1>
+            <a href="/admin/logout" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-info">
+                    <h3>Total Users</h3>
+                    <div class="stat-number">{{ users|length }}</div>
+                </div>
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-info">
+                    <h3>Active Users</h3>
+                    <div class="stat-number">{{ users|length }}</div>
+                </div>
+                <div class="stat-icon">
+                    <i class="fas fa-user-check"></i>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-info">
+                    <h3>Total Courses</h3>
+                    <div class="stat-number">30+</div>
+                </div>
+                <div class="stat-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-info">
+                    <h3>Universities</h3>
+                    <div class="stat-number">50+</div>
+                </div>
+                <div class="stat-icon">
+                    <i class="fas fa-university"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Users Table -->
+        <div class="table-container">
+            <div class="table-header">
+                <h2><i class="fas fa-users"></i> Registered Users</h2>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search users...">
+                    <button onclick="searchUsers()"><i class="fas fa-search"></i> Search</button>
+                </div>
+            </div>
+            <div style="overflow-x: auto;">
+                <table id="userTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Full Name</th>
+                            <th>Mobile</th>
+                            <th>Email</th>
+                            <th>Username</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.fullname }}</td>
+                            <td>{{ user.mobile }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.username }}</td>
+                            <td><span class="status-badge"><i class="fas fa-circle" style="font-size: 8px; margin-right: 5px;"></i> Active</span></td>
+                            <td class="action-buttons">
+                                <button class="btn-reset" onclick="openResetModal({{ user.id }}, '{{ user.fullname }}')">
+                                    <i class="fas fa-key"></i> Reset Password
+                                </button>
+                                <button class="btn-delete" onclick="openDeleteModal({{ user.id }}, '{{ user.fullname }}')">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Modal -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-exclamation-triangle" style="color: #ef4444;"></i> Delete User</h3>
+                <button class="modal-close" onclick="closeDeleteModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete user <strong id="deleteUserName"></strong>?</p>
+                <p style="color: #ef4444; margin-top: 10px;">This action cannot be undone!</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="closeDeleteModal()">Cancel</button>
+                <form id="deleteForm" method="POST" action="/admin/delete_user">
+                    <input type="hidden" name="user_id" id="deleteUserId">
+                    <button type="submit" class="btn-confirm">Delete User</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reset Password Modal -->
+    <div id="resetModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-key" style="color: #fbbf24;"></i> Reset Password</h3>
+                <button class="modal-close" onclick="closeResetModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="resetForm" method="POST" action="/admin/forgot_user">
+                <input type="hidden" name="user_id" id="resetUserId">
+                <div class="modal-body">
+                    <p>Reset password for user: <strong id="resetUserName"></strong></p>
+                    <label>New Password:</label>
+                    <input type="password" name="new_password" id="newPassword" placeholder="Enter new password (min 6 characters)" required>
+                    <label>Confirm Password:</label>
+                    <input type="password" id="confirmPassword" placeholder="Confirm new password" required>
+                    <p style="font-size: 12px; color: #64748b; margin-top: 8px;">
+                        <i class="fas fa-info-circle"></i> Password must be at least 6 characters
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-cancel" onclick="closeResetModal()">Cancel</button>
+                    <button type="submit" class="btn-save"><i class="fas fa-save"></i> Reset Password</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Message -->
+    <div id="toast" class="toast">
+        <i class="fas fa-check-circle"></i> <span id="toastMessage"></span>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        
+        menuToggle?.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth <= 768) {
+                if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+                    sidebar.classList.remove('active');
+                }
+            }
+        });
+
+        // Search Function
+        function searchUsers() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toLowerCase();
+            const table = document.getElementById('userTable');
+            const rows = table.getElementsByTagName('tr');
+            
+            for (let i = 1; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+                let found = false;
+                for (let j = 0; j < cells.length - 1; j++) {
+                    if (cells[j]) {
+                        const text = cells[j].textContent || cells[j].innerText;
+                        if (text.toLowerCase().indexOf(filter) > -1) {
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+                rows[i].style.display = found ? '' : 'none';
+            }
+        }
+
+        // Delete Modal Functions
+        function openDeleteModal(userId, userName) {
+            document.getElementById('deleteUserId').value = userId;
+            document.getElementById('deleteUserName').innerText = userName;
+            document.getElementById('deleteModal').style.display = 'flex';
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').style.display = 'none';
+        }
+
+        // Reset Modal Functions
+        function openResetModal(userId, userName) {
+            document.getElementById('resetUserId').value = userId;
+            document.getElementById('resetUserName').innerText = userName;
+            document.getElementById('resetModal').style.display = 'flex';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confirmPassword').value = '';
+        }
+
+        function closeResetModal() {
+            document.getElementById('resetModal').style.display = 'none';
+        }
+
+        // Close modals on outside click
+        window.onclick = function(event) {
+            const deleteModal = document.getElementById('deleteModal');
+            const resetModal = document.getElementById('resetModal');
+            if (event.target === deleteModal) {
+                closeDeleteModal();
+            }
+            if (event.target === resetModal) {
+                closeResetModal();
+            }
+        }
+
+        // Password confirmation check
+        document.getElementById('resetForm')?.addEventListener('submit', function(e) {
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (newPassword !== confirmPassword) {
+                e.preventDefault();
+                alert('Passwords do not match!');
+                return false;
+            }
+            
+            if (newPassword.length < 6) {
+                e.preventDefault();
+                alert('Password must be at least 6 characters long!');
+                return false;
+            }
+        });
+
+        // Enter key search
+        document.getElementById('searchInput')?.addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') {
+                searchUsers();
+            }
+        });
+
+        // Show toast if flash message exists
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            toastMessage.innerText = message;
+            toast.style.backgroundColor = type === 'success' ? '#10b981' : '#ef4444';
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000);
+        }
+
+        // Check for flash message from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const message = urlParams.get('message');
+        const msgType = urlParams.get('type');
+        if (message) {
+            showToast(message, msgType);
+        }
+    </script>
 </body>
 </html>
