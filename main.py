@@ -10,10 +10,6 @@ import requests
 import re
 import random
 import string
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-import ssl
 
 load_dotenv()
 
@@ -46,22 +42,12 @@ if not admin_password:
     
 app.config["ADMIN_PASSWORD"] = admin_password
 
-# ============ EMAIL CONFIGURATION ============
-EMAIL_USER = os.getenv("EMAIL_USER")
-EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
-
-print("=" * 50)
-print("Exam Saarthi - Email Configuration")
-if EMAIL_USER and EMAIL_PASSWORD:
-    print(f"[OK] Email: {EMAIL_USER}")
-else:
-    print("[WARNING] Email not configured")
-print("=" * 50)
-
 # ============ TELEGRAM BOT CONFIGURATION ============
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
+print("=" * 50)
+print("Exam Saarthi - Configuration")
 if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
     print(f"[OK] Telegram Bot: Configured")
 else:
@@ -141,7 +127,7 @@ def no_cache(f):
         return response
     return decorated_function
 
-# Login required decorator (only for protected pages)
+# Login required decorator
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -164,80 +150,57 @@ def admin_required(f):
 # Initialize DB
 init_db()
 
-# ============ EMAIL SENDING FUNCTION ============
-def send_reset_email(to_email, token):
-    """Send password reset email with token"""
-    if not EMAIL_USER or not EMAIL_PASSWORD:
-        print("Email not configured")
+# ============ TELEGRAM MESSAGE FUNCTION ============
+def send_telegram_message(chat_id, message):
+    """Send message to Telegram"""
+    if not TELEGRAM_BOT_TOKEN:
         return False
     
     try:
-        # Create message
-        msg = MIMEMultipart()
-        msg['From'] = f"Exam Saarthi <{EMAIL_USER}>"
-        msg['To'] = to_email
-        msg['Subject'] = "Exam Saarthi - Password Reset Request"
-        
-        # Email body
-        body = f"""
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <style>
-                body {{ font-family: Arial, sans-serif; line-height: 1.6; color: #333; }}
-                .container {{ max-width: 600px; margin: 0 auto; padding: 20px; }}
-                .header {{ background: linear-gradient(135deg, #0b1e4a 0%, #1a3182 100%); color: white; padding: 20px; text-align: center; border-radius: 10px 10px 0 0; }}
-                .content {{ background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; }}
-                .token {{ background: #e3f2fd; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 24px; text-align: center; margin: 20px 0; letter-spacing: 2px; }}
-                .btn {{ background: #fbbf24; color: #0b1e4a; padding: 12px 30px; text-decoration: none; border-radius: 8px; display: inline-block; font-weight: bold; }}
-                .footer {{ text-align: center; margin-top: 20px; font-size: 12px; color: #999; }}
-            </style>
-        </head>
-        <body>
-            <div class="container">
-                <div class="header">
-                    <h2>📚 Exam Saarthi</h2>
-                    <p>Password Reset Request</p>
-                </div>
-                <div class="content">
-                    <p>Hello,</p>
-                    <p>We received a request to reset your password for your Exam Saarthi account.</p>
-                    <p>Use the following token to reset your password:</p>
-                    <div class="token">
-                        <strong>{token}</strong>
-                    </div>
-                    <p style="text-align: center;">
-                        <a href="https://testing-vxzy.onrender.com/reset-password" class="btn">Reset Password</a>
-                    </p>
-                    <p>This token will expire in <strong>1 hour</strong>.</p>
-                    <p>If you didn't request this, please ignore this email.</p>
-                </div>
-                <div class="footer">
-                    <p>&copy; 2025 Exam Saarthi | Helping Students Succeed</p>
-                </div>
-            </div>
-        </body>
-        </html>
-        """
-        
-        msg.attach(MIMEText(body, 'html'))
-        
-        # Send email using Gmail SMTP
-        context = ssl.create_default_context()
-        server = smtplib.SMTP('smtp.gmail.com', 587)
-        server.starttls(context=context)
-        server.login(EMAIL_USER, EMAIL_PASSWORD)
-        server.send_message(msg)
-        server.quit()
-        
-        print(f"Reset email sent to {to_email}")
-        return True
-    except smtplib.SMTPAuthenticationError as e:
-        print(f"Authentication Error: {e}")
-        return False
+        url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+        payload = {
+            "chat_id": chat_id,
+            "text": message,
+            "parse_mode": "Markdown"
+        }
+        response = requests.post(url, data=payload, timeout=10)
+        return response.status_code == 200
     except Exception as e:
-        print(f"Email error: {e}")
+        print(f"Telegram error: {e}")
+        return False
+
+def send_contact_message(name, email, university, course, message):
+    """Send contact form message to Telegram"""
+    if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
+        return False
+    
+    msg = f"""
+*NEW CONTACT FORM SUBMISSION*
+
+Name: {name}
+Email: {email}
+University: {university}
+Course: {course if course else 'Not specified'}
+
+Message:
+{message}
+
+---
+Time: {__import__('datetime').datetime.now().strftime('%d-%m-%Y %H:%M:%S')}
+Source: Exam Saarthi Website
+    """
+    
+    try:
+        url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+        payload = {
+            "chat_id": TELEGRAM_CHAT_ID,
+            "text": msg,
+            "parse_mode": "Markdown"
+        }
+        response = requests.post(url, data=payload, timeout=10)
+        return response.status_code == 200
+    except Exception as e:
+        print(f"Telegram error: {e}")
         return False
 
 # ============ RESET TOKEN FUNCTIONS ============
@@ -282,41 +245,6 @@ def delete_reset_token(email):
     except Exception as e:
         print(f"Error deleting token: {e}")
 
-# ============ TELEGRAM MESSAGE FUNCTION ============
-def send_telegram_message(name, email, university, course, message):
-    """Send message to Telegram"""
-    if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
-        return False
-    
-    msg = f"""
-*NEW CONTACT FORM SUBMISSION*
-
-Name: {name}
-Email: {email}
-University: {university}
-Course: {course if course else 'Not specified'}
-
-Message:
-{message}
-
----
-Time: {__import__('datetime').datetime.now().strftime('%d-%m-%Y %H:%M:%S')}
-Source: Exam Saarthi Website
-    """
-    
-    try:
-        url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
-        payload = {
-            "chat_id": TELEGRAM_CHAT_ID,
-            "text": msg,
-            "parse_mode": "Markdown"
-        }
-        response = requests.post(url, data=payload, timeout=10)
-        return response.status_code == 200
-    except Exception as e:
-        print(f"Telegram error: {e}")
-        return False
-
 # ============ CONTACT FORM HANDLER ============
 @app.route("/submit_contact", methods=["POST"])
 def submit_contact():
@@ -335,7 +263,7 @@ def submit_contact():
             return jsonify({"success": False, "message": "Please enter a valid email address"})
 
         if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
-            success = send_telegram_message(name, email, university, course, message)
+            success = send_contact_message(name, email, university, course, message)
             if success:
                 return jsonify({"success": True, "message": "Message sent successfully! We'll get back to you soon."})
             else:
@@ -347,12 +275,12 @@ def submit_contact():
         print(f"Error in contact form: {e}")
         return jsonify({"success": False, "message": "An error occurred. Please try again."})
 
-# ============ FORGOT PASSWORD ROUTES ============
+# ============ FORGOT PASSWORD ROUTES (Send Token via Telegram) ============
 
 @app.route("/forgot-password", methods=["GET", "POST"])
 @no_cache
 def forgot_password():
-    """Forgot password page - sends email with token"""
+    """Forgot password page - sends token via Telegram"""
     if request.method == "POST":
         email = request.form.get("email", "").strip()
         
@@ -368,14 +296,22 @@ def forgot_password():
             token = generate_reset_token()
             
             if save_reset_token(email, token):
-                # Try to send email
-                email_sent = send_reset_email(email, token)
-                
-                if email_sent:
-                    flash(f"Password reset email sent to {email}! Check your inbox.", "success")
+                # Send token via Telegram to admin (user will get from admin)
+                if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
+                    msg = f"""
+*🔐 PASSWORD RESET REQUEST*
+
+User: {user['fullname']}
+Email: {email}
+Reset Token: *{token}*
+
+Please share this token with the user to reset their password.
+                    """
+                    send_telegram_message(TELEGRAM_CHAT_ID, msg)
+                    flash(f"Reset token sent to admin! Admin will share with you.", "info")
                 else:
-                    # If email fails, show token on screen
-                    flash(f"Email could not be sent. Your reset token is: {token}", "info")
+                    # Fallback: show on screen
+                    flash(f"Your reset token is: {token}", "info")
                 
                 session['reset_email'] = email
                 return redirect(url_for("reset_password"))
@@ -436,24 +372,21 @@ def reset_password():
     
     return render_template("reset_password.html")
 
-# ============ MAIN ROUTES (PUBLIC - No Login Required) ============
+# ============ MAIN ROUTES (PUBLIC) ============
 
 @app.route("/")
 @no_cache
 def home():
-    """Home page - PUBLIC"""
     return render_template("index.html", user=session.get('fullname'))
 
 @app.route("/about")
 @no_cache
 def about():
-    """About page - PUBLIC"""
     return render_template("about.html", user=session.get('fullname'))
 
 @app.route("/contact")
 @no_cache
 def contact():
-    """Contact page - PUBLIC"""
     return render_template("contact.html", user=session.get('fullname'))
 
 # ============ AUTH ROUTES ============
@@ -461,7 +394,6 @@ def contact():
 @app.route("/register", methods=["GET", "POST"])
 @no_cache
 def register():
-    """User registration page - PUBLIC"""
     if request.method == "POST":
         fullname = request.form.get("fullname", "").strip()
         mobile = request.form.get("mobile", "").strip()
@@ -506,7 +438,6 @@ def register():
 @app.route("/login", methods=["GET", "POST"])
 @no_cache
 def login():
-    """User login page - PUBLIC"""
     if 'user_id' in session:
         return redirect(url_for("home"))
         
@@ -543,7 +474,6 @@ def login():
 @app.route("/logout")
 @no_cache
 def logout():
-    """User logout - PUBLIC"""
     try:
         user_name = session.get('fullname', 'User')
         session.clear()
@@ -568,7 +498,6 @@ def logout():
 @login_required
 @no_cache
 def university():
-    """Universities page - requires login"""
     return render_template("university.html", user=session.get('fullname'))
 
 # ============ IGU ROUTES (Login Required) ============
@@ -803,7 +732,6 @@ def get_universities():
 @app.route("/admin", methods=["GET", "POST"])
 @no_cache
 def admin():
-    """Admin login page - PUBLIC"""
     if session.get("admin_logged_in"):
         return redirect(url_for("admin_panel"))
     
@@ -822,7 +750,6 @@ def admin():
 @admin_required
 @no_cache
 def admin_panel():
-    """Admin panel - requires admin login only (no user login needed)"""
     conn = get_db_connection()
     users = conn.execute("SELECT * FROM users ORDER BY id").fetchall()
     conn.close()
@@ -831,7 +758,6 @@ def admin_panel():
 @app.route("/admin/delete_user", methods=["POST"])
 @admin_required
 def admin_delete_user():
-    """Delete user - admin only"""
     user_id = request.form.get("user_id")
     try:
         conn = get_db_connection()
@@ -846,7 +772,6 @@ def admin_delete_user():
 @app.route("/admin/forgot_user", methods=["POST"])
 @admin_required
 def admin_forgot_user():
-    """Admin can reset user password"""
     user_id = request.form.get("user_id")
     new_password = request.form.get("new_password", "").strip()
     
@@ -874,7 +799,6 @@ def admin_forgot_user():
 @app.route("/admin/logout")
 @no_cache
 def admin_logout():
-    """Admin logout"""
     session.pop("admin_logged_in", None)
     flash("Admin logged out successfully", "success")
     response = make_response(redirect(url_for("home")))
@@ -907,10 +831,6 @@ if __name__ == "__main__":
     print(f"Database: {DB_FILE}")
     print(f"Port: {port}")
     print(f"Admin Password: {'*' * len(app.config['ADMIN_PASSWORD'])}")
-    if EMAIL_USER and EMAIL_PASSWORD:
-        print(f"Email: Configured ({EMAIL_USER})")
-    else:
-        print("Email: Not Configured")
     if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
         print("Telegram Bot: Configured")
     else:
@@ -922,7 +842,7 @@ if __name__ == "__main__":
     print("- Contact Page: Public")
     print("- Register Page: Public")
     print("- Login Page: Public")
-    print("- Forgot Password: Public (Email will be sent)")
+    print("- Forgot Password: Public (Token via Telegram/Admin)")
     print("- Admin Login: Public")
     print("- Universities Page: Login Required")
     print("- All University Pages: Login Required")
