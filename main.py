@@ -801,7 +801,6 @@ def admin():
     return render_template("admin_login.html")
 
 @app.route("/admin/panel")
-@login_required
 @no_cache
 def admin_panel():
     if not session.get("admin_logged_in"):
@@ -815,7 +814,6 @@ def admin_panel():
     return render_template("admin_panel.html", users=users)
 
 @app.route("/admin/delete_user", methods=["POST"])
-@login_required
 def admin_delete_user():
     if not session.get("admin_logged_in"):
         return jsonify({"success": False, "message": "Admin access required"})
@@ -833,7 +831,6 @@ def admin_delete_user():
     return redirect(url_for("admin_panel"))
 
 @app.route("/admin/forgot_user", methods=["POST"])
-@login_required
 def admin_forgot_user():
     if not session.get("admin_logged_in"):
         return jsonify({"success": False, "message": "Admin access required"})
