@@ -10,6 +10,10 @@ import requests
 import re
 import random
 import string
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+import ssl
 
 load_dotenv()
 
@@ -42,12 +46,22 @@ if not admin_password:
     
 app.config["ADMIN_PASSWORD"] = admin_password
 
+# ============ EMAIL CONFIGURATION ============
+EMAIL_USER = os.getenv("EMAIL_USER")
+EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
+
+print("=" * 50)
+print("Exam Saarthi - Email Configuration")
+if EMAIL_USER and EMAIL_PASSWORD:
+    print(f"[OK] Email: {EMAIL_USER}")
+else:
+    print("[WARNING] Email not configured")
+print("=" * 50)
+
 # ============ TELEGRAM BOT CONFIGURATION ============
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
-print("=" * 50)
-print("Exam Saarthi - Telegram Bot Configuration")
 if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
     print(f"[OK] Telegram Bot: Configured")
 else:
@@ -149,6 +163,82 @@ def admin_required(f):
 
 # Initialize DB
 init_db()
+
+# ============ EMAIL SENDING FUNCTION ============
+def send_reset_email(to_email, token):
+    """Send password reset email with token"""
+    if not EMAIL_USER or not EMAIL_PASSWORD:
+        print("Email not configured")
+        return False
+    
+    try:
+        # Create message
+        msg = MIMEMultipart()
+        msg['From'] = f"Exam Saarthi <{EMAIL_USER}>"
+        msg['To'] = to_email
+        msg['Subject'] = "Exam Saarthi - Password Reset Request"
+        
+        # Email body
+        body = f"""
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <style>
+                body {{ font-family: Arial, sans-serif; line-height: 1.6; color: #333; }}
+                .container {{ max-width: 600px; margin: 0 auto; padding: 20px; }}
+                .header {{ background: linear-gradient(135deg, #0b1e4a 0%, #1a3182 100%); color: white; padding: 20px; text-align: center; border-radius: 10px 10px 0 0; }}
+                .content {{ background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; }}
+                .token {{ background: #e3f2fd; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 24px; text-align: center; margin: 20px 0; letter-spacing: 2px; }}
+                .btn {{ background: #fbbf24; color: #0b1e4a; padding: 12px 30px; text-decoration: none; border-radius: 8px; display: inline-block; font-weight: bold; }}
+                .footer {{ text-align: center; margin-top: 20px; font-size: 12px; color: #999; }}
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <div class="header">
+                    <h2>📚 Exam Saarthi</h2>
+                    <p>Password Reset Request</p>
+                </div>
+                <div class="content">
+                    <p>Hello,</p>
+                    <p>We received a request to reset your password for your Exam Saarthi account.</p>
+                    <p>Use the following token to reset your password:</p>
+                    <div class="token">
+                        <strong>{token}</strong>
+                    </div>
+                    <p style="text-align: center;">
+                        <a href="https://testing-vxzy.onrender.com/reset-password" class="btn">Reset Password</a>
+                    </p>
+                    <p>This token will expire in <strong>1 hour</strong>.</p>
+                    <p>If you didn't request this, please ignore this email.</p>
+                </div>
+                <div class="footer">
+                    <p>&copy; 2025 Exam Saarthi | Helping Students Succeed</p>
+                </div>
+            </div>
+        </body>
+        </html>
+        """
+        
+        msg.attach(MIMEText(body, 'html'))
+        
+        # Send email using Gmail SMTP
+        context = ssl.create_default_context()
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls(context=context)
+        server.login(EMAIL_USER, EMAIL_PASSWORD)
+        server.send_message(msg)
+        server.quit()
+        
+        print(f"Reset email sent to {to_email}")
+        return True
+    except smtplib.SMTPAuthenticationError as e:
+        print(f"Authentication Error: {e}")
+        return False
+    except Exception as e:
+        print(f"Email error: {e}")
+        return False
 
 # ============ RESET TOKEN FUNCTIONS ============
 def generate_reset_token():
@@ -262,7 +352,7 @@ def submit_contact():
 @app.route("/forgot-password", methods=["GET", "POST"])
 @no_cache
 def forgot_password():
-    """Forgot password page - PUBLIC"""
+    """Forgot password page - sends email with token"""
     if request.method == "POST":
         email = request.form.get("email", "").strip()
         
@@ -278,8 +368,15 @@ def forgot_password():
             token = generate_reset_token()
             
             if save_reset_token(email, token):
-                # Show token on screen (works on Render without email)
-                flash(f"Your reset token is: {token}", "info")
+                # Try to send email
+                email_sent = send_reset_email(email, token)
+                
+                if email_sent:
+                    flash(f"Password reset email sent to {email}! Check your inbox.", "success")
+                else:
+                    # If email fails, show token on screen
+                    flash(f"Email could not be sent. Your reset token is: {token}", "info")
+                
                 session['reset_email'] = email
                 return redirect(url_for("reset_password"))
             else:
@@ -293,7 +390,7 @@ def forgot_password():
 @app.route("/reset-password", methods=["GET", "POST"])
 @no_cache
 def reset_password():
-    """Reset password page - PUBLIC"""
+    """Reset password page - verify token and reset password"""
     if request.method == "POST":
         token = request.form.get("token", "").strip().upper()
         new_password = request.form.get("new_password", "")
@@ -810,6 +907,10 @@ if __name__ == "__main__":
     print(f"Database: {DB_FILE}")
     print(f"Port: {port}")
     print(f"Admin Password: {'*' * len(app.config['ADMIN_PASSWORD'])}")
+    if EMAIL_USER and EMAIL_PASSWORD:
+        print(f"Email: Configured ({EMAIL_USER})")
+    else:
+        print("Email: Not Configured")
     if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
         print("Telegram Bot: Configured")
     else:
@@ -821,7 +922,7 @@ if __name__ == "__main__":
     print("- Contact Page: Public")
     print("- Register Page: Public")
     print("- Login Page: Public")
-    print("- Forgot Password: Public")
+    print("- Forgot Password: Public (Email will be sent)")
     print("- Admin Login: Public")
     print("- Universities Page: Login Required")
     print("- All University Pages: Login Required")
