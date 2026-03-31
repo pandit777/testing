@@ -61,8 +61,17 @@
       --marquee-bg: linear-gradient(145deg, #fbbf24 0%, #d97706 100%);
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    * { 
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box; 
+    }
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100%;
+      position: relative;
+    }
     body {
       font-family: 'Inter', sans-serif;
       color: var(--text-main);
@@ -84,6 +93,7 @@
       top: 0;
       z-index: 1000;
       width: 100%;
+      max-width: 100%;
     }
 
     .header-content {
@@ -93,15 +103,15 @@
       padding: 0.8rem 2rem;
       max-width: 1400px;
       margin: 0 auto;
+      width: 100%;
     }
 
     .logo-area {
       display: flex;
       align-items: center;
       text-decoration: none;
-      transition: transform 0.3s ease;
+      flex-shrink: 0;
     }
-    .logo-area:hover { transform: scale(1.02); }
     .logo-img {
       width: 50px;
       height: 50px;
@@ -116,6 +126,7 @@
       background: linear-gradient(135deg, #ffffff 0%, #ffeb3b 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      white-space: nowrap;
     }
 
     .desktop-nav { display: none; align-items: center; gap: 8px; }
@@ -126,7 +137,7 @@
       font-weight: 600;
       padding: 10px 20px;
       border-radius: 50px;
-      transition: all 0.3s;
+      white-space: nowrap;
     }
     .desktop-nav ul li a:hover {
       background: rgba(255,255,255,0.1);
@@ -148,21 +159,7 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-    }
-    .user-info {
-      background: rgba(255,255,255,0.15);
-      padding: 6px 20px;
-      border-radius: 50px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .logout-btn {
-      background: rgba(255,255,255,0.2);
-      color: white;
-      padding: 6px 14px;
-      border-radius: 40px;
-      text-decoration: none;
+      white-space: nowrap;
     }
     .theme-toggle {
       background: rgba(255,255,255,0.15);
@@ -176,6 +173,7 @@
       justify-content: center;
       cursor: pointer;
       margin-left: 12px;
+      flex-shrink: 0;
     }
     .mobile-menu-btn {
       display: block;
@@ -186,6 +184,7 @@
       cursor: pointer;
       border-radius: 50px;
       padding: 10px 18px;
+      flex-shrink: 0;
     }
     .mobile-nav {
       display: none;
@@ -204,169 +203,148 @@
       border-radius: 50px;
       text-align: center;
     }
-    .mobile-user-info { text-align: center; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 50px; margin: 10px 0; }
-    .mobile-login-btn { background: var(--accent-bright-yellow); color: #0b1e4a; padding: 12px; border-radius: 50px; text-align: center; display: block; font-weight: 700; }
-    .mobile-theme-toggle { display: flex; justify-content: space-between; padding: 15px 20px; color: white; border-top: 1px solid rgba(255,255,255,0.2); }
-    marquee { background: var(--marquee-bg); color: var(--marquee-text); padding: 12px 0; font-weight: 700; }
-    footer { margin-top: auto; background: var(--gradient-primary); color: var(--footer-text); text-align: center; padding: 1.75rem; position: relative; }
-    footer:before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--gradient-accent); }
-    .flash-messages { max-width: 1200px; margin: 1rem auto; padding: 0 1.2rem; }
-    .alert { padding: 1rem; border-radius: 12px; margin-bottom: 1rem; }
-    .alert-success { background: #d4edda; color: #155724; }
-    .alert-danger { background: #f8d7da; color: #721c24; }
-    .alert-warning { background: #fff3cd; color: #856404; }
-    main { max-width: 1200px; margin: 0 auto; padding: 1.2rem; flex: 1; }
+    .mobile-login-btn { 
+      background: var(--accent-bright-yellow); 
+      color: #0b1e4a; 
+      padding: 12px; 
+      border-radius: 50px; 
+      text-align: center; 
+      display: block; 
+      font-weight: 700; 
+    }
+    .mobile-theme-toggle { 
+      display: flex; 
+      justify-content: space-between; 
+      padding: 15px 20px; 
+      color: white; 
+      border-top: 1px solid rgba(255,255,255,0.2); 
+    }
+    marquee { 
+      background: var(--marquee-bg); 
+      color: var(--marquee-text); 
+      padding: 12px 0; 
+      font-weight: 700; 
+      width: 100%;
+    }
+    footer { 
+      margin-top: auto; 
+      background: var(--gradient-primary); 
+      color: var(--footer-text); 
+      text-align: center; 
+      padding: 1.75rem; 
+      position: relative; 
+      width: 100%;
+    }
+    footer:before { 
+      content: ''; 
+      position: absolute; 
+      top: 0; 
+      left: 0; 
+      right: 0; 
+      height: 4px; 
+      background: var(--gradient-accent); 
+    }
+    main { 
+      max-width: 1200px; 
+      margin: 0 auto; 
+      padding: 1rem; 
+      flex: 1; 
+      width: 100%;
+      box-sizing: border-box;
+    }
 
-    /* About Page Styles - Fixed Alignment */
+    /* About Page Styles - NO SCROLL */
     .about-hero {
       background: var(--gradient-card-light);
-      border-radius: 32px;
-      padding: 2.5rem;
+      border-radius: 28px;
+      padding: 1.5rem;
       box-shadow: var(--shadow-soft);
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
       text-align: center;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.4s ease;
-    }
-    .about-hero:hover {
-      transform: translateY(-8px);
-      box-shadow: var(--shadow-strong);
-    }
-    .about-hero:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 5px;
-      background: var(--gradient-accent);
+      width: 100%;
     }
     .about-hero h1 {
-      font-size: 2.5rem;
+      font-size: 1.8rem;
       font-weight: 800;
-      background: linear-gradient(145deg, var(--primary-deep-blue), var(--primary-rich-blue));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 1rem;
-    }
-    [data-theme="dark"] .about-hero h1 {
-      background: linear-gradient(145deg, #fcd34d, #fbbf24);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.8rem;
+      word-break: break-word;
     }
     .about-hero p {
-      font-size: 1.1rem;
-      color: var(--text-soft);
-      line-height: 1.6;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      word-break: break-word;
     }
 
-    /* Founders Section - Perfectly Aligned */
+    /* Founders Section */
     .founders-section {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 2rem;
-      margin: 2rem 0;
+      gap: 1.2rem;
+      margin: 1.5rem 0;
+      width: 100%;
     }
     .founder-card {
       flex: 1;
-      min-width: 280px;
-      max-width: 380px;
+      min-width: 260px;
+      max-width: 320px;
       background: var(--gradient-card-light);
-      border-radius: 32px;
-      padding: 2rem;
+      border-radius: 24px;
+      padding: 1.2rem;
       text-align: center;
-      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.2);
-      border: 1px solid rgba(251, 191, 36, 0.1);
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .founder-card:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: var(--gradient-accent);
-      transform: scaleX(0);
-      transition: transform 0.4s ease;
-    }
-    .founder-card:hover:before {
-      transform: scaleX(1);
-    }
-    .founder-card:hover {
-      transform: translateY(-10px);
-      box-shadow: var(--shadow-strong);
-      border-color: rgba(251, 191, 36, 0.3);
-    }
-    .founder-img-wrapper {
-      position: relative;
-      margin-bottom: 1.2rem;
+      width: 100%;
     }
     .founder-img {
-      width: 160px;
-      height: 160px;
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
       object-fit: cover;
-      border: 4px solid var(--accent-bright-yellow);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-      transition: all 0.4s ease;
-    }
-    .founder-card:hover .founder-img {
-      transform: scale(1.05);
-      border-color: var(--accent-deep-gold);
-      box-shadow: 0 15px 35px rgba(251, 191, 36, 0.3);
+      border: 3px solid var(--accent-bright-yellow);
+      margin-bottom: 0.8rem;
     }
     .founder-name {
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       font-weight: 800;
-      margin-bottom: 0.5rem;
-      color: var(--text-main);
+      margin-bottom: 0.3rem;
     }
     .founder-role {
       color: var(--accent-bright-yellow);
       font-weight: 600;
-      margin-bottom: 0.75rem;
+      font-size: 0.8rem;
+      margin-bottom: 0.5rem;
       display: inline-block;
-      padding: 0.3rem 1rem;
+      padding: 0.2rem 0.8rem;
       background: rgba(251, 191, 36, 0.1);
       border-radius: 40px;
-      font-size: 0.9rem;
     }
     .founder-university {
+      font-size: 0.75rem;
       color: var(--text-muted);
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.5rem;
+      gap: 0.3rem;
+      flex-wrap: wrap;
     }
     .founder-bio {
+      font-size: 0.8rem;
+      line-height: 1.4;
       color: var(--text-soft);
-      font-size: 0.95rem;
-      line-height: 1.6;
-      margin: 1rem 0;
-      padding: 1rem;
+      margin: 0.8rem 0;
+      padding: 0.6rem;
       background: rgba(251, 191, 36, 0.05);
-      border-radius: 20px;
-      text-align: center;
-      width: 100%;
+      border-radius: 16px;
+      word-break: break-word;
     }
     .founder-social {
       display: flex;
       justify-content: center;
-      gap: 1rem;
-      margin-top: 0.5rem;
+      gap: 0.8rem;
     }
     .founder-social-link {
-      width: 38px;
-      height: 38px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       background: rgba(251, 191, 36, 0.1);
       display: flex;
@@ -374,137 +352,100 @@
       justify-content: center;
       color: var(--accent-bright-yellow);
       text-decoration: none;
-      transition: all 0.3s ease;
-      font-size: 1.1rem;
-    }
-    .founder-social-link:hover {
-      background: var(--gradient-accent);
-      color: #0b1e4a;
-      transform: translateY(-3px) scale(1.1);
-    }
-
-    /* Mission Section */
-    .mission-section {
-      background: var(--gradient-card-light);
-      border-radius: 32px;
-      padding: 2rem;
-      margin: 2rem 0;
-      text-align: center;
-      transition: all 0.4s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    .mission-section:hover {
-      transform: translateY(-8px);
-      box-shadow: var(--shadow-strong);
-    }
-    .mission-section:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: var(--gradient-accent);
-      transform: scaleX(0);
-      transition: transform 0.4s ease;
-    }
-    .mission-section:hover:before {
-      transform: scaleX(1);
-    }
-    .mission-icon {
-      font-size: 3rem;
-      color: var(--accent-bright-yellow);
-      margin-bottom: 1rem;
-      display: inline-block;
-      animation: float 3s ease-in-out infinite;
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
-    .mission-section h2 {
-      font-size: 1.8rem;
-      font-weight: 800;
-      margin-bottom: 1rem;
-      color: var(--text-main);
-    }
-    .mission-section p {
-      font-size: 1rem;
-      color: var(--text-soft);
-      line-height: 1.6;
-      max-width: 800px;
-      margin: 0 auto;
+      font-size: 0.9rem;
     }
 
     /* Stats Section */
     .stats-about {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-      margin: 2rem 0;
+      gap: 1rem;
+      margin: 1.5rem 0;
+      width: 100%;
     }
     .stat-about-card {
       background: var(--gradient-card-light);
-      border-radius: 28px;
-      padding: 1.8rem;
+      border-radius: 20px;
+      padding: 1rem;
       text-align: center;
-      transition: all 0.3s ease;
-      border: 1px solid rgba(251, 191, 36, 0.1);
-    }
-    .stat-about-card:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow-medium);
-      border-color: rgba(251, 191, 36, 0.3);
     }
     .stat-number-about {
-      font-size: 2.2rem;
+      font-size: 1.4rem;
       font-weight: 900;
-      background: linear-gradient(145deg, var(--primary-deep-blue), var(--primary-rich-blue));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
       display: block;
-      margin-bottom: 0.5rem;
-    }
-    [data-theme="dark"] .stat-number-about {
-      background: linear-gradient(145deg, #fcd34d, #fbbf24);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.2rem;
     }
     .stat-label {
-      font-size: 0.95rem;
-      color: var(--stat-label-light);
+      font-size: 0.7rem;
       font-weight: 600;
     }
 
+    /* Mission Section */
+    .mission-section {
+      background: var(--gradient-card-light);
+      border-radius: 24px;
+      padding: 1.2rem;
+      margin: 1.2rem 0;
+      text-align: center;
+      width: 100%;
+    }
+    .mission-icon {
+      font-size: 2rem;
+      color: var(--accent-bright-yellow);
+      margin-bottom: 0.5rem;
+      display: inline-block;
+    }
+    .mission-section h2 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin-bottom: 0.6rem;
+    }
+    .mission-section p {
+      font-size: 0.85rem;
+      line-height: 1.5;
+      word-break: break-word;
+    }
+
+    /* Desktop Styles */
     @media (min-width: 768px) {
-      .header-content { padding: 0.8rem 2.5rem; }
+      .header-content { padding: 0.8rem 2rem; }
       .logo-img { width: 55px; height: 55px; }
       .header-title { font-size: 1.8rem; }
       .desktop-nav { display: flex; }
       .mobile-menu-btn { display: none; }
-      .stats-about { grid-template-columns: repeat(4, 1fr); }
-      .about-hero h1 { font-size: 3rem; }
-      .mission-section h2 { font-size: 2rem; }
-    }
-    @media (max-width: 768px) {
-      .header-content { padding: 0.8rem 1rem; }
-      .logo-img { width: 45px; height: 45px; }
-      .header-title { font-size: 1.2rem; }
-      .about-hero { padding: 1.5rem; }
-      .about-hero h1 { font-size: 1.8rem; }
-      .founder-img { width: 130px; height: 130px; }
+      .about-hero { padding: 2rem; }
+      .about-hero h1 { font-size: 2.2rem; }
+      .founder-card { max-width: 340px; padding: 1.5rem; }
+      .founder-img { width: 140px; height: 140px; }
       .founder-name { font-size: 1.3rem; }
-      .stats-about { gap: 1rem; }
-      .stat-about-card { padding: 1.2rem; }
-      .stat-number-about { font-size: 1.5rem; }
+      .stats-about { gap: 1.2rem; }
+      .stat-number-about { font-size: 1.8rem; }
+      .mission-section h2 { font-size: 1.4rem; }
     }
+
+    /* Mobile Styles */
+    @media (max-width: 767px) {
+      .header-content { padding: 0.6rem 1rem; }
+      .logo-img { width: 40px; height: 40px; margin-right: 0.5rem; }
+      .header-title { font-size: 1rem; }
+      .desktop-nav { display: none !important; }
+      .mobile-menu-btn { display: block; }
+      .about-hero { padding: 1.2rem; }
+      .about-hero h1 { font-size: 1.3rem; }
+      .founder-card { min-width: 100%; max-width: 100%; padding: 1rem; }
+      .founder-img { width: 100px; height: 100px; }
+      .stats-about { gap: 0.8rem; }
+      .stat-number-about { font-size: 1.2rem; }
+      .mission-section { padding: 1rem; }
+      .mission-section h2 { font-size: 1rem; }
+    }
+
     @media (max-width: 480px) {
-      .founder-card { min-width: 260px; padding: 1.5rem; }
-      .founder-img { width: 110px; height: 110px; }
-      .founder-bio { font-size: 0.85rem; }
-      .mission-section { padding: 1.5rem; }
-      .mission-section h2 { font-size: 1.3rem; }
+      .founder-img { width: 85px; height: 85px; }
+      .founder-name { font-size: 1rem; }
+      .founder-bio { font-size: 0.7rem; }
+      .stat-number-about { font-size: 1rem; }
+      .stat-label { font-size: 0.6rem; }
     }
   </style>
 </head>
@@ -522,21 +463,13 @@
           <li><a href="/about" class="active-nav-link">About</a></li>
           <li><a href="/contact">Contact</a></li>
         </ul>
-        {% if user %}
-          <div class="user-info">
-            <i class="fas fa-user-circle"></i>
-            <span>Welcome, {{ user }}!</span>
-            <a href="/logout" class="logout-btn">Logout</a>
-          </div>
-        {% else %}
-          <a href="/login" class="login-btn">Login</a>
-        {% endif %}
+        <a href="/login" class="login-btn">Login</a>
         <div class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></div>
       </nav>
       <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
     </div>
     <marquee behavior="scroll" direction="left" scrollamount="6">
-      <i class="fas fa-bullhorn"></i> 📖 Exam Saarthi - Started by two passionate students from Indira Gandhi University, Rewari, to help fellow students with free PYQs!
+      <i class="fas fa-bullhorn"></i> 📖 Exam Saarthi - Started by two passionate students from Indira Gandhi University, Rewari
     </marquee>
     <div class="mobile-nav" id="mobileNav">
       <ul>
@@ -545,24 +478,10 @@
         <li><a href="/about" class="active-nav-link">About</a></li>
         <li><a href="/contact">Contact</a></li>
       </ul>
-      {% if user %}
-        <div class="mobile-user-info">{{ user }}<a href="/logout" style="display:block; margin-top:10px; background:rgba(255,255,255,0.2); padding:8px; border-radius:40px;">Logout</a></div>
-      {% else %}
-        <div style="padding:15px;"><a href="/login" class="mobile-login-btn">Login</a></div>
-      {% endif %}
+      <div style="padding:15px;"><a href="/login" class="mobile-login-btn">Login</a></div>
       <div class="mobile-theme-toggle"><span>Dark Mode</span><button id="mobileThemeToggle">Switch</button></div>
     </div>
   </header>
-
-  {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-      <div class="flash-messages">
-        {% for category, message in messages %}
-          <div class="alert alert-{{ category }}">{{ message }}</div>
-        {% endfor %}
-      </div>
-    {% endif %}
-  {% endwith %}
 
   <main>
     <!-- Hero Section -->
@@ -571,41 +490,38 @@
       <p>Exam Saarthi was born from a simple idea - every student deserves free access to quality study materials. What started as a small initiative by two passionate students has now become a trusted platform for thousands of learners across India.</p>
     </div>
 
-    <!-- Founders Section - Perfectly Aligned -->
+    <!-- Founders Section -->
     <div class="founders-section">
       <div class="founder-card">
-        <div class="founder-img-wrapper">
-          <img src="/static/images/Dev.jpg" alt="Gourav Sharma" class="founder-img" onerror="this.src='/static/images/Dev.jpg'">
-        </div>
+        <img src="/static/images/Dev.jpg" alt="Gourav Sharma" class="founder-img" onerror="this.src='/static/images/logo.png'">
         <h2 class="founder-name">Gourav Sharma</h2>
         <div class="founder-role"><i class="fas fa-code"></i> Developer & Founder</div>
         <div class="founder-university">
-          <i class="fas fa-university"></i> Indira Gandhi University, Meerpur, Rewari
+          <i class="fas fa-university"></i> Indira Gandhi University, Rewari
         </div>
         <div class="founder-bio">
-          A passionate developer and final year student at IGU Rewari, Gourav envisioned a platform where students could easily access previous year question papers without any hassle. His technical expertise and dedication brought Exam Saarthi to life. He believes in "Code for a Cause" and aims to make education accessible to all.
+          Passionate developer and final year student at IGU Rewari. Created Exam Saarthi to help students access PYQs easily.
         </div>
         <div class="founder-social">
-          <a href="https://www.linkedin.com/in/gourav-sharma8901/" class="founder-social-link"><i class="fab fa-linkedin-in"></i></a>
-          <a href="https://instagram.com/velogourav/" class="founder-social-link"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.linkedin.com/in/gourav-sharma8901/" target="_blank" class="founder-social-link"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://instagram.com/velogourav/" target="_blank" class="founder-social-link"><i class="fab fa-instagram"></i></a>
+          <a href="https://github.com/pandit777" target="_blank" class="founder-social-link"><i class="fab fa-github"></i></a>
         </div>
       </div>
 
       <div class="founder-card">
-        <div class="founder-img-wrapper">
-          <img src="/static/images/Edit.jpeg" alt="Mahesh Verma" class="founder-img" onerror="this.src='/static/images/Edit.jpeg'">
-        </div>
+        <img src="/static/images/Edit.jpeg" alt="Mahesh Verma" class="founder-img" onerror="this.src='/static/images/logo.png'">
         <h2 class="founder-name">Mahesh Verma</h2>
         <div class="founder-role"><i class="fas fa-edit"></i> Content Manager & Founder</div>
         <div class="founder-university">
-          <i class="fas fa-university"></i> Indira Gandhi University, Meerpur, Rewari
+          <i class="fas fa-university"></i> Indira Gandhi University, Rewari
         </div>
         <div class="founder-bio">
-          With a deep understanding of student needs, Mahesh curates and verifies all content on the platform. His commitment to quality ensures that every PYQ is accurate and helpful for exam preparation. His mantra is "Quality content changes lives" and he ensures every resource meets the highest standards.
+          Dedicated to curating and verifying quality content, ensuring every PYQ is accurate and helpful for students.
         </div>
         <div class="founder-social">
-          <a href="" class="founder-social-link"><i class="fab fa-linkedin-in"></i></a>
-          <a href="https://instagram.com/maheshverma8371/" class="founder-social-link"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="founder-social-link"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://instagram.com/maheshverma8371/" target="_blank" class="founder-social-link"><i class="fab fa-instagram"></i></a>
         </div>
       </div>
     </div>
@@ -632,43 +548,35 @@
 
     <!-- University Info -->
     <div class="mission-section">
-      <div class="mission-icon">
-        <i class="fas fa-university"></i>
-      </div>
-      <h2>Indira Gandhi University, Meerpur, Rewari</h2>
-      <p>Both founders are proud students of <strong>Indira Gandhi University, Rewari, Haryana</strong>. This prestigious university has been the foundation of their journey, and through Exam Saarthi, they aim to give back to the student community that has supported them throughout their academic life.</p>
+      <div class="mission-icon"><i class="fas fa-university"></i></div>
+      <h2>Indira Gandhi University, Rewari</h2>
+      <p>Both founders are proud students of Indira Gandhi University, Rewari, Haryana. Through Exam Saarthi, they aim to give back to the student community.</p>
     </div>
 
     <!-- Mission Section -->
     <div class="mission-section">
-      <div class="mission-icon">
-        <i class="fas fa-bullseye"></i>
-      </div>
+      <div class="mission-icon"><i class="fas fa-bullseye"></i></div>
       <h2>Our Mission</h2>
-      <p>To empower every student with free, easy, and reliable access to previous year question papers and exam resources. We believe that no student should struggle to find quality study materials during their crucial exam preparation phase.</p>
+      <p>To empower every student with free, easy, and reliable access to previous year question papers and exam resources.</p>
     </div>
 
     <!-- Vision Section -->
     <div class="mission-section">
-      <div class="mission-icon">
-        <i class="fas fa-eye"></i>
-      </div>
+      <div class="mission-icon"><i class="fas fa-eye"></i></div>
       <h2>Our Vision</h2>
-      <p>To become India's most trusted platform for academic resources, helping millions of students achieve their educational goals through accessible, organized, and verified study materials - all completely free of cost.</p>
+      <p>To become India's most trusted platform for academic resources, helping millions of students achieve their educational goals.</p>
     </div>
 
     <!-- Why We Do It Section -->
     <div class="mission-section">
-      <div class="mission-icon">
-        <i class="fas fa-heart"></i>
-      </div>
+      <div class="mission-icon"><i class="fas fa-heart"></i></div>
       <h2>Why We Do It</h2>
-      <p>As students ourselves, we know the struggles of exam preparation. The endless search for previous year papers, the cost of buying guides, and the frustration of finding unreliable resources - we've been there. Exam Saarthi is our way of making exam preparation simpler, more organized, and completely free for everyone.</p>
+      <p>As students ourselves, we know the struggles of exam preparation. Exam Saarthi is our way of making exam preparation simpler, more organized, and completely free for everyone.</p>
     </div>
   </main>
 
   <footer>
-    <p>&copy; 2025 Exam Saarthi | Made with <i class="fas fa-heart" style="color: #fbbf24;"></i> by Gourav Sharma & Mahesh Verma | Indira Gandhi University, Rewari</p>
+    <p>&copy; 2025 Exam Saarthi | Made with <i class="fas fa-heart" style="color: #fbbf24;"></i> by Gourav Sharma & Mahesh Verma | IGU Rewari</p>
   </footer>
 
   <script>
