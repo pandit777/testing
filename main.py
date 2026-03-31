@@ -580,195 +580,163 @@ def logout():
 # ============ PROTECTED ROUTES (Login Required) ============
 
 @app.route("/university")
-@login_required
 @no_cache
 def university():
     return render_template("university.html", user=session.get('fullname'))
 
 # ============ IGU ROUTES (Login Required) ============
 @app.route("/igu")
-@login_required
 @no_cache
 def igu():
     return render_template("igu.html", user=session.get('fullname'))
 
 @app.route("/igu-btech")
-@login_required
 @no_cache
 def igu_btech():
     return render_template("igu-btech.html", user=session.get('fullname'))
 
 @app.route("/igu-mtech")
-@login_required
 @no_cache
 def igu_mtech():
     return render_template("igu-mtech.html", user=session.get('fullname'))
 
 @app.route("/igu-bca")
-@login_required
 @no_cache
 def igu_bca():
     return render_template("igu-bca.html", user=session.get('fullname'))
 
 @app.route("/igu-bba")
-@login_required
 @no_cache
 def igu_bba():
     return render_template("igu-bba.html", user=session.get('fullname'))
 
 @app.route("/igu-bsc")
-@login_required
 @no_cache
 def igu_bsc():
     return render_template("igu-bsc.html", user=session.get('fullname'))
 
 @app.route("/igu-msc")
-@login_required
 @no_cache
 def igu_msc():
     return render_template("igu-msc.html", user=session.get('fullname'))
 
 @app.route("/igu-ba")
-@login_required
 @no_cache
 def igu_ba():
     return render_template("igu-ba.html", user=session.get('fullname'))
 
 @app.route("/igu-ma")
-@login_required
 @no_cache
 def igu_ma():
     return render_template("igu-ma.html", user=session.get('fullname'))
 
 @app.route("/igu-bcom")
-@login_required
 @no_cache
 def igu_bcom():
     return render_template("igu-bcom.html", user=session.get('fullname'))
 
 @app.route("/igu-mcom")
-@login_required
 @no_cache
 def igu_mcom():
     return render_template("igu-mcom.html", user=session.get('fullname'))
 
 @app.route("/igu-bed")
-@login_required
 @no_cache
 def igu_bed():
     return render_template("igu-bed.html", user=session.get('fullname'))
 
 @app.route("/igu-llb")
-@login_required
 @no_cache
 def igu_llb():
     return render_template("igu-llb.html", user=session.get('fullname'))
 
 @app.route("/igu-mca")
-@login_required
 @no_cache
 def igu_mca():
     return render_template("igu-mca.html", user=session.get('fullname'))
 
 @app.route("/igu-mba")
-@login_required
 @no_cache
 def igu_mba():
     return render_template("igu-mba.html", user=session.get('fullname'))
 
 # ============ OTHER UNIVERSITY ROUTES (Login Required) ============
 @app.route("/du")
-@login_required
 @no_cache
 def du():
     return render_template("du.html", user=session.get('fullname'))
 
 @app.route("/pu")
-@login_required
 @no_cache
 def pu():
     return render_template("pu.html", user=session.get('fullname'))
 
 @app.route("/jmi")
-@login_required
 @no_cache
 def jmi():
     return render_template("jmi.html", user=session.get('fullname'))
 
 @app.route("/amu")
-@login_required
 @no_cache
 def amu():
     return render_template("amu.html", user=session.get('fullname'))
 
 @app.route("/bhu")
-@login_required
 @no_cache
 def bhu():
     return render_template("bhu.html", user=session.get('fullname'))
 
 @app.route("/mumbai")
-@login_required
 @no_cache
 def mumbai():
     return render_template("mumbai.html", user=session.get('fullname'))
 
 @app.route("/calcutta")
-@login_required
 @no_cache
 def calcutta():
     return render_template("calcutta.html", user=session.get('fullname'))
 
 @app.route("/anna")
-@login_required
 @no_cache
 def anna():
     return render_template("anna.html", user=session.get('fullname'))
 
 @app.route("/osmania")
-@login_required
 @no_cache
 def osmania():
     return render_template("osmania.html", user=session.get('fullname'))
 
 @app.route("/pune")
-@login_required
 @no_cache
 def pune():
     return render_template("pune.html", user=session.get('fullname'))
 
 @app.route("/gujarat")
-@login_required
 @no_cache
 def gujarat():
     return render_template("gujarat.html", user=session.get('fullname'))
 
 @app.route("/rajasthan")
-@login_required
 @no_cache
 def rajasthan():
     return render_template("rajasthan.html", user=session.get('fullname'))
 
 @app.route("/kurukshetra")
-@login_required
 @no_cache
 def kurukshetra():
     return render_template("kurukshetra.html", user=session.get('fullname'))
 
 @app.route("/mdu")
-@login_required
 @no_cache
 def mdu():
     return render_template("mdu.html", user=session.get('fullname'))
 
 @app.route("/ignou")
-@login_required
 @no_cache
 def ignou():
     return render_template("ignou.html", user=session.get('fullname'))
 
 @app.route("/bangalore")
-@login_required
 @no_cache
 def bangalore():
     return render_template("bangalore.html", user=session.get('fullname'))
@@ -788,7 +756,6 @@ def check_session():
     return jsonify({'logged_in': False})
 
 @app.route("/api/universities")
-@login_required
 @no_cache
 def get_universities():
     universities_data = [
