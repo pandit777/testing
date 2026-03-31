@@ -5,11 +5,12 @@ from dotenv import load_dotenv
 import os
 import secrets
 from functools import wraps
-from datetime import timedelta
+from datetime import datetime, date, timedelta
 import requests
 import re
 import random
 import string
+import json
 
 load_dotenv()
 
@@ -55,8 +56,67 @@ else:
 print("=" * 50)
 
 DB_FILE = "database.db"
+VISITOR_FILE = "visitors.json"
 
-# Database connection
+# ============ VISITOR COUNTER FUNCTIONS ============
+
+def load_visitor_data():
+    """Load visitor data from file"""
+    if os.path.exists(VISITOR_FILE):
+        try:
+            with open(VISITOR_FILE, 'r') as f:
+                return json.load(f)
+        except:
+            return {"total": 0, "daily": {}, "history": {}}
+    return {"total": 0, "daily": {}, "history": {}}
+
+def save_visitor_data(data):
+    """Save visitor data to file"""
+    with open(VISITOR_FILE, 'w') as f:
+        json.dump(data, f)
+
+def get_weekly_total(data):
+    """Get total visitors for last 7 days"""
+    today = date.today()
+    week_total = 0
+    for i in range(7):
+        d = today - timedelta(days=i)
+        date_str = d.strftime('%Y-%m-%d')
+        week_total += data.get("daily", {}).get(date_str, 0)
+    return week_total
+
+def get_monthly_total(data):
+    """Get total visitors for current month"""
+    today = date.today()
+    current_month = today.strftime('%Y-%m')
+    month_total = 0
+    for date_str, count in data.get("daily", {}).items():
+        if date_str.startswith(current_month):
+            month_total += count
+    return month_total
+
+def update_visitor_count():
+    """Update visitor count for today"""
+    data = load_visitor_data()
+    today = str(date.today())
+    
+    if "daily" not in data:
+        data["daily"] = {}
+    if today not in data["daily"]:
+        data["daily"][today] = 0
+    
+    # Check if this session already counted today
+    session_key = f"visited_{today}"
+    if not session.get(session_key):
+        data["daily"][today] += 1
+        data["total"] = data.get("total", 0) + 1
+        session[session_key] = True
+        save_visitor_data(data)
+    
+    return data
+
+# ============ DATABASE CONNECTION ============
+
 def get_db_connection():
     conn = sqlite3.connect(DB_FILE)
     conn.row_factory = sqlite3.Row
@@ -275,7 +335,7 @@ def submit_contact():
         print(f"Error in contact form: {e}")
         return jsonify({"success": False, "message": "An error occurred. Please try again."})
 
-# ============ FORGOT PASSWORD ROUTES (Send Token via Telegram) ============
+# ============ FORGOT PASSWORD ROUTES ============
 
 @app.route("/forgot-password", methods=["GET", "POST"])
 @no_cache
@@ -296,10 +356,10 @@ def forgot_password():
             token = generate_reset_token()
             
             if save_reset_token(email, token):
-                # Send token via Telegram to admin (user will get from admin)
+                # Send token via Telegram to admin
                 if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
                     msg = f"""
-*🔐 PASSWORD RESET REQUEST*
+*PASSWORD RESET REQUEST*
 
 User: {user['fullname']}
 Email: {email}
@@ -372,11 +432,36 @@ def reset_password():
     
     return render_template("reset_password.html")
 
+# ============ VISITOR COUNTER API ROUTES ============
+
+@app.route("/api/record-visit", methods=["POST"])
+@no_cache
+def record_visit():
+    """Record a visit to the website"""
+    update_visitor_count()
+    return jsonify({"success": True})
+
+@app.route("/api/visitors")
+@no_cache
+def get_visitors():
+    """Get visitor statistics"""
+    data = load_visitor_data()
+    today = str(date.today())
+    
+    return jsonify({
+        "today": data.get("daily", {}).get(today, 0),
+        "week": get_weekly_total(data),
+        "month": get_monthly_total(data),
+        "total": data.get("total", 0)
+    })
+
 # ============ MAIN ROUTES (PUBLIC) ============
 
 @app.route("/")
 @no_cache
 def home():
+    # Record visitor on home page
+    update_visitor_count()
     return render_template("index.html", user=session.get('fullname'))
 
 @app.route("/about")
@@ -495,163 +580,195 @@ def logout():
 # ============ PROTECTED ROUTES (Login Required) ============
 
 @app.route("/university")
+@login_required
 @no_cache
 def university():
     return render_template("university.html", user=session.get('fullname'))
 
 # ============ IGU ROUTES (Login Required) ============
 @app.route("/igu")
+@login_required
 @no_cache
 def igu():
     return render_template("igu.html", user=session.get('fullname'))
 
 @app.route("/igu-btech")
+@login_required
 @no_cache
 def igu_btech():
     return render_template("igu-btech.html", user=session.get('fullname'))
 
 @app.route("/igu-mtech")
+@login_required
 @no_cache
 def igu_mtech():
     return render_template("igu-mtech.html", user=session.get('fullname'))
 
 @app.route("/igu-bca")
+@login_required
 @no_cache
 def igu_bca():
     return render_template("igu-bca.html", user=session.get('fullname'))
 
 @app.route("/igu-bba")
+@login_required
 @no_cache
 def igu_bba():
     return render_template("igu-bba.html", user=session.get('fullname'))
 
 @app.route("/igu-bsc")
+@login_required
 @no_cache
 def igu_bsc():
     return render_template("igu-bsc.html", user=session.get('fullname'))
 
 @app.route("/igu-msc")
+@login_required
 @no_cache
 def igu_msc():
     return render_template("igu-msc.html", user=session.get('fullname'))
 
 @app.route("/igu-ba")
+@login_required
 @no_cache
 def igu_ba():
     return render_template("igu-ba.html", user=session.get('fullname'))
 
 @app.route("/igu-ma")
+@login_required
 @no_cache
 def igu_ma():
     return render_template("igu-ma.html", user=session.get('fullname'))
 
 @app.route("/igu-bcom")
+@login_required
 @no_cache
 def igu_bcom():
     return render_template("igu-bcom.html", user=session.get('fullname'))
 
 @app.route("/igu-mcom")
+@login_required
 @no_cache
 def igu_mcom():
     return render_template("igu-mcom.html", user=session.get('fullname'))
 
 @app.route("/igu-bed")
+@login_required
 @no_cache
 def igu_bed():
     return render_template("igu-bed.html", user=session.get('fullname'))
 
 @app.route("/igu-llb")
+@login_required
 @no_cache
 def igu_llb():
     return render_template("igu-llb.html", user=session.get('fullname'))
 
 @app.route("/igu-mca")
+@login_required
 @no_cache
 def igu_mca():
     return render_template("igu-mca.html", user=session.get('fullname'))
 
 @app.route("/igu-mba")
+@login_required
 @no_cache
 def igu_mba():
     return render_template("igu-mba.html", user=session.get('fullname'))
 
 # ============ OTHER UNIVERSITY ROUTES (Login Required) ============
 @app.route("/du")
+@login_required
 @no_cache
 def du():
     return render_template("du.html", user=session.get('fullname'))
 
 @app.route("/pu")
+@login_required
 @no_cache
 def pu():
     return render_template("pu.html", user=session.get('fullname'))
 
 @app.route("/jmi")
+@login_required
 @no_cache
 def jmi():
     return render_template("jmi.html", user=session.get('fullname'))
 
 @app.route("/amu")
+@login_required
 @no_cache
 def amu():
     return render_template("amu.html", user=session.get('fullname'))
 
 @app.route("/bhu")
+@login_required
 @no_cache
 def bhu():
     return render_template("bhu.html", user=session.get('fullname'))
 
 @app.route("/mumbai")
+@login_required
 @no_cache
 def mumbai():
     return render_template("mumbai.html", user=session.get('fullname'))
 
 @app.route("/calcutta")
+@login_required
 @no_cache
 def calcutta():
     return render_template("calcutta.html", user=session.get('fullname'))
 
 @app.route("/anna")
+@login_required
 @no_cache
 def anna():
     return render_template("anna.html", user=session.get('fullname'))
 
 @app.route("/osmania")
+@login_required
 @no_cache
 def osmania():
     return render_template("osmania.html", user=session.get('fullname'))
 
 @app.route("/pune")
+@login_required
 @no_cache
 def pune():
     return render_template("pune.html", user=session.get('fullname'))
 
 @app.route("/gujarat")
+@login_required
 @no_cache
 def gujarat():
     return render_template("gujarat.html", user=session.get('fullname'))
 
 @app.route("/rajasthan")
+@login_required
 @no_cache
 def rajasthan():
     return render_template("rajasthan.html", user=session.get('fullname'))
 
 @app.route("/kurukshetra")
+@login_required
 @no_cache
 def kurukshetra():
     return render_template("kurukshetra.html", user=session.get('fullname'))
 
 @app.route("/mdu")
+@login_required
 @no_cache
 def mdu():
     return render_template("mdu.html", user=session.get('fullname'))
 
 @app.route("/ignou")
+@login_required
 @no_cache
 def ignou():
     return render_template("ignou.html", user=session.get('fullname'))
 
 @app.route("/bangalore")
+@login_required
 @no_cache
 def bangalore():
     return render_template("bangalore.html", user=session.get('fullname'))
@@ -671,6 +788,7 @@ def check_session():
     return jsonify({'logged_in': False})
 
 @app.route("/api/universities")
+@login_required
 @no_cache
 def get_universities():
     universities_data = [
@@ -803,19 +921,7 @@ if __name__ == "__main__":
     else:
         print("Telegram Bot: Not Configured")
     print("=" * 50)
-    print("ACCESS RULES:")
-    print("- Home Page: Public")
-    print("- About Page: Public")
-    print("- Contact Page: Public")
-    print("- Register Page: Public")
-    print("- Login Page: Public")
-    print("- Forgot Password: Public (Token via Telegram/Admin)")
-    print("- Admin Login: Public")
-    print("- Universities Page: Login Required")
-    print("- All University Pages: Login Required")
-    print("- Admin Panel: Admin Login Required")
-    print("=" * 50)
+    print("Visitor Counter: Enabled")
     print("Server running at: http://127.0.0.1:5000")
-    print("Press Ctrl+C to stop the server")
     print("=" * 50)
     app.run(debug=debug_mode, host='0.0.0.0', port=port)
