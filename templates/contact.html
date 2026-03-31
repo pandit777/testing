@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>Contact Us - Exam Saarthi | University PYQ Portal</title>
-  <meta name="description" content="Get in touch with Exam Saarthi team. Have questions about previous year question papers? Contact us for support, feedback, or suggestions.">
-  <meta name="keywords" content="contact exam saarthi, university pyq support, exam help, pyq questions">
+  <title>About Us - Exam Saarthi | University PYQ Portal</title>
+  <meta name="description" content="Learn about Exam Saarthi - started by Gourav Sharma and Mahesh Verma, students of Indira Gandhi University, Rewari. Our mission is to help students with free PYQs.">
+  <meta name="keywords" content="exam saarthi about, gourav sharma, mahesh verma, igu rewari, pyq portal, about us">
   <meta name="author" content="Exam Saarthi">
-  <link data-default-icon="/static/images/logo.png" rel="icon" sizes="192x192" href/static/images/logo.png" />
+  <link data-default-icon="/static/images/logo.png" rel="icon" sizes="192x192" href="/static/images/logo.png" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -132,16 +132,8 @@
       white-space: nowrap;
     }
 
-    .desktop-nav { 
-      display: none; 
-      align-items: center; 
-      gap: 8px;
-    }
-    .desktop-nav ul { 
-      display: flex; 
-      list-style: none; 
-      gap: 8px;
-    }
+    .desktop-nav { display: none; align-items: center; gap: 8px; }
+    .desktop-nav ul { display: flex; list-style: none; gap: 8px; }
     .desktop-nav ul li a {
       color: white;
       text-decoration: none;
@@ -231,66 +223,14 @@
       border-radius: 50px;
       text-align: center;
     }
-    .mobile-user-info { 
-      text-align: center; 
-      padding: 15px; 
-      background: rgba(255,255,255,0.1); 
-      border-radius: 50px; 
-      margin: 10px 0; 
-    }
-    .mobile-login-btn { 
-      background: var(--accent-bright-yellow); 
-      color: #0b1e4a; 
-      padding: 12px; 
-      border-radius: 50px; 
-      text-align: center; 
-      display: block; 
-      font-weight: 700; 
-    }
-    .mobile-theme-toggle { 
-      display: flex; 
-      justify-content: space-between; 
-      padding: 15px 20px; 
-      color: white; 
-      border-top: 1px solid rgba(255,255,255,0.2); 
-    }
-    marquee { 
-      background: var(--marquee-bg); 
-      color: var(--marquee-text); 
-      padding: 12px 0; 
-      font-weight: 700; 
-      width: 100%;
-    }
-    footer { 
-      margin-top: auto; 
-      background: var(--gradient-primary); 
-      color: var(--footer-text); 
-      text-align: center; 
-      padding: 1.75rem; 
-      position: relative; 
-      width: 100%;
-    }
-    footer:before { 
-      content: ''; 
-      position: absolute; 
-      top: 0; 
-      left: 0; 
-      right: 0; 
-      height: 4px; 
-      background: var(--gradient-accent); 
-    }
-    .flash-messages { 
-      max-width: 1200px; 
-      margin: 1rem auto; 
-      padding: 0 1.2rem; 
-      width: 100%;
-      box-sizing: border-box;
-    }
-    .alert { 
-      padding: 1rem; 
-      border-radius: 12px; 
-      margin-bottom: 1rem; 
-    }
+    .mobile-user-info { text-align: center; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 50px; margin: 10px 0; }
+    .mobile-login-btn { background: var(--accent-bright-yellow); color: #0b1e4a; padding: 12px; border-radius: 50px; text-align: center; display: block; font-weight: 700; }
+    .mobile-theme-toggle { display: flex; justify-content: space-between; padding: 15px 20px; color: white; border-top: 1px solid rgba(255,255,255,0.2); }
+    marquee { background: var(--marquee-bg); color: var(--marquee-text); padding: 12px 0; font-weight: 700; width: 100%; }
+    footer { margin-top: auto; background: var(--gradient-primary); color: var(--footer-text); text-align: center; padding: 1.75rem; position: relative; width: 100%; }
+    footer:before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--gradient-accent); }
+    .flash-messages { max-width: 1200px; margin: 1rem auto; padding: 0 1.2rem; width: 100%; box-sizing: border-box; }
+    .alert { padding: 1rem; border-radius: 12px; margin-bottom: 1rem; }
     .alert-success { background: #d4edda; color: #155724; }
     .alert-danger { background: #f8d7da; color: #721c24; }
     .alert-warning { background: #fff3cd; color: #856404; }
@@ -303,24 +243,25 @@
       box-sizing: border-box;
     }
 
-    /* Contact Page Styles */
-    .contact-card {
+    /* About Page Styles - Fixed Alignment */
+    .about-hero {
       background: var(--gradient-card-light);
       border-radius: 32px;
       padding: 2rem;
       box-shadow: var(--shadow-soft);
       margin-bottom: 2rem;
+      text-align: center;
       position: relative;
       overflow: hidden;
       transition: all 0.4s ease;
       width: 100%;
       box-sizing: border-box;
     }
-    .contact-card:hover {
+    .about-hero:hover {
       transform: translateY(-8px);
       box-shadow: var(--shadow-strong);
     }
-    .contact-card:before {
+    .about-hero:before {
       content: '';
       position: absolute;
       top: 0;
@@ -329,242 +270,248 @@
       height: 5px;
       background: var(--gradient-accent);
     }
-
-    .section-title {
-      font-size: 1.8rem;
+    .about-hero h1 {
+      font-size: 2rem;
       font-weight: 800;
-      text-align: center;
-      margin-bottom: 1rem;
       background: linear-gradient(145deg, var(--primary-deep-blue), var(--primary-rich-blue));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
       word-wrap: break-word;
     }
-    [data-theme="dark"] .section-title {
+    [data-theme="dark"] .about-hero h1 {
       background: linear-gradient(145deg, #fcd34d, #fbbf24);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-
-    .description-text {
+    .about-hero p {
       font-size: 1rem;
       color: var(--text-soft);
-      text-align: center;
-      margin-bottom: 1.5rem;
       line-height: 1.5;
       word-wrap: break-word;
     }
 
-    .contact-info-wrapper {
+    /* Founders Section - Perfectly Aligned */
+    .founders-section {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
+      gap: 1.5rem;
+      margin: 2rem 0;
+      width: 100%;
+    }
+    .founder-card {
+      flex: 1;
+      min-width: 280px;
+      max-width: 360px;
+      background: var(--gradient-card-light);
+      border-radius: 28px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+      border: 1px solid rgba(251, 191, 36, 0.1);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .founder-card:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gradient-accent);
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+    }
+    .founder-card:hover:before {
+      transform: scaleX(1);
+    }
+    .founder-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-strong);
+      border-color: rgba(251, 191, 36, 0.3);
+    }
+    .founder-img-wrapper {
+      position: relative;
+      margin-bottom: 1rem;
+    }
+    .founder-img {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--accent-bright-yellow);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      transition: all 0.4s ease;
+    }
+    .founder-card:hover .founder-img {
+      transform: scale(1.03);
+      border-color: var(--accent-deep-gold);
+      box-shadow: 0 12px 28px rgba(251, 191, 36, 0.25);
+    }
+    .founder-name {
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 0.3rem;
+      color: var(--text-main);
+    }
+    .founder-role {
+      color: var(--accent-bright-yellow);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      display: inline-block;
+      padding: 0.2rem 0.8rem;
+      background: rgba(251, 191, 36, 0.1);
+      border-radius: 40px;
+      font-size: 0.8rem;
+    }
+    .founder-university {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+    .founder-bio {
+      color: var(--text-soft);
+      font-size: 0.85rem;
+      line-height: 1.5;
+      margin: 0.8rem 0;
+      padding: 0.8rem;
+      background: rgba(251, 191, 36, 0.05);
+      border-radius: 16px;
+      text-align: center;
+      width: 100%;
+    }
+    .founder-social {
+      display: flex;
+      justify-content: center;
+      gap: 0.8rem;
+      margin-top: 0.3rem;
+    }
+    .founder-social-link {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(251, 191, 36, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-bright-yellow);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+    }
+    .founder-social-link:hover {
+      background: var(--gradient-accent);
+      color: #0b1e4a;
+      transform: translateY(-3px) scale(1.1);
+    }
+
+    /* Mission Section */
+    .mission-section {
+      background: var(--gradient-card-light);
+      border-radius: 28px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      text-align: center;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .mission-section:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-strong);
+    }
+    .mission-section:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gradient-accent);
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+    }
+    .mission-section:hover:before {
+      transform: scaleX(1);
+    }
+    .mission-icon {
+      font-size: 2.5rem;
+      color: var(--accent-bright-yellow);
+      margin-bottom: 0.8rem;
+      display: inline-block;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+    .mission-section h2 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 0.8rem;
+      color: var(--text-main);
+    }
+    .mission-section p {
+      font-size: 0.9rem;
+      color: var(--text-soft);
+      line-height: 1.5;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Stats Section */
+    .stats-about {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
       gap: 1rem;
       margin: 1.5rem 0;
       width: 100%;
     }
-    .contact-item {
-      flex: 0 1 250px;
+    .stat-about-card {
+      background: var(--gradient-card-light);
+      border-radius: 24px;
+      padding: 1.2rem;
       text-align: center;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(251, 191, 36, 0.1);
     }
-    .contact-item p {
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      color: var(--text-main);
-      font-size: 0.9rem;
+    .stat-about-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-medium);
+      border-color: rgba(251, 191, 36, 0.3);
     }
-    .contact-link {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      background: rgba(251, 191, 36, 0.1);
-      border: 1px solid rgba(251, 191, 36, 0.2);
-      padding: 0.6rem 1rem;
-      border-radius: 50px;
-      color: var(--text-main);
-      text-decoration: none;
+    .stat-number-about {
+      font-size: 1.6rem;
+      font-weight: 900;
+      background: linear-gradient(145deg, var(--primary-deep-blue), var(--primary-rich-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+    [data-theme="dark"] .stat-number-about {
+      background: linear-gradient(145deg, #fcd34d, #fbbf24);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--stat-label-light);
       font-weight: 600;
-      transition: all 0.3s;
-      font-size: 0.85rem;
-      word-break: break-word;
-    }
-    .contact-link:hover {
-      background: var(--gradient-accent);
-      color: #0b1e4a;
-      transform: translateY(-2px);
-    }
-    .social-links {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-top: 1.5rem;
-      flex-wrap: wrap;
-    }
-    .social-link {
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      background: var(--gradient-card-light);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.3rem;
-      color: var(--text-main);
-      transition: all 0.4s;
-      text-decoration: none;
-      border: 1px solid rgba(251, 191, 36, 0.2);
-    }
-    .social-link:hover {
-      transform: translateY(-5px) scale(1.05);
-      background: var(--gradient-accent);
-      color: #0b1e4a;
-    }
-    .query-btn {
-      background: var(--gradient-accent);
-      color: #0b1e4a;
-      padding: 0.9rem 2rem;
-      border-radius: 60px;
-      font-weight: 800;
-      font-size: 1rem;
-      cursor: pointer;
-      border: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      transition: all 0.3s;
-      margin: 0 auto;
-    }
-    .query-btn:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 15px 25px -5px rgba(251, 191, 36, 0.6);
-    }
-    .help-text {
-      color: var(--text-muted);
-      text-align: center;
-      margin-top: 1rem;
-      font-size: 0.85rem;
-    }
-
-    .form-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      z-index: 2000;
-      justify-content: center;
-      align-items: center;
-      backdrop-filter: blur(5px);
-    }
-    .form-container {
-      background: var(--gradient-card-light);
-      border-radius: 28px;
-      padding: 1.5rem;
-      max-width: 500px;
-      width: 90%;
-      max-height: 85vh;
-      overflow-y: auto;
-      position: relative;
-      margin: 1rem;
-    }
-    .close-btn {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      background: rgba(0,0,0,0.1);
-      border: none;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 1.1rem;
-    }
-    .form-group { margin-bottom: 1rem; }
-    .form-group label { 
-      display: block; 
-      font-weight: 600; 
-      margin-bottom: 0.3rem; 
-      color: var(--text-main);
-      font-size: 0.9rem;
-    }
-    .form-group input, .form-group select, .form-group textarea {
-      width: 100%;
-      padding: 0.7rem;
-      border: 2px solid rgba(251, 191, 36, 0.2);
-      border-radius: 16px;
-      background: var(--gradient-card-light);
-      color: var(--text-main);
-      font-family: inherit;
-      font-size: 0.9rem;
-    }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-      border-color: var(--accent-bright-yellow);
-      outline: none;
-    }
-    .submit-btn {
-      background: var(--gradient-primary);
-      color: white;
-      width: 100%;
-      padding: 0.8rem;
-      border: none;
-      border-radius: 40px;
-      font-weight: 700;
-      cursor: pointer;
-      font-size: 0.95rem;
-    }
-    .submit-btn:disabled { opacity: 0.7; cursor: not-allowed; }
-    .required-field { color: #ef4444; }
-    .error-message {
-      background: rgba(239, 68, 68, 0.1);
-      color: #ef4444;
-      padding: 0.8rem;
-      border-radius: 16px;
-      margin-bottom: 1rem;
-      text-align: center;
-      display: none;
-      font-size: 0.85rem;
-    }
-    .success-modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      z-index: 2000;
-      justify-content: center;
-      align-items: center;
-      backdrop-filter: blur(5px);
-    }
-    .success-content {
-      background: var(--gradient-card-light);
-      border-radius: 28px;
-      padding: 1.5rem;
-      text-align: center;
-      max-width: 350px;
-      width: 85%;
-    }
-    .success-icon { font-size: 3rem; color: #10b981; margin-bottom: 0.8rem; }
-    .continue-btn {
-      background: var(--gradient-accent);
-      color: #0b1e4a;
-      padding: 0.7rem 1.5rem;
-      border-radius: 40px;
-      font-weight: 700;
-      border: none;
-      cursor: pointer;
-      margin-top: 0.8rem;
-      font-size: 0.9rem;
-    }
-    .quick-contact-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.8rem;
-      margin-top: 1rem;
     }
 
     @media (min-width: 768px) {
@@ -573,34 +520,40 @@
       .header-title { font-size: 1.8rem; }
       .desktop-nav { display: flex; }
       .mobile-menu-btn { display: none; }
-      .section-title { font-size: 2.2rem; }
-      .contact-card { padding: 2rem; }
-      .contact-info-wrapper { gap: 1.5rem; }
-      .contact-link { padding: 0.7rem 1.2rem; font-size: 0.9rem; }
+      .stats-about { grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+      .about-hero h1 { font-size: 2.5rem; }
+      .about-hero { padding: 2rem; }
+      .mission-section h2 { font-size: 1.6rem; }
+      .mission-section { padding: 2rem; }
+      .founder-card { padding: 1.8rem; }
+      .founder-img { width: 150px; height: 150px; }
+      .stat-number-about { font-size: 2rem; }
     }
     @media (max-width: 768px) {
       .header-content { padding: 0.7rem 1rem; }
       .logo-img { width: 40px; height: 40px; margin-right: 0.5rem; }
-      .header-title { font-size: 1.1rem; white-space: nowrap; }
+      .header-title { font-size: 1rem; white-space: nowrap; }
       .desktop-nav { display: none !important; }
       .mobile-menu-btn { display: block; }
-      .contact-card { padding: 1.2rem; }
-      .section-title { font-size: 1.4rem; }
-      .description-text { font-size: 0.9rem; }
-      .contact-info-wrapper { gap: 0.8rem; }
-      .contact-item { flex: 0 1 100%; max-width: 280px; }
-      .contact-link { font-size: 0.8rem; padding: 0.5rem 0.8rem; }
-      .social-link { width: 40px; height: 40px; font-size: 1.1rem; }
-      .query-btn { padding: 0.7rem 1.5rem; font-size: 0.9rem; }
-      .form-container { padding: 1.2rem; }
-      .form-group input, .form-group select, .form-group textarea { padding: 0.6rem; font-size: 0.85rem; }
+      .about-hero { padding: 1.2rem; }
+      .about-hero h1 { font-size: 1.4rem; }
+      .founder-img { width: 110px; height: 110px; }
+      .founder-name { font-size: 1.1rem; }
+      .founder-bio { font-size: 0.8rem; }
+      .stats-about { gap: 0.8rem; }
+      .stat-about-card { padding: 1rem; }
+      .stat-number-about { font-size: 1.2rem; }
+      .mission-section h2 { font-size: 1.2rem; }
     }
     @media (max-width: 480px) {
-      .header-title { font-size: 1rem; }
-      .logo-img { width: 35px; height: 35px; }
-      .contact-card { padding: 1rem; }
-      .section-title { font-size: 1.2rem; }
-      .contact-link { font-size: 0.75rem; }
+      .founder-card { min-width: 260px; padding: 1.2rem; }
+      .founder-img { width: 95px; height: 95px; }
+      .founder-bio { font-size: 0.75rem; padding: 0.6rem; }
+      .mission-section { padding: 1.2rem; }
+      .mission-section h2 { font-size: 1rem; }
+      .mission-section p { font-size: 0.8rem; }
+      .stat-number-about { font-size: 1rem; }
+      .stat-label { font-size: 0.65rem; }
     }
   </style>
 </head>
@@ -615,8 +568,8 @@
         <ul>
           <li><a href="/">Home</a></li>
           <li><a href="/university">Universities</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/contact" class="active-nav-link">Contact</a></li>
+          <li><a href="/about" class="active-nav-link">About</a></li>
+          <li><a href="/contact">Contact</a></li>
         </ul>
         
           <a href="/login" class="login-btn">Login</a>
@@ -626,14 +579,14 @@
       <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
     </div>
     <marquee behavior="scroll" direction="left" scrollamount="6">
-      <i class="fas fa-bullhorn"></i> 📬 Get in touch with us — We'd love to hear from you! | Exam Saarthi - Your Complete PYQ Solution
+      <i class="fas fa-bullhorn"></i> 📖 Exam Saarthi - Started by two passionate students from Indira Gandhi University, Rewari, to help fellow students with free PYQs!
     </marquee>
     <div class="mobile-nav" id="mobileNav">
       <ul>
         <li><a href="/">Home</a></li>
         <li><a href="/university">Universities</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/contact" class="active-nav-link">Contact</a></li>
+        <li><a href="/about" class="active-nav-link">About</a></li>
+        <li><a href="/contact">Contact</a></li>
       </ul>
       
         <div style="padding:15px;"><a href="/login" class="mobile-login-btn">Login</a></div>
@@ -644,143 +597,114 @@
 
   
     
-      <div class="flash-messages">
-        
-          <div class="alert alert-danger">Something went wrong! Please try again later.</div>
-        
-      </div>
-    
   
 
   <main>
-    <!-- Query Button Section -->
-    <div class="contact-card">
-      <h1 class="section-title">📬 Contact Exam Saarthi</h1>
-      <p class="description-text">
-        Have questions, feedback, or suggestions? Click the button below to reach out to the<br>
-        <strong style="color: var(--accent-bright-yellow);">Exam Saarthi</strong> team. We'll get back to you as soon as possible.
-      </p>
-      <div style="text-align: center;">
-        <button class="query-btn" id="queryBtn">
-          <i class="fas fa-question-circle"></i> Submit Your Query
-        </button>
+    <!-- Hero Section -->
+    <div class="about-hero">
+      <h1>📖 Our Story</h1>
+      <p>Exam Saarthi was born from a simple idea - every student deserves free access to quality study materials. What started as a small initiative by two passionate students has now become a trusted platform for thousands of learners across India.</p>
+    </div>
+
+    <!-- Founders Section - Perfectly Aligned -->
+    <div class="founders-section">
+      <div class="founder-card">
+        <div class="founder-img-wrapper">
+          <img src="/static/images/Dev.jpg" alt="Gourav Sharma" class="founder-img" onerror="this.src='/static/images/logo.png'">
+        </div>
+        <h2 class="founder-name">Gourav Sharma</h2>
+        <div class="founder-role"><i class="fas fa-code"></i> Developer & Founder</div>
+        <div class="founder-university">
+          <i class="fas fa-university"></i> Indira Gandhi University, Meerpur, Rewari
+        </div>
+        <div class="founder-bio">
+          A passionate developer and final year student at IGU Rewari, Gourav envisioned a platform where students could easily access previous year question papers without any hassle. His technical expertise and dedication brought Exam Saarthi to life.
+        </div>
+        <div class="founder-social">
+          <a href="https://www.linkedin.com/in/gourav-sharma8901/" target="_blank" class="founder-social-link"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://instagram.com/velogourav/" target="_blank" class="founder-social-link"><i class="fab fa-instagram"></i></a>
+          <a href="https://github.com/pandit777" target="_blank" class="founder-social-link"><i class="fab fa-github"></i></a>
+        </div>
       </div>
-      <div class="help-text">
-        <p>Need help with PYQs? Tell us which university and course you need help with</p>
+
+      <div class="founder-card">
+        <div class="founder-img-wrapper">
+          <img src="/static/images/Edit.jpeg" alt="Mahesh Verma" class="founder-img" onerror="this.src='/static/images/logo.png'">
+        </div>
+        <h2 class="founder-name">Mahesh Verma</h2>
+        <div class="founder-role"><i class="fas fa-edit"></i> Content Manager & Founder</div>
+        <div class="founder-university">
+          <i class="fas fa-university"></i> Indira Gandhi University, Meerpur, Rewari
+        </div>
+        <div class="founder-bio">
+          With a deep understanding of student needs, Mahesh curates and verifies all content on the platform. His commitment to quality ensures that every PYQ is accurate and helpful for exam preparation.
+        </div>
+        <div class="founder-social">
+          <a href="#" class="founder-social-link"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://instagram.com/maheshverma8371/" target="_blank" class="founder-social-link"><i class="fab fa-instagram"></i></a>
+        </div>
       </div>
     </div>
 
-    <!-- Contact Information Section -->
-    <div class="contact-card">
-      <h2 class="section-title">📍 Get in Touch</h2>
-      <p class="description-text">
-        Exam Saarthi is your one-stop solution for all university previous year question papers (PYQs).<br>
-        We provide comprehensive PYQs for multiple universities to help students excel in their exams.
-      </p>
-      
-      <div class="contact-info-wrapper">
-        <div class="contact-item">
-          <p><i class="fas fa-envelope"></i> Official Email</p>
-          <a href="mailto:igupyq@gmail.com" class="contact-link">
-            <i class="fas fa-envelope"></i> igupyq@gmail.com
-          </a>
-        </div>
-        <div class="contact-item">
-          <p><i class="fas fa-headset"></i> Support Email</p>
-          <a href="mailto:igupyq.support@gmail.com" class="contact-link">
-            <i class="fas fa-headset"></i> igupyq.support@gmail.com
-          </a>
-        </div>
-        <div class="contact-item">
-          <p><i class="fab fa-instagram"></i> Instagram</p>
-          <a href="https://instagram.com/velogourav" target="_blank" class="contact-link">
-            <i class="fab fa-instagram"></i> @velogourav
-          </a>
-        </div>
+    <!-- Stats Section -->
+    <div class="stats-about">
+      <div class="stat-about-card">
+        <span class="stat-number-about">50+</span>
+        <span class="stat-label">Universities</span>
       </div>
-      
-      <div class="social-links">
-        <a href="mailto:igupyq@gmail.com" class="social-link" title="Email"><i class="fas fa-envelope"></i></a>
-        <a href="mailto:igupyq.support@gmail.com" class="social-link" title="Support"><i class="fas fa-headset"></i></a>
-        <a href="https://instagram.com/velogourav" target="_blank" class="social-link" title="Instagram"><i class="fab fa-instagram"></i></a>
+      <div class="stat-about-card">
+        <span class="stat-number-about">5000+</span>
+        <span class="stat-label">PYQs</span>
+      </div>
+      <div class="stat-about-card">
+        <span class="stat-number-about">100+</span>
+        <span class="stat-label">Courses</span>
+      </div>
+      <div class="stat-about-card">
+        <span class="stat-number-about">10k+</span>
+        <span class="stat-label">Active Users</span>
       </div>
     </div>
 
-    <!-- Quick Contact Section for Mobile -->
-    <div class="contact-card" id="quickContactMobile" style="display: none;">
-      <h2 class="section-title">📱 Quick Contact</h2>
-      <div class="quick-contact-grid">
-        <a href="mailto:igupyq@gmail.com" class="contact-link" style="flex-direction: column; padding: 0.8rem;">
-          <i class="fas fa-envelope fa-2x"></i>
-          <span>Email</span>
-        </a>
-        <a href="mailto:igupyq.support@gmail.com" class="contact-link" style="flex-direction: column; padding: 0.8rem;">
-          <i class="fas fa-headset fa-2x"></i>
-          <span>Support</span>
-        </a>
-        <a href="https://instagram.com/velogourav" target="_blank" class="contact-link" style="flex-direction: column; padding: 0.8rem;">
-          <i class="fab fa-instagram fa-2x"></i>
-          <span>Instagram</span>
-        </a>
+    <!-- University Info -->
+    <div class="mission-section">
+      <div class="mission-icon">
+        <i class="fas fa-university"></i>
       </div>
+      <h2>Indira Gandhi University, Meerpur, Rewari</h2>
+      <p>Both founders are proud students of <strong>Indira Gandhi University, Rewari, Haryana</strong>. This prestigious university has been the foundation of their journey, and through Exam Saarthi, they aim to give back to the student community.</p>
+    </div>
+
+    <!-- Mission Section -->
+    <div class="mission-section">
+      <div class="mission-icon">
+        <i class="fas fa-bullseye"></i>
+      </div>
+      <h2>Our Mission</h2>
+      <p>To empower every student with free, easy, and reliable access to previous year question papers and exam resources. We believe that no student should struggle to find quality study materials during their crucial exam preparation phase.</p>
+    </div>
+
+    <!-- Vision Section -->
+    <div class="mission-section">
+      <div class="mission-icon">
+        <i class="fas fa-eye"></i>
+      </div>
+      <h2>Our Vision</h2>
+      <p>To become India's most trusted platform for academic resources, helping millions of students achieve their educational goals through accessible, organized, and verified study materials - all completely free of cost.</p>
+    </div>
+
+    <!-- Why We Do It Section -->
+    <div class="mission-section">
+      <div class="mission-icon">
+        <i class="fas fa-heart"></i>
+      </div>
+      <h2>Why We Do It</h2>
+      <p>As students ourselves, we know the struggles of exam preparation. The endless search for previous year papers, the cost of buying guides, and the frustration of finding unreliable resources - we've been there. Exam Saarthi is our way of making exam preparation simpler, more organized, and completely free for everyone.</p>
     </div>
   </main>
 
-  <div class="form-overlay" id="formOverlay">
-    <div class="form-container">
-      <button class="close-btn" id="closeForm"><i class="fas fa-times"></i></button>
-      <h2 class="section-title" style="font-size: 1.5rem;">📝 Contact Form</h2>
-      <p class="description-text">Fill out the form below and we'll get back to you as soon as possible.</p>
-      <div id="formError" class="error-message"></div>
-      <form id="contactForm">
-        <div class="form-group">
-          <label>Full Name <span class="required-field">*</span></label>
-          <input type="text" id="name" name="name" placeholder="Enter your full name" required>
-        </div>
-        <div class="form-group">
-          <label>Email Address <span class="required-field">*</span></label>
-          <input type="email" id="email" name="email" placeholder="Enter your email address" required>
-        </div>
-        <div class="form-group">
-          <label>University <span class="required-field">*</span></label>
-          <select id="university" name="university" required>
-            <option value="" disabled selected>Select your university</option>
-            <option value="Indira Gandhi University (IGU), Rewari">🏛️ Indira Gandhi University (IGU), Rewari</option>
-            <option value="University of Delhi (DU)">📚 University of Delhi (DU)</option>
-            <option value="Punjab University (PU)">🎓 Punjab University (PU)</option>
-            <option value="Jamia Millia Islamia (JMI)">🏫 Jamia Millia Islamia (JMI)</option>
-            <option value="Banaras Hindu University (BHU)">🕉️ Banaras Hindu University (BHU)</option>
-            <option value="University of Mumbai">🏝️ University of Mumbai</option>
-            <option value="Calcutta University (CU)">🎭 Calcutta University (CU)</option>
-            <option value="Anna University">⚙️ Anna University</option>
-            <option value="Osmania University">🌆 Osmania University</option>
-            <option value="Other University">🎓 Other University</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Course/Subject</label>
-          <input type="text" id="course" name="course" placeholder="e.g., B.Tech CSE, B.Com, M.A. English">
-        </div>
-        <div class="form-group">
-          <label>Your Message <span class="required-field">*</span></label>
-          <textarea id="message" name="message" rows="4" placeholder="Please describe your query in detail..." required></textarea>
-        </div>
-        <button type="submit" class="submit-btn" id="submitBtn">Send Message</button>
-      </form>
-    </div>
-  </div>
-
-  <div class="success-modal" id="successModal">
-    <div class="success-content">
-      <div class="success-icon"><i class="fas fa-check-circle"></i></div>
-      <h2 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 0.5rem;">Message Sent!</h2>
-      <p style="margin-bottom: 1rem;">Thank you for contacting Exam Saarthi. We'll get back to you soon.</p>
-      <button class="continue-btn" id="continueBtn">Continue</button>
-    </div>
-  </div>
-
   <footer>
-    <p>&copy; 2025 Exam Saarthi | Designed with <i class="fas fa-heart" style="color: #fbbf24;"></i> by Gourav Sharma & Mahesh Verma</p>
+    <p>&copy; 2025 Exam Saarthi | Made with <i class="fas fa-heart" style="color: #fbbf24;"></i> by Gourav Sharma & Mahesh Verma | Indira Gandhi University, Rewari</p>
   </footer>
 
   <script>
@@ -824,118 +748,6 @@
       }
       checkViewport();
       window.addEventListener('resize', checkViewport);
-
-      // Show mobile quick contact on small screens
-      const quickContactMobile = document.getElementById('quickContactMobile');
-      if (quickContactMobile && window.innerWidth <= 768) {
-        quickContactMobile.style.display = 'block';
-      }
-      window.addEventListener('resize', () => {
-        if (quickContactMobile) {
-          quickContactMobile.style.display = window.innerWidth <= 768 ? 'block' : 'none';
-        }
-      });
-
-      // Form Modal
-      const queryBtn = document.getElementById('queryBtn');
-      const formOverlay = document.getElementById('formOverlay');
-      const closeForm = document.getElementById('closeForm');
-      const contactForm = document.getElementById('contactForm');
-      const successModal = document.getElementById('successModal');
-      const continueBtn = document.getElementById('continueBtn');
-      const submitBtn = document.getElementById('submitBtn');
-      const formError = document.getElementById('formError');
-
-      queryBtn?.addEventListener('click', () => {
-        formOverlay.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-      });
-
-      closeForm?.addEventListener('click', () => {
-        formOverlay.style.display = 'none';
-        document.body.style.overflow = 'auto';
-        formError.style.display = 'none';
-      });
-
-      formOverlay?.addEventListener('click', (e) => {
-        if (e.target === formOverlay) {
-          formOverlay.style.display = 'none';
-          document.body.style.overflow = 'auto';
-          formError.style.display = 'none';
-        }
-      });
-
-      function showError(message) {
-        formError.textContent = message;
-        formError.style.display = 'block';
-        setTimeout(() => {
-          formError.style.display = 'none';
-        }, 5000);
-      }
-
-      function isValidEmail(email) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-      }
-
-      contactForm?.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const name = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const university = document.getElementById('university').value;
-        const course = document.getElementById('course').value.trim();
-        const message = document.getElementById('message').value.trim();
-
-        if (!name || !email || !university || !message) {
-          showError('Please fill all required fields');
-          return;
-        }
-
-        if (!isValidEmail(email)) {
-          showError('Please enter a valid email address');
-          return;
-        }
-
-        const formData = new FormData();
-        formData.append('name', name);
-        formData.append('email', email);
-        formData.append('university', university);
-        formData.append('course', course);
-        formData.append('message', message);
-        
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Sending...';
-
-        try {
-          const response = await fetch('/submit_contact', {
-            method: 'POST',
-            body: formData
-          });
-          
-          const result = await response.json();
-          
-          if (result.success) {
-            formOverlay.style.display = 'none';
-            successModal.style.display = 'flex';
-            document.body.style.overflow = 'auto';
-            contactForm.reset();
-            formError.style.display = 'none';
-          } else {
-            showError(result.message || 'Error sending message. Please try again.');
-          }
-        } catch (error) {
-          console.error('Error:', error);
-          showError('Network error. Please check your connection.');
-        } finally {
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Send Message';
-        }
-      });
-
-      continueBtn?.addEventListener('click', () => {
-        successModal.style.display = 'none';
-        window.location.href = '/';
-      });
     })();
   </script>
 </body>
