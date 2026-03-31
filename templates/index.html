@@ -7,7 +7,7 @@
   <meta name="description" content="Exam Saarthi provides all university previous year question papers (PYQ) for free. Download semester-wise question papers for easy exam preparation.">
   <meta name="keywords" content="exam saarthi, exam preparation, exam pyq, university pyqs, igu pyq">
   <meta name="author" content="Exam Saarthi">
-  <link data-default-icon="/logo.png" rel="icon" sizes="192x192" href="logo.png" />
+  <link data-default-icon="https://pandit777.github.io/Exam-Saarthi/logo.png" rel="icon" sizes="192x192" href="https://pandit777.github.io/Exam-Saarthi/logo.png" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -61,8 +61,16 @@
       --marquee-bg: linear-gradient(145deg, #fbbf24 0%, #d97706 100%);
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    * { 
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box; 
+    }
+    html { 
+      scroll-behavior: smooth; 
+      overflow-x: hidden;
+      width: 100%;
+    }
     body {
       font-family: 'Inter', sans-serif;
       color: var(--text-main);
@@ -71,10 +79,13 @@
       display: flex;
       flex-direction: column;
       transition: background 0.3s ease, color 0.2s ease;
+      overflow-x: hidden;
+      width: 100%;
+      position: relative;
     }
 
     /* ---------------------------------------------------------------------- */
-    /* ENHANCED HEADER & NAVIGATION */
+    /* ENHANCED HEADER & NAVIGATION - SAME AS ORIGINAL */
     /* ---------------------------------------------------------------------- */
     header {
       background: var(--gradient-primary);
@@ -93,6 +104,7 @@
       padding: 0.8rem 2rem;
       max-width: 1400px;
       margin: 0 auto;
+      width: 100%;
     }
 
     .logo-area {
@@ -207,62 +219,24 @@
     .mobile-user-info { text-align: center; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 50px; margin: 10px 0; }
     .mobile-login-btn { background: var(--accent-bright-yellow); color: #0b1e4a; padding: 12px; border-radius: 50px; text-align: center; display: block; font-weight: 700; }
     .mobile-theme-toggle { display: flex; justify-content: space-between; padding: 15px 20px; color: white; border-top: 1px solid rgba(255,255,255,0.2); }
-    marquee { background: var(--marquee-bg); color: var(--marquee-text); padding: 12px 0; font-weight: 700; }
-    footer { margin-top: auto; background: var(--gradient-primary); color: var(--footer-text); text-align: center; padding: 1.75rem; position: relative; }
+    marquee { background: var(--marquee-bg); color: var(--marquee-text); padding: 12px 0; font-weight: 700; width: 100%; }
+    footer { margin-top: auto; background: var(--gradient-primary); color: var(--footer-text); text-align: center; padding: 1.75rem; position: relative; width: 100%; }
     footer:before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--gradient-accent); }
-    .flash-messages { max-width: 1200px; margin: 1rem auto; padding: 0 1.2rem; }
+    .flash-messages { max-width: 1200px; margin: 1rem auto; padding: 0 1.2rem; width: 100%; box-sizing: border-box; }
     .alert { padding: 1rem; border-radius: 12px; margin-bottom: 1rem; }
     .alert-success { background: #d4edda; color: #155724; }
     .alert-danger { background: #f8d7da; color: #721c24; }
     .alert-warning { background: #fff3cd; color: #856404; }
-    main { max-width: 1200px; margin: 0 auto; padding: 1.2rem; flex: 1; }
-
-    /* Visitor Counter Styles - Footer Section */
-    .visitor-counter {
-      background: linear-gradient(135deg, #0b1e4a 0%, #1a3182 100%);
-      border-radius: 20px;
-      padding: 1.5rem;
-      margin: 2rem 0 1.5rem;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      box-shadow: var(--shadow-medium);
-    }
-    .visitor-item {
-      text-align: center;
-      flex: 1;
-      min-width: 100px;
-    }
-    .visitor-number {
-      font-size: 2rem;
-      font-weight: 800;
-      color: var(--accent-bright-yellow);
-      line-height: 1;
-    }
-    .visitor-label {
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.8);
-      margin-top: 0.5rem;
-    }
-    .visitor-icon {
-      font-size: 1.5rem;
-      color: var(--accent-bright-yellow);
-      margin-bottom: 0.5rem;
-    }
-    @media (max-width: 640px) {
-      .visitor-counter {
-        flex-wrap: wrap;
-        gap: 1rem;
-        padding: 1rem;
-      }
-      .visitor-number {
-        font-size: 1.5rem;
-      }
+    main { 
+      max-width: 1200px; 
+      margin: 0 auto; 
+      padding: 1.2rem; 
+      flex: 1; 
+      width: 100%;
+      box-sizing: border-box;
     }
 
-    /* Home Page Cards */
+    /* Home Page Cards - Original Styles */
     .home-card {
       background: var(--gradient-card-light);
       border-radius: 32px;
@@ -272,6 +246,8 @@
       position: relative;
       overflow: hidden;
       transition: all 0.4s ease;
+      width: 100%;
+      box-sizing: border-box;
     }
     .home-card:hover {
       transform: translateY(-8px);
@@ -519,29 +495,41 @@
       background: rgba(251, 191, 36, 0.05);
       border-radius: 20px;
     }
-    .team-social {
+
+    /* Visitor Counter - Original Styles */
+    .visitor-counter {
+      background: linear-gradient(135deg, #0b1e4a 0%, #1a3182 100%);
+      border-radius: 20px;
+      padding: 1.5rem;
+      margin: 2rem 0 1.5rem;
       display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-    .team-social-link {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: rgba(251, 191, 36, 0.1);
-      display: flex;
+      justify-content: space-around;
       align-items: center;
-      justify-content: center;
-      color: var(--accent-bright-yellow);
-      text-decoration: none;
-      transition: all 0.3s ease;
-      font-size: 1rem;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      box-shadow: var(--shadow-medium);
+      width: 100%;
     }
-    .team-social-link:hover {
-      background: var(--gradient-accent);
-      color: #0b1e4a;
-      transform: translateY(-3px) scale(1.1);
+    .visitor-item {
+      text-align: center;
+      flex: 1;
+      min-width: 100px;
+    }
+    .visitor-number {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent-bright-yellow);
+      line-height: 1;
+    }
+    .visitor-label {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.8);
+      margin-top: 0.5rem;
+    }
+    .visitor-icon {
+      font-size: 1.5rem;
+      color: var(--accent-bright-yellow);
+      margin-bottom: 0.5rem;
     }
 
     @media (min-width: 768px) {
@@ -569,12 +557,17 @@
       .team-card { max-width: 320px; }
       .team-img { width: 140px; height: 140px; }
       .team-name { font-size: 1.3rem; }
+      .visitor-counter { padding: 1rem; gap: 1rem; }
+      .visitor-number { font-size: 1.5rem; }
+      .visitor-item { min-width: 70px; }
     }
     @media (max-width: 480px) {
       .team-card { padding: 1.5rem; }
       .team-img { width: 120px; height: 120px; }
       .team-bio { font-size: 0.85rem; }
-      .team-social-link { width: 32px; height: 32px; font-size: 0.9rem; }
+      .visitor-number { font-size: 1.2rem; }
+      .visitor-label { font-size: 0.7rem; }
+      .visitor-icon { font-size: 1.1rem; }
     }
   </style>
 </head>
@@ -582,7 +575,7 @@
   <header>
     <div class="header-content">
       <a href="/" class="logo-area">
-        <img src="/logo.png" alt="Exam Saarthi Logo" class="logo-img" onerror="this.src='logo.png'">
+        <img src="https://pandit777.github.io/Exam-Saarthi/logo.png" alt="Exam Saarthi Logo" class="logo-img" onerror="this.src='https://pandit777.github.io/Exam-Saarthi/logo.png'">
         <h1 class="header-title">Exam Saarthi</h1>
       </a>
       <nav class="desktop-nav">
@@ -678,7 +671,7 @@
       <div class="team-container">
         <div class="team-card">
           <div class="team-img-wrapper">
-            <img src="/Dev.jpg" alt="Gourav Sharma" class="team-img" onerror="this.src='Dev.jpg'">
+            <img src="https://pandit777.github.io/Exam-Saarthi/Dev.jpg" alt="Gourav Sharma" class="team-img" onerror="this.src='https://pandit777.github.io/Exam-Saarthi/Dev.jpg'">
           </div>
           <h3 class="team-name">Gourav Sharma</h3>
           <div class="team-role"><i class="fas fa-code"></i> Developer & Founder</div>
@@ -691,7 +684,7 @@
         </div>
         <div class="team-card">
           <div class="team-img-wrapper">
-            <img src="/Edit.jpeg" alt="Mahesh Verma" class="team-img" onerror="this.src='Edit.jpeg'">
+            <img src="https://pandit777.github.io/Exam-Saarthi/Edit.jpeg" alt="Mahesh Verma" class="team-img" onerror="this.src='https://pandit777.github.io/Exam-Saarthi/Edit.jpeg'">
           </div>
           <h3 class="team-name">Mahesh Verma</h3>
           <div class="team-role"><i class="fas fa-edit"></i> Content Manager & Founder</div>
@@ -779,10 +772,7 @@
       // Visitor Counter Function
       async function updateVisitorCount() {
         try {
-          // First, record this visit
           await fetch('/api/record-visit', { method: 'POST' });
-          
-          // Then get visitor stats
           const response = await fetch('/api/visitors');
           const data = await response.json();
           
@@ -792,12 +782,10 @@
           document.getElementById('totalCount').innerText = data.total || 0;
         } catch (error) {
           console.error('Error fetching visitor stats:', error);
-          // Fallback to local storage
           loadLocalStats();
         }
       }
 
-      // Fallback: Simple local storage counter
       function loadLocalStats() {
         let today = new Date().toDateString();
         let storedDate = localStorage.getItem('visitDate');
@@ -817,7 +805,6 @@
         document.getElementById('monthCount').innerText = Math.floor(Math.random() * 500) + 200;
       }
 
-      // Load visitor stats on page load
       updateVisitorCount();
     })();
   </script>
