@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify, make_response
+from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify, make_response, send_from_directory
 import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
@@ -11,10 +11,17 @@ import re
 import random
 import string
 import json
+import hashlib
 
 load_dotenv()
 
 app = Flask(__name__)
+
+# ============ STATIC FILE CONFIGURATION ============
+# Create static folders if not exists
+os.makedirs('static/images', exist_ok=True)
+os.makedirs('static/icons', exist_ok=True)
+os.makedirs('static/uploads', exist_ok=True)
 
 # ============ SESSION CONFIGURATION ============
 app.config['SESSION_PERMANENT'] = True
@@ -96,24 +103,64 @@ def get_monthly_total(data):
     return month_total
 
 def update_visitor_count():
-    """Update visitor count for today"""
+    """Update visitor count for today with IP tracking"""
     data = load_visitor_data()
     today = str(date.today())
+    
+    # Get visitor's IP address
+    visitor_ip = request.remote_addr
+    
+    # Create a unique key for this visitor today
+    visitor_key = f"{visitor_ip}_{today}"
+    session_key = f"visited_{today}_{hashlib.md5(visitor_key.encode()).hexdigest()}"
     
     if "daily" not in data:
         data["daily"] = {}
     if today not in data["daily"]:
         data["daily"][today] = 0
     
-    # Check if this session already counted today
-    session_key = f"visited_{today}"
+    # Check if this IP already counted today
     if not session.get(session_key):
         data["daily"][today] += 1
         data["total"] = data.get("total", 0) + 1
         session[session_key] = True
+        
+        print(f"New visitor from IP: {visitor_ip} - Total: {data['total']}")
+        
         save_visitor_data(data)
     
     return data
+
+# ============ STATIC FILE ROUTES ============
+
+@app.route('/static/images/<path:filename>')
+def serve_image(filename):
+    """Serve images from static/images folder"""
+    return send_from_directory('static/images', filename)
+
+@app.route('/static/icons/<path:filename>')
+def serve_icon(filename):
+    """Serve icons from static/icons folder"""
+    return send_from_directory('static/icons', filename)
+
+@app.route('/static/uploads/<path:filename>')
+def serve_upload(filename):
+    """Serve uploaded files from static/uploads folder"""
+    return send_from_directory('static/uploads', filename)
+
+# ============ API ENDPOINT FOR IMAGE URLS ============
+
+@app.route('/api/images')
+def get_image_urls():
+    """Get all image URLs for frontend"""
+    return jsonify({
+        "logo": "/static/images/logo.png",
+        "logo_small": "/static/images/logo.png",
+        "dev": "/static/images/Dev.jpg",
+        "edit": "/static/images/Edit.jpeg",
+        "placeholder": "/static/images/placeholder.png",
+        "favicon": "/static/icons/favicon.ico"
+    })
 
 # ============ DATABASE CONNECTION ============
 
@@ -580,163 +627,195 @@ def logout():
 # ============ PROTECTED ROUTES (Login Required) ============
 
 @app.route("/university")
+@login_required
 @no_cache
 def university():
     return render_template("university.html", user=session.get('fullname'))
 
 # ============ IGU ROUTES (Login Required) ============
 @app.route("/igu")
+@login_required
 @no_cache
 def igu():
     return render_template("igu.html", user=session.get('fullname'))
 
 @app.route("/igu-btech")
+@login_required
 @no_cache
 def igu_btech():
     return render_template("igu-btech.html", user=session.get('fullname'))
 
 @app.route("/igu-mtech")
+@login_required
 @no_cache
 def igu_mtech():
     return render_template("igu-mtech.html", user=session.get('fullname'))
 
 @app.route("/igu-bca")
+@login_required
 @no_cache
 def igu_bca():
     return render_template("igu-bca.html", user=session.get('fullname'))
 
 @app.route("/igu-bba")
+@login_required
 @no_cache
 def igu_bba():
     return render_template("igu-bba.html", user=session.get('fullname'))
 
 @app.route("/igu-bsc")
+@login_required
 @no_cache
 def igu_bsc():
     return render_template("igu-bsc.html", user=session.get('fullname'))
 
 @app.route("/igu-msc")
+@login_required
 @no_cache
 def igu_msc():
     return render_template("igu-msc.html", user=session.get('fullname'))
 
 @app.route("/igu-ba")
+@login_required
 @no_cache
 def igu_ba():
     return render_template("igu-ba.html", user=session.get('fullname'))
 
 @app.route("/igu-ma")
+@login_required
 @no_cache
 def igu_ma():
     return render_template("igu-ma.html", user=session.get('fullname'))
 
 @app.route("/igu-bcom")
+@login_required
 @no_cache
 def igu_bcom():
     return render_template("igu-bcom.html", user=session.get('fullname'))
 
 @app.route("/igu-mcom")
+@login_required
 @no_cache
 def igu_mcom():
     return render_template("igu-mcom.html", user=session.get('fullname'))
 
 @app.route("/igu-bed")
+@login_required
 @no_cache
 def igu_bed():
     return render_template("igu-bed.html", user=session.get('fullname'))
 
 @app.route("/igu-llb")
+@login_required
 @no_cache
 def igu_llb():
     return render_template("igu-llb.html", user=session.get('fullname'))
 
 @app.route("/igu-mca")
+@login_required
 @no_cache
 def igu_mca():
     return render_template("igu-mca.html", user=session.get('fullname'))
 
 @app.route("/igu-mba")
+@login_required
 @no_cache
 def igu_mba():
     return render_template("igu-mba.html", user=session.get('fullname'))
 
 # ============ OTHER UNIVERSITY ROUTES (Login Required) ============
 @app.route("/du")
+@login_required
 @no_cache
 def du():
     return render_template("du.html", user=session.get('fullname'))
 
 @app.route("/pu")
+@login_required
 @no_cache
 def pu():
     return render_template("pu.html", user=session.get('fullname'))
 
 @app.route("/jmi")
+@login_required
 @no_cache
 def jmi():
     return render_template("jmi.html", user=session.get('fullname'))
 
 @app.route("/amu")
+@login_required
 @no_cache
 def amu():
     return render_template("amu.html", user=session.get('fullname'))
 
 @app.route("/bhu")
+@login_required
 @no_cache
 def bhu():
     return render_template("bhu.html", user=session.get('fullname'))
 
 @app.route("/mumbai")
+@login_required
 @no_cache
 def mumbai():
     return render_template("mumbai.html", user=session.get('fullname'))
 
 @app.route("/calcutta")
+@login_required
 @no_cache
 def calcutta():
     return render_template("calcutta.html", user=session.get('fullname'))
 
 @app.route("/anna")
+@login_required
 @no_cache
 def anna():
     return render_template("anna.html", user=session.get('fullname'))
 
 @app.route("/osmania")
+@login_required
 @no_cache
 def osmania():
     return render_template("osmania.html", user=session.get('fullname'))
 
 @app.route("/pune")
+@login_required
 @no_cache
 def pune():
     return render_template("pune.html", user=session.get('fullname'))
 
 @app.route("/gujarat")
+@login_required
 @no_cache
 def gujarat():
     return render_template("gujarat.html", user=session.get('fullname'))
 
 @app.route("/rajasthan")
+@login_required
 @no_cache
 def rajasthan():
     return render_template("rajasthan.html", user=session.get('fullname'))
 
 @app.route("/kurukshetra")
+@login_required
 @no_cache
 def kurukshetra():
     return render_template("kurukshetra.html", user=session.get('fullname'))
 
 @app.route("/mdu")
+@login_required
 @no_cache
 def mdu():
     return render_template("mdu.html", user=session.get('fullname'))
 
 @app.route("/ignou")
+@login_required
 @no_cache
 def ignou():
     return render_template("ignou.html", user=session.get('fullname'))
 
 @app.route("/bangalore")
+@login_required
 @no_cache
 def bangalore():
     return render_template("bangalore.html", user=session.get('fullname'))
@@ -756,6 +835,7 @@ def check_session():
     return jsonify({'logged_in': False})
 
 @app.route("/api/universities")
+@login_required
 @no_cache
 def get_universities():
     universities_data = [
@@ -887,6 +967,11 @@ if __name__ == "__main__":
         print("Telegram Bot: Configured")
     else:
         print("Telegram Bot: Not Configured")
+    print("=" * 50)
+    print("Static Files:")
+    print("  - Logo: /static/images/logo.png")
+    print("  - Developer Image: /static/images/Dev.jpg")
+    print("  - Editor Image: /static/images/Edit.jpeg")
     print("=" * 50)
     print("Visitor Counter: Enabled")
     print("Server running at: http://127.0.0.1:5000")
