@@ -12,22 +12,26 @@ import random
 import string
 import json
 import hashlib
-import tempfile
 
 load_dotenv()
 
 app = Flask(__name__)
 
-# ============ STATIC FILE CONFIGURATION FOR VERCEL ============
-# Vercel has a read-only filesystem - use /tmp for writable operations
-# Static files should be included in the build, not created at runtime
-
-# For Vercel, we'll use /tmp for any writable operations
+# ============ VERCEL COMPATIBILITY FIX ============
+# Use /tmp for writable files on Vercel (read-only filesystem fix)
 TMP_DIR = '/tmp/exam_saarthi'
 os.makedirs(TMP_DIR, exist_ok=True)
 
-# Redirect static folder paths - these directories must exist in your git repo
-# Make sure you have these folders in your project: static/images, static/icons, static/uploads
+# Check if running on Vercel
+IS_VERCEL = os.environ.get('VERCEL', False) or os.environ.get('NOW_REGION', False)
+
+# Database and visitor file paths - use /tmp on Vercel
+if IS_VERCEL:
+    DB_FILE = os.path.join(TMP_DIR, "database.db")
+    VISITOR_FILE = os.path.join(TMP_DIR, "visitors.json")
+else:
+    DB_FILE = "database.db"
+    VISITOR_FILE = "visitors.json"
 
 # ============ SESSION CONFIGURATION ============
 app.config['SESSION_PERMANENT'] = True
@@ -67,10 +71,6 @@ if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
 else:
     print("[WARNING] Telegram Bot: Not Configured")
 print("=" * 50)
-
-# Use /tmp for database and visitor file on Vercel
-DB_FILE = os.path.join(TMP_DIR, "database.db")
-VISITOR_FILE = os.path.join(TMP_DIR, "visitors.json")
 
 # ============ VISITOR COUNTER FUNCTIONS ============
 
@@ -233,6 +233,37 @@ def init_db():
 # Initialize DB
 init_db()
 
+# ============ CACHE CONTROL DECORATOR ============
+def no_cache(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        response = make_response(f(*args, **kwargs))
+        response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0'
+        response.headers['Pragma'] = 'no-cache'
+        response.headers['Expires'] = '-1'
+        return response
+    return decorated_function
+
+# Login required decorator
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session:
+            flash('Please login to access this page', 'warning')
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+# Admin login required decorator
+def admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not session.get('admin_logged_in'):
+            flash('Please login as admin first', 'danger')
+            return redirect(url_for('admin'))
+        return f(*args, **kwargs)
+    return decorated_function
+
 # ============ TELEGRAM MESSAGE FUNCTION ============
 def send_telegram_message(chat_id, message):
     """Send message to Telegram"""
@@ -269,7 +300,7 @@ Message:
 {message}
 
 ---
-Time: {__import__('datetime').datetime.now().strftime('%d-%m-%Y %H:%M:%S')}
+Time: {datetime.now().strftime('%d-%m-%Y %H:%M:%S')}
 Source: Exam Saarthi Website
     """
     
@@ -895,37 +926,6 @@ def internal_server_error(e):
     print(f"500 Error: {e}")
     flash("Something went wrong! Please try again later.", "danger")
     return redirect(url_for("home"))
-
-# Add no_cache decorator
-def no_cache(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        response = make_response(f(*args, **kwargs))
-        response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0'
-        response.headers['Pragma'] = 'no-cache'
-        response.headers['Expires'] = '-1'
-        return response
-    return decorated_function
-
-# Login required decorator
-def login_required(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if 'user_id' not in session:
-            flash('Please login to access this page', 'warning')
-            return redirect(url_for('login'))
-        return f(*args, **kwargs)
-    return decorated_function
-
-# Admin login required decorator
-def admin_required(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if not session.get('admin_logged_in'):
-            flash('Please login as admin first', 'danger')
-            return redirect(url_for('admin'))
-        return f(*args, **kwargs)
-    return decorated_function
 
 if __name__ == "__main__":
     import os
