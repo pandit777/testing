@@ -643,7 +643,6 @@ def igu_btech():
     return render_template("igu-btech.html", user=session.get('fullname'))
 
 @app.route("/igu-mtech")
-@login_required
 @no_cache
 def igu_mtech():
     return render_template("igu-mtech.html", user=session.get('fullname'))
