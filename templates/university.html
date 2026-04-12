@@ -340,11 +340,14 @@
       border: 1px solid rgba(255,255,255,0.05);
       position: relative;
       overflow: hidden;
-      cursor: pointer;
       text-decoration: none;
       color: inherit;
     }
-    .uni-card:before {
+    /* Style for clickable cards (available universities) */
+    .uni-card.clickable {
+      cursor: pointer;
+    }
+    .uni-card.clickable:before {
       content: '';
       position: absolute;
       top: 0;
@@ -353,10 +356,28 @@
       height: 100%;
       background: var(--gradient-accent);
     }
-    .uni-card:hover {
+    .uni-card.clickable:hover {
       transform: translateY(-8px) scale(1.01);
       box-shadow: var(--shadow-strong);
       border-color: rgba(251, 191, 36, 0.4);
+    }
+    /* Style for disabled cards (coming soon) */
+    .uni-card.disabled {
+      cursor: not-allowed;
+      opacity: 0.75;
+    }
+    .uni-card.disabled:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 6px;
+      height: 100%;
+      background: #94a3b8;
+    }
+    .uni-card.disabled:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-soft);
     }
     .uni-icon {
       font-size: 2.5rem;
@@ -395,8 +416,15 @@
       margin-left: 1rem;
       white-space: nowrap;
     }
+    .uni-badge.coming-soon {
+      background: #94a3b8;
+      color: white;
+    }
     [data-theme="dark"] .uni-badge {
       color: #0f172a;
+    }
+    [data-theme="dark"] .uni-badge.coming-soon {
+      color: #1e293b;
     }
     .no-result {
       text-align: center;
@@ -407,6 +435,32 @@
       background: var(--gradient-card-light);
       border-radius: 60px;
       margin: 2rem 0;
+    }
+
+    /* Toast Notification Style */
+    .toast-notification {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: linear-gradient(145deg, #1e293b, #0f172a);
+      color: #fbbf24;
+      padding: 1rem 2rem;
+      border-radius: 60px;
+      font-weight: 600;
+      box-shadow: 0 20px 35px -10px rgba(0,0,0,0.3);
+      z-index: 2000;
+      transition: transform 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid rgba(251,191,36,0.3);
+    }
+    .toast-notification.show {
+      transform: translateX(-50%) translateY(0);
+    }
+    .toast-notification i {
+      font-size: 1.3rem;
     }
 
     @media (min-width: 640px) {
@@ -457,15 +511,13 @@
           <li><a href="/about">About</a></li>
           <li><a href="/contact">Contact</a></li>
         </ul>
-        {% if user %}
+        
           <div class="user-info">
             <i class="fas fa-user-circle"></i>
-            <span>Welcome, {{ user }}!</span>
+            <span>Welcome, Gourav Sharma!</span>
             <a href="/logout" class="logout-btn">Logout</a>
           </div>
-        {% else %}
-          <a href="/login" class="login-btn">Login</a>
-        {% endif %}
+        
         <div class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></div>
       </nav>
       <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
@@ -480,24 +532,16 @@
         <li><a href="/about">About</a></li>
         <li><a href="/contact">Contact</a></li>
       </ul>
-      {% if user %}
-        <div class="mobile-user-info">{{ user }}<a href="/logout" style="display:block; margin-top:10px; background:rgba(255,255,255,0.2); padding:8px; border-radius:40px;">Logout</a></div>
-      {% else %}
-        <div style="padding:15px;"><a href="/login" class="mobile-login-btn">Login</a></div>
-      {% endif %}
+      
+        <div class="mobile-user-info">Gourav Sharma<a href="/logout" style="display:block; margin-top:10px; background:rgba(255,255,255,0.2); padding:8px; border-radius:40px;">Logout</a></div>
+      
       <div class="mobile-theme-toggle"><span>Dark Mode</span><button id="mobileThemeToggle">Switch</button></div>
     </div>
   </header>
 
-  {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-      <div class="flash-messages">
-        {% for category, message in messages %}
-          <div class="alert alert-{{ category }}">{{ message }}</div>
-        {% endfor %}
-      </div>
-    {% endif %}
-  {% endwith %}
+  
+    
+  
 
   <main>
     <div class="content-section">
@@ -519,6 +563,11 @@
   <footer>
     <p>&copy; 2025 Exam Saarthi | All Rights Reserved | Made with <i class="fas fa-heart" style="color: #fbbf24;"></i> for Students</p>
   </footer>
+
+  <div id="toast" class="toast-notification">
+    <i class="fas fa-hourglass-half"></i>
+    <span>Coming Soon! PYQs will be available shortly.</span>
+  </div>
 
   <script>
     (function() {
@@ -562,25 +611,40 @@
       checkViewport();
       window.addEventListener('resize', checkViewport);
 
-      // Universities Data
+      // Toast notification function
+      const toast = document.getElementById('toast');
+      let toastTimeout;
+
+      function showToast(message) {
+        const toastSpan = toast.querySelector('span');
+        if (toastSpan) toastSpan.textContent = message || 'Coming Soon! PYQs will be available shortly.';
+        toast.classList.add('show');
+        if (toastTimeout) clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+          toast.classList.remove('show');
+        }, 3000);
+      }
+
+      // Universities Data with availability flag
+      // Sirf IGU available hai abhi, baaki sab coming soon
       const universities = [
-        { name: "Indira Gandhi University (IGU)", location: "Rewari, Haryana", icon: "🏛️", page: "/igu" },
-        { name: "University of Delhi (DU)", location: "Delhi", icon: "📚", page: "/du" },
-        { name: "Punjab University (PU)", location: "Chandigarh", icon: "🎓", page: "/pu" },
-        { name: "Jamia Millia Islamia (JMI)", location: "Delhi", icon: "🏫", page: "/jmi" },
-        { name: "Aligarh Muslim University (AMU)", location: "Aligarh, UP", icon: "🌙", page: "/amu" },
-        { name: "Banaras Hindu University (BHU)", location: "Varanasi, UP", icon: "🕉️", page: "/bhu" },
-        { name: "University of Mumbai", location: "Mumbai, MH", icon: "🏝️", page: "/mumbai" },
-        { name: "Calcutta University (CU)", location: "Kolkata, WB", icon: "🎭", page: "/calcutta" },
-        { name: "Anna University", location: "Chennai, TN", icon: "⚙️", page: "/anna" },
-        { name: "Osmania University", location: "Hyderabad, TS", icon: "🌆", page: "/osmania" },
-        { name: "Savitribai Phule Pune University", location: "Pune, MH", icon: "📖", page: "/pune" },
-        { name: "Gujarat University", location: "Ahmedabad, GJ", icon: "🦁", page: "/gujarat" },
-        { name: "Rajasthan University (RU)", location: "Jaipur, RJ", icon: "🏜️", page: "/rajasthan" },
-        { name: "Kurukshetra University", location: "Kurukshetra, HR", icon: "⚔️", page: "/kurukshetra" },
-        { name: "Maharshi Dayanand University (MDU)", location: "Rohtak, HR", icon: "🧘", page: "/mdu" },
-        { name: "IGNOU", location: "Delhi (Distance)", icon: "📡", page: "/ignou" },
-        { name: "Bangalore University", location: "Bengaluru, KA", icon: "🌳", page: "/bangalore" }
+        { name: "Indira Gandhi University (IGU)", location: "Rewari, Haryana", icon: "🏛️", page: "/igu", available: true },
+        { name: "University of Delhi (DU)", location: "Delhi", icon: "📚", page: "/du", available: false },
+        { name: "Punjab University (PU)", location: "Chandigarh", icon: "🎓", page: "/pu", available: false },
+        { name: "Jamia Millia Islamia (JMI)", location: "Delhi", icon: "🏫", page: "/jmi", available: false },
+        { name: "Aligarh Muslim University (AMU)", location: "Aligarh, UP", icon: "🌙", page: "/amu", available: false },
+        { name: "Banaras Hindu University (BHU)", location: "Varanasi, UP", icon: "🕉️", page: "/bhu", available: false },
+        { name: "University of Mumbai", location: "Mumbai, MH", icon: "🏝️", page: "/mumbai", available: false },
+        { name: "Calcutta University (CU)", location: "Kolkata, WB", icon: "🎭", page: "/calcutta", available: false },
+        { name: "Anna University", location: "Chennai, TN", icon: "⚙️", page: "/anna", available: false },
+        { name: "Osmania University", location: "Hyderabad, TS", icon: "🌆", page: "/osmania", available: false },
+        { name: "Savitribai Phule Pune University", location: "Pune, MH", icon: "📖", page: "/pune", available: false },
+        { name: "Gujarat University", location: "Ahmedabad, GJ", icon: "🦁", page: "/gujarat", available: false },
+        { name: "Rajasthan University (RU)", location: "Jaipur, RJ", icon: "🏜️", page: "/rajasthan", available: false },
+        { name: "Kurukshetra University", location: "Kurukshetra, HR", icon: "⚔️", page: "/kurukshetra", available: false },
+        { name: "Maharshi Dayanand University (MDU)", location: "Rohtak, HR", icon: "🧘", page: "/mdu", available: false },
+        { name: "IGNOU", location: "Delhi (Distance)", icon: "📡", page: "/ignou", available: false },
+        { name: "Bangalore University", location: "Bengaluru, KA", icon: "🌳", page: "/bangalore", available: false }
       ];
 
       function renderGrid(filterText = '') {
@@ -597,19 +661,46 @@
 
         let html = '<div class="universities-grid">';
         filtered.forEach(u => {
-          html += `
-            <a href="${u.page}" class="uni-card">
-              <span class="uni-icon">${u.icon}</span>
-              <div class="uni-info">
-                <div class="uni-name">${u.name}</div>
-                <div class="uni-location"><i class="fas fa-map-pin"></i> ${u.location}</div>
+          if (u.available) {
+            // Available university - clickable link
+            html += `
+              <a href="${u.page}" class="uni-card clickable">
+                <span class="uni-icon">${u.icon}</span>
+                <div class="uni-info">
+                  <div class="uni-name">${u.name}</div>
+                  <div class="uni-location"><i class="fas fa-map-pin"></i> ${u.location}</div>
+                </div>
+                <span class="uni-badge">PYQs Available</span>
+              </a>
+            `;
+          } else {
+            // Coming soon - not clickable, shows toast
+            html += `
+              <div class="uni-card disabled" data-uni-name="${u.name}">
+                <span class="uni-icon">${u.icon}</span>
+                <div class="uni-info">
+                  <div class="uni-name">${u.name} <span style="font-size: 0.8rem;">🔜</span></div>
+                  <div class="uni-location"><i class="fas fa-map-pin"></i> ${u.location}</div>
+                </div>
+                <span class="uni-badge coming-soon">Coming Soon</span>
               </div>
-              <span class="uni-badge">PYQs</span>
-            </a>
-          `;
+            `;
+          }
         });
         html += '</div>';
         container.innerHTML = html;
+
+        // Add click handlers for disabled cards
+        document.querySelectorAll('.uni-card.disabled').forEach(card => {
+          card.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const uniName = card.getAttribute('data-uni-name') || 
+                           card.querySelector('.uni-name')?.innerText.replace('🔜', '').trim() || 
+                           'This university';
+            showToast(`📚 ${uniName} - PYQs coming soon! Stay tuned.`);
+          });
+        });
       }
 
       renderGrid();
@@ -625,6 +716,9 @@
       searchInput.addEventListener('keyup', (e) => {
         if (e.key === 'Enter') handleSearch();
       });
+
+      // Hide toast initially
+      toast.classList.remove('show');
     })();
   </script>
 </body>
