@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coming Soon - Exam Saarthi</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(145deg, #f1f5f9 0%, #d9e2ef 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+    }
+    .coming-soon-card {
+      background: white;
+      border-radius: 32px;
+      padding: 3rem;
+      text-align: center;
+      box-shadow: 0 20px 40px -15px rgba(0,0,0,0.2);
+      max-width: 500px;
+      margin: 2rem;
+    }
+    [data-theme="dark"] .coming-soon-card {
+      background: #1e293b;
+    }
+    .coming-soon-icon {
+      font-size: 5rem;
+      margin-bottom: 1rem;
+    }
+    .coming-soon-title {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #0b1e4a;
+      margin-bottom: 1rem;
+    }
+    .coming-soon-text {
+      color: #64748b;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+    .back-btn {
+      background: linear-gradient(145deg, #0b1e4a, #142b6e);
+      color: white;
+      padding: 12px 28px;
+      border-radius: 50px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: transform 0.3s;
+    }
+    .back-btn:hover {
+      transform: translateY(-3px);
+    }
+  </style>
+</head>
+<body>
+  <div class="coming-soon-card">
+    <div class="coming-soon-icon">🚧</div>
+    <h1 class="coming-soon-title">Coming Soon!</h1>
+    <p class="coming-soon-text">
+      <i class="fas fa-university"></i> <strong>{{ university_name }}</strong><br>
+      Previous year question papers for this university are being added.<br>
+      Stay tuned! 📚
+    </p>
+    <a href="/university" class="back-btn">
+      <i class="fas fa-arrow-left"></i> Back to Universities
+    </a>
+  </div>
+</body>
+</html>
