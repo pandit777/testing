@@ -13,9 +13,26 @@ import string
 import json
 import hashlib
 
+# Load environment variables
 load_dotenv()
 
 app = Flask(__name__)
+
+# ============ SECRET KEY CONFIGURATION (UPDATED) ============
+# Your secret key - stored in .env file
+secret_key = os.getenv("SECRET_KEY")
+
+if not secret_key:
+    # Fallback - generate a key (for development only)
+    secret_key = "8f3a2b1c9d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a"
+    print("=" * 50)
+    print("WARNING: No SECRET_KEY found in .env file!")
+    print(f"Using default key: {secret_key[:20]}...")
+    print("=" * 50)
+else:
+    print("✓ SECRET_KEY loaded successfully from .env file")
+
+app.secret_key = secret_key
 
 # ============ VERCEL COMPATIBILITY FIX ============
 TMP_DIR = '/tmp/exam_saarthi'
@@ -37,20 +54,10 @@ app.config['SESSION_COOKIE_SECURE'] = False
 app.config['SESSION_COOKIE_HTTPONLY'] = True
 app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 
-secret_key = os.getenv("SECRET_KEY")
-if not secret_key:
-    secret_key = secrets.token_hex(32)
-    print("=" * 50)
-    print("WARNING: No SECRET_KEY found in .env file!")
-    print(f"Using generated key: {secret_key}")
-    print("=" * 50)
-
-app.secret_key = secret_key
-
+# ============ ADMIN PASSWORD ============
 admin_password = os.getenv("ADMIN_PASSWORD")
 if not admin_password:
     admin_password = "admin123"
-    
 app.config["ADMIN_PASSWORD"] = admin_password
 
 # ============ TELEGRAM BOT CONFIGURATION ============
@@ -59,23 +66,20 @@ TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
 print("=" * 50)
 print("Exam Saarthi - Configuration")
+print(f"Secret Key: {'✓ Set' if app.secret_key else '✗ Missing'}")
+print(f"Admin Password: {'✓ Set' if admin_password else '✗ Missing'}")
 if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
-    print("[✓] Telegram Bot: Configured Successfully")
-    print(f"    Bot Token: {TELEGRAM_BOT_TOKEN[:10]}...")
-    print(f"    Chat ID: {TELEGRAM_CHAT_ID}")
+    print(f"Telegram Bot: ✓ Configured")
 else:
-    print("[⚠] Telegram Bot: Not Configured")
-    print("    Add TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID to .env file")
+    print("Telegram Bot: ✗ Not Configured")
 print("=" * 50)
 
-# ============ TELEGRAM MESSAGE FUNCTIONS ============
+# ============ TELEGRAM FUNCTIONS ============
 
 def send_telegram_message(chat_id, message):
     """Send message to Telegram"""
     if not TELEGRAM_BOT_TOKEN:
-        print("Telegram: Bot token missing")
         return False
-    
     try:
         url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
         payload = {
@@ -84,12 +88,7 @@ def send_telegram_message(chat_id, message):
             "parse_mode": "HTML"
         }
         response = requests.post(url, data=payload, timeout=10)
-        success = response.status_code == 200
-        if success:
-            print(f"Telegram: Message sent successfully to {chat_id}")
-        else:
-            print(f"Telegram: Failed with status {response.status_code}")
-        return success
+        return response.status_code == 200
     except Exception as e:
         print(f"Telegram error: {e}")
         return False
@@ -97,7 +96,6 @@ def send_telegram_message(chat_id, message):
 def send_contact_message(name, email, university, course, message):
     """Send contact form message to Telegram"""
     if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
-        print("Telegram: Cannot send contact message - Bot not configured")
         return False
     
     current_time = datetime.now().strftime('%d-%m-%Y %H:%M:%S')
@@ -120,68 +118,9 @@ def send_contact_message(name, email, university, course, message):
     
     return send_telegram_message(TELEGRAM_CHAT_ID, msg)
 
-def send_user_registration_notification(fullname, email, username):
-    """Send notification when new user registers"""
-    if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
-        return False
-    
-    current_time = datetime.now().strftime('%d-%m-%Y %H:%M:%S')
-    
-    msg = f"""
-🆕 <b>NEW USER REGISTERED</b> 🆕
-
-👤 <b>Name:</b> {fullname}
-📧 <b>Email:</b> {email}
-🔑 <b>Username:</b> {username}
-
-━━━━━━━━━━━━━━━━━━━━━
-⏰ <b>Time:</b> {current_time}
-    """
-    
-    return send_telegram_message(TELEGRAM_CHAT_ID, msg)
-
-def send_password_reset_request(fullname, email, token):
-    """Send password reset request notification to admin"""
-    if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
-        return False
-    
-    current_time = datetime.now().strftime('%d-%m-%Y %H:%M:%S')
-    
-    msg = f"""
-🔐 <b>PASSWORD RESET REQUEST</b> 🔐
-
-👤 <b>User:</b> {fullname}
-📧 <b>Email:</b> {email}
-🎫 <b>Reset Token:</b> <code>{token}</code>
-
-━━━━━━━━━━━━━━━━━━━━━
-⏰ <b>Time:</b> {current_time}
-    """
-    
-    return send_telegram_message(TELEGRAM_CHAT_ID, msg)
-
-def test_telegram_connection():
-    """Test if Telegram bot is working"""
-    if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
-        return False
-    
-    msg = """
-🤖 <b>Exam Saarthi Bot is Online!</b> 🤖
-
-✅ Bot configured successfully
-✅ Ready to receive messages
-✅ Contact form notifications enabled
-
-━━━━━━━━━━━━━━━━━━━━━
-🚀 Server is running smoothly
-    """
-    
-    return send_telegram_message(TELEGRAM_CHAT_ID, msg)
-
 # ============ VISITOR COUNTER FUNCTIONS ============
 
 def load_visitor_data():
-    """Load visitor data from file"""
     if os.path.exists(VISITOR_FILE):
         try:
             with open(VISITOR_FILE, 'r') as f:
@@ -191,12 +130,10 @@ def load_visitor_data():
     return {"total": 0, "daily": {}, "history": {}}
 
 def save_visitor_data(data):
-    """Save visitor data to file"""
     with open(VISITOR_FILE, 'w') as f:
         json.dump(data, f)
 
 def get_weekly_total(data):
-    """Get total visitors for last 7 days"""
     today = date.today()
     week_total = 0
     for i in range(7):
@@ -206,7 +143,6 @@ def get_weekly_total(data):
     return week_total
 
 def get_monthly_total(data):
-    """Get total visitors for current month"""
     today = date.today()
     current_month = today.strftime('%Y-%m')
     month_total = 0
@@ -216,7 +152,6 @@ def get_monthly_total(data):
     return month_total
 
 def update_visitor_count():
-    """Update visitor count for today with IP tracking"""
     data = load_visitor_data()
     today = str(date.today())
     
@@ -233,37 +168,9 @@ def update_visitor_count():
         data["daily"][today] += 1
         data["total"] = data.get("total", 0) + 1
         session[session_key] = True
-        print(f"New visitor from IP: {visitor_ip} - Total: {data['total']}")
         save_visitor_data(data)
     
     return data
-
-# ============ STATIC FILE ROUTES ============
-
-@app.route('/static/images/<path:filename>')
-def serve_image(filename):
-    return send_from_directory('static/images', filename)
-
-@app.route('/static/icons/<path:filename>')
-def serve_icon(filename):
-    return send_from_directory('static/icons', filename)
-
-@app.route('/static/uploads/<path:filename>')
-def serve_upload(filename):
-    return send_from_directory('static/uploads', filename)
-
-# ============ API ENDPOINT FOR IMAGE URLS ============
-
-@app.route('/api/images')
-def get_image_urls():
-    return jsonify({
-        "logo": "/static/images/logo.png",
-        "logo_small": "/static/images/logo.png",
-        "dev": "/static/images/Dev.jpg",
-        "edit": "/static/images/Edit.jpeg",
-        "placeholder": "/static/images/placeholder.png",
-        "favicon": "/static/icons/favicon.ico"
-    })
 
 # ============ DATABASE CONNECTION ============
 
@@ -301,26 +208,15 @@ def init_db():
     else:
         try:
             conn.execute("ALTER TABLE users ADD COLUMN fullname TEXT")
-        except sqlite3.OperationalError:
+        except:
             pass
         try:
             conn.execute("ALTER TABLE users ADD COLUMN mobile TEXT")
-        except sqlite3.OperationalError:
+        except:
             pass
         try:
             conn.execute("ALTER TABLE users ADD COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-        except sqlite3.OperationalError:
-            pass
-        try:
-            conn.execute("""
-            CREATE TABLE reset_tokens (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                email TEXT NOT NULL,
-                token TEXT NOT NULL,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            )
-            """)
-        except sqlite3.OperationalError:
+        except:
             pass
         conn.commit()
     
@@ -395,7 +291,7 @@ def delete_reset_token(email):
     except Exception as e:
         print(f"Error deleting token: {e}")
 
-# ============ CONTACT FORM HANDLER (FIXED) ============
+# ============ CONTACT FORM HANDLER ============
 
 @app.route("/submit_contact", methods=["POST"])
 def submit_contact():
@@ -413,151 +309,21 @@ def submit_contact():
         if not re.match(email_pattern, email):
             return jsonify({"success": False, "message": "Please enter a valid email address"})
 
-        print(f"Contact Form Submission: {name} | {email} | {university}")
+        print(f"Contact Form: {name} | {email} | {university}")
 
-        # Send to Telegram
+        # Send to Telegram if configured
         if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
             success = send_contact_message(name, email, university, course, message)
             if success:
                 return jsonify({"success": True, "message": "Message sent successfully! We'll get back to you soon."})
             else:
-                # Still return success but log error
-                print("Telegram send failed but form data saved")
                 return jsonify({"success": True, "message": "Thank you for contacting us! We have received your message."})
         else:
-            # Telegram not configured, still accept form
-            print("Telegram not configured - contact saved locally")
             return jsonify({"success": True, "message": "Thank you for contacting us! We'll get back to you soon."})
 
     except Exception as e:
         print(f"Error in contact form: {e}")
-        import traceback
-        traceback.print_exc()
         return jsonify({"success": False, "message": "Unable to send message. Please try again later."})
-
-# ============ FORGOT PASSWORD ROUTES (WITH TELEGRAM) ============
-
-@app.route("/forgot-password", methods=["GET", "POST"])
-@no_cache
-def forgot_password():
-    if request.method == "POST":
-        email = request.form.get("email", "").strip()
-        
-        if not email:
-            flash("Please enter your email address", "danger")
-            return redirect(url_for("forgot_password"))
-        
-        conn = get_db_connection()
-        user = conn.execute("SELECT * FROM users WHERE email = ?", (email,)).fetchone()
-        conn.close()
-        
-        if user:
-            token = generate_reset_token()
-            
-            if save_reset_token(email, token):
-                # Send token via Telegram
-                if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
-                    send_password_reset_request(user['fullname'], email, token)
-                    flash("Password reset request sent! Admin will provide you the token.", "info")
-                else:
-                    flash(f"Your reset token is: {token}", "info")
-                
-                session['reset_email'] = email
-                return redirect(url_for("reset_password"))
-            else:
-                flash("Failed to generate reset token. Please try again.", "danger")
-        else:
-            flash("Email not found", "danger")
-            return redirect(url_for("forgot_password"))
-    
-    return render_template("forgot_password.html")
-
-@app.route("/reset-password", methods=["GET", "POST"])
-@no_cache
-def reset_password():
-    if request.method == "POST":
-        token = request.form.get("token", "").strip().upper()
-        new_password = request.form.get("new_password", "")
-        confirm_password = request.form.get("confirm_password", "")
-        email = session.get('reset_email')
-        
-        if not email:
-            flash("Session expired. Please request password reset again.", "danger")
-            return redirect(url_for("forgot_password"))
-        
-        if not token or not new_password:
-            flash("Please enter token and new password", "danger")
-            return redirect(url_for("reset_password"))
-        
-        if new_password != confirm_password:
-            flash("Passwords do not match", "danger")
-            return redirect(url_for("reset_password"))
-        
-        if len(new_password) < 6:
-            flash("Password must be at least 6 characters", "danger")
-            return redirect(url_for("reset_password"))
-        
-        if verify_reset_token(email, token):
-            hashed_password = generate_password_hash(new_password)
-            
-            try:
-                conn = get_db_connection()
-                conn.execute("UPDATE users SET password = ? WHERE email = ?", (hashed_password, email))
-                conn.commit()
-                conn.close()
-                
-                delete_reset_token(email)
-                session.pop('reset_email', None)
-                
-                flash("Password reset successfully! Please login with new password.", "success")
-                return redirect(url_for("login"))
-            except Exception as e:
-                flash(f"Error resetting password: {e}", "danger")
-                return redirect(url_for("reset_password"))
-        else:
-            flash("Invalid or expired token", "danger")
-            return redirect(url_for("reset_password"))
-    
-    return render_template("reset_password.html")
-
-# ============ VISITOR COUNTER API ROUTES ============
-
-@app.route("/api/record-visit", methods=["POST"])
-@no_cache
-def record_visit():
-    update_visitor_count()
-    return jsonify({"success": True})
-
-@app.route("/api/visitors")
-@no_cache
-def get_visitors():
-    data = load_visitor_data()
-    today = str(date.today())
-    
-    return jsonify({
-        "today": data.get("daily", {}).get(today, 0),
-        "week": get_weekly_total(data),
-        "month": get_monthly_total(data),
-        "total": data.get("total", 0)
-    })
-
-# ============ MAIN ROUTES ============
-
-@app.route("/")
-@no_cache
-def home():
-    update_visitor_count()
-    return render_template("index.html", user=session.get('fullname'))
-
-@app.route("/about")
-@no_cache
-def about():
-    return render_template("about.html", user=session.get('fullname'))
-
-@app.route("/contact")
-@no_cache
-def contact():
-    return render_template("contact.html", user=session.get('fullname'))
 
 # ============ AUTH ROUTES ============
 
@@ -594,10 +360,6 @@ def register():
             )
             conn.commit()
             conn.close()
-            
-            # Send notification to Telegram
-            send_user_registration_notification(fullname, email, username)
-            
             flash("User Registered Successfully! Please login.", "success")
             return redirect(url_for("login"))
         except sqlite3.IntegrityError as e:
@@ -648,20 +410,27 @@ def login():
 @app.route("/logout")
 @no_cache
 def logout():
-    try:
-        user_name = session.get('fullname', 'User')
-        session.clear()
-        flash(f"Goodbye, {user_name}! You have been logged out successfully.", "success")
-        response = make_response(redirect(url_for("login")))
-        response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0'
-        return response
-    except Exception as e:
-        print(f"Logout error: {e}")
-        session.clear()
-        response = make_response(redirect(url_for("login")))
-        return response
+    session.clear()
+    flash("You have been logged out successfully.", "success")
+    return redirect(url_for("login"))
 
-# ============ PROTECTED ROUTES ============
+# ============ MAIN ROUTES ============
+
+@app.route("/")
+@no_cache
+def home():
+    update_visitor_count()
+    return render_template("index.html", user=session.get('fullname'))
+
+@app.route("/about")
+@no_cache
+def about():
+    return render_template("about.html", user=session.get('fullname'))
+
+@app.route("/contact")
+@no_cache
+def contact():
+    return render_template("contact.html", user=session.get('fullname'))
 
 @app.route("/university")
 @no_cache
@@ -669,6 +438,7 @@ def university():
     return render_template("university.html", user=session.get('fullname'))
 
 # ============ IGU ROUTES ============
+
 @app.route("/igu")
 @no_cache
 def igu():
@@ -745,7 +515,6 @@ def igu_mba():
     return render_template("igu-mba.html", user=session.get('fullname'))
 
 # ============ OTHER UNIVERSITY ROUTES (Coming Soon) ============
-# These will show coming soon page if template missing
 
 @app.route("/du")
 @no_cache
@@ -877,18 +646,6 @@ def bangalore():
 
 # ============ API ENDPOINTS ============
 
-@app.route("/check_session")
-@no_cache
-def check_session():
-    if 'user_id' in session:
-        return jsonify({
-            'logged_in': True,
-            'username': session.get('username'),
-            'fullname': session.get('fullname'),
-            'email': session.get('email')
-        })
-    return jsonify({'logged_in': False})
-
 @app.route("/api/universities")
 @no_cache
 def get_universities():
@@ -912,6 +669,30 @@ def get_universities():
         {"name": "Bangalore University", "location": "Bengaluru, KA", "icon": "🌳", "code": "bangalore", "available": False}
     ]
     return jsonify(universities_data)
+
+@app.route("/check_session")
+@no_cache
+def check_session():
+    if 'user_id' in session:
+        return jsonify({
+            'logged_in': True,
+            'username': session.get('username'),
+            'fullname': session.get('fullname'),
+            'email': session.get('email')
+        })
+    return jsonify({'logged_in': False})
+
+@app.route("/api/visitors")
+@no_cache
+def get_visitors():
+    data = load_visitor_data()
+    today = str(date.today())
+    return jsonify({
+        "today": data.get("daily", {}).get(today, 0),
+        "week": get_weekly_total(data),
+        "month": get_monthly_total(data),
+        "total": data.get("total", 0)
+    })
 
 # ============ ADMIN ROUTES ============
 
@@ -968,7 +749,6 @@ def admin_forgot_user():
     try:
         conn = get_db_connection()
         user = conn.execute("SELECT * FROM users WHERE id = ?", (user_id,)).fetchone()
-        
         if user:
             hashed_password = generate_password_hash(new_password)
             conn.execute("UPDATE users SET password = ? WHERE id = ?", (hashed_password, user_id))
@@ -979,7 +759,6 @@ def admin_forgot_user():
         conn.close()
     except Exception as e:
         flash(f"Error resetting password: {e}", "danger")
-    
     return redirect(url_for("admin_panel"))
 
 @app.route("/admin/logout")
@@ -987,25 +766,23 @@ def admin_forgot_user():
 def admin_logout():
     session.pop("admin_logged_in", None)
     flash("Admin logged out successfully", "success")
-    response = make_response(redirect(url_for("home")))
-    return response
-
-# ============ TEST TELEGRAM ROUTE ============
-@app.route("/test-telegram")
-def test_telegram():
-    """Test if Telegram bot is working"""
-    if test_telegram_connection():
-        return "✅ Telegram bot is working! Check your Telegram."
-    else:
-        return "❌ Telegram bot failed. Check your configuration."
+    return redirect(url_for("home"))
 
 # ============ COMING SOON TEMPLATE ROUTE ============
 @app.route("/coming-soon")
 def coming_soon():
     return render_template("coming_soon.html", university_name="Exam Saarthi")
 
-# ============ ERROR HANDLERS ============
+# ============ STATIC FILE ROUTES ============
+@app.route('/static/images/<path:filename>')
+def serve_image(filename):
+    return send_from_directory('static/images', filename)
 
+@app.route('/static/icons/<path:filename>')
+def serve_icon(filename):
+    return send_from_directory('static/icons', filename)
+
+# ============ ERROR HANDLERS ============
 @app.errorhandler(404)
 @no_cache
 def page_not_found(e):
@@ -1027,10 +804,7 @@ if __name__ == "__main__":
     print("Exam Saarthi Server Starting...")
     print(f"Database: {DB_FILE}")
     print(f"Port: {port}")
+    print(f"Secret Key: {'✓ Set' if app.secret_key else '✗ Missing'}")
     print("=" * 50)
-    
-    # Test Telegram on startup
-    if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
-        test_telegram_connection()
     
     app.run(debug=debug_mode, host='0.0.0.0', port=port)
