@@ -608,6 +608,7 @@
                             <th>ID</th>
                             <th>Full Name</th>
                             <th>Mobile</th>
+                            <th>Telegram ID</th>
                             <th>Email</th>
                             <th>Username</th>
                             <th>Status</th>
@@ -620,6 +621,7 @@
                             <td>{{ user.id }}</td>
                             <td>{{ user.fullname }}</td>
                             <td>{{ user.mobile }}</td>
+                            <td>{{ user.telegram_id or '-' }}</td>
                             <td>{{ user.email }}</td>
                             <td>{{ user.username }}</td>
                             <td><span class="status-badge"><i class="fas fa-circle" style="font-size: 8px; margin-right: 5px;"></i> Active</span></td>

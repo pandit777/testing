@@ -12,22 +12,31 @@ import random
 import string
 import json
 import hashlib
+from jinja2 import TemplateNotFound
 
 # Load environment variables
 load_dotenv()
 
 app = Flask(__name__)
 
-# ============ SECRET KEY CONFIGURATION (UPDATED) ============
-# Your secret key - stored in .env file
+
+def _as_bool(value, default=False):
+    if value is None:
+        return default
+    return str(value).strip().lower() in {"1", "true", "yes", "on"}
+
+# ============ ENVIRONMENT DETECTION ============
+IS_VERCEL = _as_bool(os.environ.get('VERCEL')) or bool(os.environ.get('NOW_REGION'))
+
+# ============ SECRET KEY CONFIGURATION ============
 secret_key = os.getenv("SECRET_KEY")
 
 if not secret_key:
-    # Fallback - generate a key (for development only)
-    secret_key = "8f3a2b1c9d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a"
+    # Stable fallback for local development only
+    secret_key = "dev-only-change-this-secret-key"
     print("=" * 50)
-    print("WARNING: No SECRET_KEY found in .env file!")
-    print(f"Using default key: {secret_key[:20]}...")
+    print("WARNING: SECRET_KEY missing. Using development fallback key.")
+    print("Please set SECRET_KEY in .env / Vercel Environment Variables.")
     print("=" * 50)
 else:
     print("✓ SECRET_KEY loaded successfully from .env file")
@@ -38,19 +47,24 @@ app.secret_key = secret_key
 TMP_DIR = '/tmp/exam_saarthi'
 os.makedirs(TMP_DIR, exist_ok=True)
 
-IS_VERCEL = os.environ.get('VERCEL', False) or os.environ.get('NOW_REGION', False)
+default_db_file = os.path.join(TMP_DIR, "database.db") if IS_VERCEL else "database.db"
+default_visitor_file = os.path.join(TMP_DIR, "visitors.json") if IS_VERCEL else "visitors.json"
 
-if IS_VERCEL:
-    DB_FILE = os.path.join(TMP_DIR, "database.db")
-    VISITOR_FILE = os.path.join(TMP_DIR, "visitors.json")
-else:
-    DB_FILE = "database.db"
-    VISITOR_FILE = "visitors.json"
+DB_FILE = os.getenv("DATABASE_PATH", default_db_file)
+VISITOR_FILE = os.getenv("VISITOR_FILE_PATH", default_visitor_file)
+
+db_dir = os.path.dirname(DB_FILE)
+if db_dir:
+    os.makedirs(db_dir, exist_ok=True)
+
+visitor_dir = os.path.dirname(VISITOR_FILE)
+if visitor_dir:
+    os.makedirs(visitor_dir, exist_ok=True)
 
 # ============ SESSION CONFIGURATION ============
 app.config['SESSION_PERMANENT'] = True
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)
-app.config['SESSION_COOKIE_SECURE'] = False
+app.config['SESSION_COOKIE_SECURE'] = _as_bool(os.getenv("SESSION_COOKIE_SECURE"), default=IS_VERCEL)
 app.config['SESSION_COOKIE_HTTPONLY'] = True
 app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 
@@ -116,6 +130,25 @@ def send_contact_message(name, email, university, course, message):
 🌐 <b>Source:</b> Exam Saarthi Website
     """
     
+    return send_telegram_message(TELEGRAM_CHAT_ID, msg)
+
+
+def send_user_activity_message(title, lines):
+    """Send user activity updates to configured Telegram admin chat."""
+    if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
+        return False
+
+    current_time = datetime.now().strftime('%d-%m-%Y %H:%M:%S')
+    body = "\n".join(lines)
+    msg = f"""
+🔔 <b>{title}</b> 🔔
+
+{body}
+
+━━━━━━━━━━━━━━━━━━━━━
+⏰ <b>Time:</b> {current_time}
+🌐 <b>Source:</b> Exam Saarthi Website
+    """
     return send_telegram_message(TELEGRAM_CHAT_ID, msg)
 
 # ============ VISITOR COUNTER FUNCTIONS ============
@@ -189,6 +222,7 @@ def init_db():
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             fullname TEXT NOT NULL,
             mobile TEXT NOT NULL,
+            telegram_id TEXT,
             email TEXT NOT NULL UNIQUE,
             username TEXT NOT NULL UNIQUE,
             password TEXT NOT NULL,
@@ -218,6 +252,10 @@ def init_db():
             conn.execute("ALTER TABLE users ADD COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
         except:
             pass
+        try:
+            conn.execute("ALTER TABLE users ADD COLUMN telegram_id TEXT")
+        except:
+            pass
         conn.commit()
     
     conn.close()
@@ -234,6 +272,16 @@ def no_cache(f):
         response.headers['Expires'] = '-1'
         return response
     return decorated_function
+
+
+@app.after_request
+def add_global_no_cache_headers(response):
+    """Ensure logout reflects immediately and stale authenticated pages are not reused."""
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+    return response
+
 
 def login_required(f):
     @wraps(f)
@@ -252,6 +300,18 @@ def admin_required(f):
             return redirect(url_for('admin'))
         return f(*args, **kwargs)
     return decorated_function
+
+# ============ TEMPLATE SAFETY HELPERS ============
+def render_or_coming_soon(template_name, university_name=None):
+    """Render target template if available, otherwise show coming soon page."""
+    try:
+        return render_template(template_name, user=session.get('fullname'))
+    except TemplateNotFound:
+        return render_template(
+            "coming_soon.html",
+            university_name=university_name or "This section",
+            user=session.get('fullname')
+        )
 
 # ============ RESET TOKEN FUNCTIONS ============
 def generate_reset_token():
@@ -333,6 +393,7 @@ def register():
     if request.method == "POST":
         fullname = request.form.get("fullname", "").strip()
         mobile = request.form.get("mobile", "").strip()
+        telegram_id = request.form.get("telegram_id", "").strip()
         email = request.form.get("email", "").strip()
         username = request.form.get("username", "").strip()
         password = request.form.get("password", "")
@@ -350,16 +411,32 @@ def register():
             flash("Password must be at least 6 characters", "danger")
             return redirect(url_for("register"))
 
+        if telegram_id and len(telegram_id) > 64:
+            flash("Telegram ID is too long", "danger")
+            return redirect(url_for("register"))
+
         hashed_password = generate_password_hash(password)
 
         try:
             conn = get_db_connection()
             conn.execute(
-                "INSERT INTO users (fullname, mobile, email, username, password) VALUES (?, ?, ?, ?, ?)",
-                (fullname, mobile, email, username, hashed_password)
+                "INSERT INTO users (fullname, mobile, telegram_id, email, username, password) VALUES (?, ?, ?, ?, ?, ?)",
+                (fullname, mobile, telegram_id, email, username, hashed_password)
             )
             conn.commit()
             conn.close()
+
+            send_user_activity_message(
+                "NEW USER REGISTERED",
+                [
+                    f"👤 <b>Name:</b> {fullname}",
+                    f"📱 <b>Mobile:</b> {mobile}",
+                    f"💬 <b>Telegram ID:</b> {telegram_id or 'Not provided'}",
+                    f"📧 <b>Email:</b> {email}",
+                    f"🆔 <b>Username:</b> {username}"
+                ]
+            )
+
             flash("User Registered Successfully! Please login.", "success")
             return redirect(url_for("login"))
         except sqlite3.IntegrityError as e:
@@ -398,6 +475,16 @@ def login():
             session["username"] = user["username"]
             session["fullname"] = user["fullname"]
             session["email"] = user["email"]
+
+            send_user_activity_message(
+                "USER LOGIN",
+                [
+                    f"👤 <b>Name:</b> {user['fullname']}",
+                    f"🆔 <b>Username:</b> {user['username']}",
+                    f"📧 <b>Email:</b> {user['email']}",
+                    f"💬 <b>Telegram ID:</b> {user['telegram_id'] or 'Not provided'}"
+                ]
+            )
             
             flash(f"Welcome back, {user['fullname']}!", "success")
             return redirect(url_for("home"))
@@ -411,8 +498,10 @@ def login():
 @no_cache
 def logout():
     session.clear()
+    response = make_response(redirect(url_for("login")))
+    response.delete_cookie(app.config.get("SESSION_COOKIE_NAME", "session"))
     flash("You have been logged out successfully.", "success")
-    return redirect(url_for("login"))
+    return response
 
 # ============ MAIN ROUTES ============
 
@@ -497,22 +586,22 @@ def igu_mcom():
 @app.route("/igu-bed")
 @no_cache
 def igu_bed():
-    return render_template("igu-bed.html", user=session.get('fullname'))
+    return render_or_coming_soon("igu-bed.html", "IGU B.Ed")
 
 @app.route("/igu-llb")
 @no_cache
 def igu_llb():
-    return render_template("igu-llb.html", user=session.get('fullname'))
+    return render_or_coming_soon("igu-llb.html", "IGU LLB")
 
 @app.route("/igu-mca")
 @no_cache
 def igu_mca():
-    return render_template("igu-mca.html", user=session.get('fullname'))
+    return render_or_coming_soon("igu-mca.html", "IGU MCA")
 
 @app.route("/igu-mba")
 @no_cache
 def igu_mba():
-    return render_template("igu-mba.html", user=session.get('fullname'))
+    return render_or_coming_soon("igu-mba.html", "IGU MBA")
 
 # ============ OTHER UNIVERSITY ROUTES (Coming Soon) ============
 
@@ -786,14 +875,18 @@ def serve_icon(filename):
 @app.errorhandler(404)
 @no_cache
 def page_not_found(e):
-    return render_template("404.html", user=session.get('fullname')), 404
+    return render_or_coming_soon("404.html", "Page not found"), 404
 
 @app.errorhandler(500)
 @no_cache
 def internal_server_error(e):
     print(f"500 Error: {e}")
-    flash("Something went wrong! Please try again later.", "danger")
-    return redirect(url_for("home"))
+    if request.path.startswith("/api/"):
+        return jsonify({"success": False, "message": "Internal server error"}), 500
+    return render_template(
+        "coming_soon.html",
+        university_name="Temporary issue detected. Please refresh once."
+    ), 500
 
 # ============ RUN SERVER ============
 if __name__ == "__main__":

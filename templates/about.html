@@ -159,6 +159,22 @@
       gap: 10px;
       white-space: nowrap;
     }
+    .user-info {
+      background: rgba(255,255,255,0.15);
+      padding: 6px 20px;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: white;
+    }
+    .logout-btn {
+      background: rgba(255,255,255,0.2);
+      color: white;
+      padding: 6px 14px;
+      border-radius: 40px;
+      text-decoration: none;
+    }
     .theme-toggle {
       background: rgba(255,255,255,0.15);
       border: 1px solid rgba(255,255,255,0.3);
@@ -515,7 +531,15 @@
           <li><a href="/about" class="active-nav-link">About</a></li>
           <li><a href="/contact">Contact</a></li>
         </ul>
-        <a href="/login" class="login-btn">Login</a>
+        {% if user %}
+          <div class="user-info">
+            <i class="fas fa-user-circle"></i>
+            <span>{{ user }}</span>
+            <a href="/logout" class="logout-btn">Logout</a>
+          </div>
+        {% else %}
+          <a href="/login" class="login-btn">Login</a>
+        {% endif %}
         <div class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></div>
       </nav>
       <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
@@ -530,7 +554,16 @@
         <li><a href="/about" class="active-nav-link">About</a></li>
         <li><a href="/contact">Contact</a></li>
       </ul>
-      <div style="padding:15px;"><a href="/login" class="mobile-login-btn">Login</a></div>
+      {% if user %}
+        <div style="padding:15px; text-align:center; background: rgba(255,255,255,0.1); border-radius:20px; margin: 10px 0;">
+          <div style="font-weight:700; color: white; margin-bottom:10px;">
+            <i class="fas fa-user-circle"></i> {{ user }}
+          </div>
+          <a href="/logout" class="mobile-login-btn" style="background:#ef4444; color:white;">Logout</a>
+        </div>
+      {% else %}
+        <div style="padding:15px;"><a href="/login" class="mobile-login-btn">Login</a></div>
+      {% endif %}
       <div class="mobile-theme-toggle"><span>Dark Mode</span><button id="mobileThemeToggle">Switch</button></div>
     </div>
   </header>
