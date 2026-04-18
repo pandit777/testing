@@ -619,7 +619,15 @@
           <li><a href="/contact" class="active-nav-link">Contact</a></li>
         </ul>
         
+        {% if user %}
+          <div class="user-info">
+            <i class="fas fa-user-circle"></i>
+            <span>Welcome, {{ user }}!</span>
+            <a href="/logout" class="logout-btn">Logout</a>
+          </div>
+        {% else %}
           <a href="/login" class="login-btn">Login</a>
+        {% endif %}
         
         <div class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></div>
       </nav>
@@ -636,7 +644,11 @@
         <li><a href="/contact" class="active-nav-link">Contact</a></li>
       </ul>
       
+      {% if user %}
+        <div class="mobile-user-info">{{ user }}<a href="/logout" style="display:block; margin-top:10px; background:rgba(255,255,255,0.2); padding:8px; border-radius:40px;">Logout</a></div>
+      {% else %}
         <div style="padding:15px;"><a href="/login" class="mobile-login-btn">Login</a></div>
+      {% endif %}
       
       <div class="mobile-theme-toggle"><span>Dark Mode</span><button id="mobileThemeToggle">Switch</button></div>
     </div>
