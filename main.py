@@ -420,99 +420,99 @@ def logout():
 @no_cache
 def home():
     update_visitor_count()
-    return render_template("index.html", user=session.get('fullname'))
+    return render_template("index.html", user=session.get('username'))
 
 @app.route("/about")
 @no_cache
 def about():
-    return render_template("about.html", user=session.get('fullname'))
+    return render_template("about.html", user=session.get('username'))
 
 @app.route("/contact")
 @no_cache
 def contact():
-    return render_template("contact.html", user=session.get('fullname'))
+    return render_template("contact.html", user=session.get('username'))
 
 @app.route("/university")
 @no_cache
 def university():
-    return render_template("university.html", user=session.get('fullname'))
+    return render_template("university.html", user=session.get('username'))
 
 # ============ IGU ROUTES ============
 
 @app.route("/igu")
 @no_cache
 def igu():
-    return render_template("igu.html", user=session.get('fullname'))
+    return render_template("igu.html", user=session.get('username'))
 
 @app.route("/igu-btech")
 @no_cache
 def igu_btech():
-    return render_template("igu-btech.html", user=session.get('fullname'))
+    return render_template("igu-btech.html", user=session.get('username'))
 
 @app.route("/igu-mtech")
 @no_cache
 def igu_mtech():
-    return render_template("igu-mtech.html", user=session.get('fullname'))
+    return render_template("igu-mtech.html", user=session.get('username'))
 
 @app.route("/igu-bca")
 @no_cache
 def igu_bca():
-    return render_template("igu-bca.html", user=session.get('fullname'))
+    return render_template("igu-bca.html", user=session.get('username'))
 
 @app.route("/igu-bba")
 @no_cache
 def igu_bba():
-    return render_template("igu-bba.html", user=session.get('fullname'))
+    return render_template("igu-bba.html", user=session.get('username'))
 
 @app.route("/igu-bsc")
 @no_cache
 def igu_bsc():
-    return render_template("igu-bsc.html", user=session.get('fullname'))
+    return render_template("igu-bsc.html", user=session.get('username'))
 
 @app.route("/igu-msc")
 @no_cache
 def igu_msc():
-    return render_template("igu-msc.html", user=session.get('fullname'))
+    return render_template("igu-msc.html", user=session.get('username'))
 
 @app.route("/igu-ba")
 @no_cache
 def igu_ba():
-    return render_template("igu-ba.html", user=session.get('fullname'))
+    return render_template("igu-ba.html", user=session.get('username'))
 
 @app.route("/igu-ma")
 @no_cache
 def igu_ma():
-    return render_template("igu-ma.html", user=session.get('fullname'))
+    return render_template("igu-ma.html", user=session.get('username'))
 
 @app.route("/igu-bcom")
 @no_cache
 def igu_bcom():
-    return render_template("igu-bcom.html", user=session.get('fullname'))
+    return render_template("igu-bcom.html", user=session.get('username'))
 
 @app.route("/igu-mcom")
 @no_cache
 def igu_mcom():
-    return render_template("igu-mcom.html", user=session.get('fullname'))
+    return render_template("igu-mcom.html", user=session.get('username'))
 
 @app.route("/igu-bed")
 @no_cache
 def igu_bed():
-    return render_template("igu-bed.html", user=session.get('fullname'))
+    return render_template("igu-bed.html", user=session.get('username'))
 
 @app.route("/igu-llb")
 @no_cache
 def igu_llb():
-    return render_template("igu-llb.html", user=session.get('fullname'))
+    return render_template("igu-llb.html", user=session.get('username'))
 
 @app.route("/igu-mca")
 @no_cache
 def igu_mca():
-    return render_template("igu-mca.html", user=session.get('fullname'))
+    return render_template("igu-mca.html", user=session.get('username'))
 
 @app.route("/igu-mba")
 @no_cache
 def igu_mba():
-    return render_template("igu-mba.html", user=session.get('fullname'))
+    return render_template("igu-mba.html", user=session.get('username'))
 
 # ============ OTHER UNIVERSITY ROUTES (Coming Soon) ============
 
@@ -520,129 +520,129 @@ def igu_mba():
 @no_cache
 def du():
     try:
-        return render_template("du.html", user=session.get('fullname'))
+        return render_template("du.html", user=session.get('username'))
     except:
-        return render_template("coming_soon.html", university_name="University of Delhi (DU)", user=session.get('fullname'))
+        return render_template("coming_soon.html", university_name="University of Delhi (DU)", user=session.get('username'))
 
 @app.route("/pu")
 @no_cache
 def pu():
     try:
-        return render_template("pu.html", user=session.get('fullname'))
+        return render_template("pu.html", user=session.get('username'))
     except:
-        return render_template("coming_soon.html", university_name="Punjab University (PU)", user=session.get('fullname'))
+        return render_template("coming_soon.html", university_name="Punjab University (PU)", user=session.get('username'))
 
 @app.route("/jmi")
 @no_cache
 def jmi():
     try:
-        return render_template("jmi.html", user=session.get('fullname'))
+        return render_template("jmi.html", user=session.get('username'))
     except:
-        return render_template("coming_soon.html", university_name="Jamia Millia Islamia (JMI)", user=session.get('fullname'))
+        return render_template("coming_soon.html", university_name="Jamia Millia Islamia (JMI)", user=session.get('username'))
 
 @app.route("/amu")
 @no_cache
 def amu():
     try:
-        return render_template("amu.html", user=session.get('fullname'))
+        return render_template("amu.html", user=session.get('username'))
     except:
-        return render_template("coming_soon.html", university_name="Aligarh Muslim University (AMU)", user=session.get('fullname'))
+        return render_template("coming_soon.html", university_name="Aligarh Muslim University (AMU)", user=session.get('username'))
 
 @app.route("/bhu")
 @no_cache
 def bhu():
     try:
-        return render_template("bhu.html", user=session.get('fullname'))
+        return render_template("bhu.html", user=session.get('username'))
     except:
-        return render_template("coming_soon.html", university_name="Banaras Hindu University (BHU)", user=session.get('fullname'))
+        return render_template("coming_soon.html", university_name="Banaras Hindu University (BHU)", user=session.get('username'))
 
 @app.route("/mumbai")
 @no_cache
 def mumbai():
     try:
-        return render_template("mumbai.html", user=session.get('fullname'))
+        return render_template("mumbai.html", user=session.get('username'))
     except:
-        return render_template("coming_soon.html", university_name="University of Mumbai", user=session.get('fullname'))
+        return render_template("coming_soon.html", university_name="University of Mumbai", user=session.get('username'))
 
 @app.route("/calcutta")
 @no_cache
 def calcutta():
     try:
-        return render_template("calcutta.html", user=session.get('fullname'))
+        return render_template("calcutta.html", user=session.get('username'))
     except:
-        return render_template("coming_soon.html", university_name="Calcutta University (CU)", user=session.get('fullname'))
+        return render_template("coming_soon.html", university_name="Calcutta University (CU)", user=session.get('username'))
 
 @app.route("/anna")
 @no_cache
 def anna():
     try:
-        return render_template("anna.html", user=session.get('fullname'))
+        return render_template("anna.html", user=session.get('username'))
     except:
-        return render_template("coming_soon.html", university_name="Anna University", user=session.get('fullname'))
+        return render_template("coming_soon.html", university_name="Anna University", user=session.get('username'))
 
 @app.route("/osmania")
 @no_cache
 def osmania():
     try:
-        return render_template("osmania.html", user=session.get('fullname'))
+        return render_template("osmania.html", user=session.get('username'))
     except:
-        return render_template("coming_soon.html", university_name="Osmania University", user=session.get('fullname'))
+        return render_template("coming_soon.html", university_name="Osmania University", user=session.get('username'))
 
 @app.route("/pune")
 @no_cache
 def pune():
     try:
-        return render_template("pune.html", user=session.get('fullname'))
+        return render_template("pune.html", user=session.get('username'))
     except:
-        return render_template("coming_soon.html", university_name="Savitribai Phule Pune University", user=session.get('fullname'))
+        return render_template("coming_soon.html", university_name="Savitribai Phule Pune University", user=session.get('username'))
 
 @app.route("/gujarat")
 @no_cache
 def gujarat():
     try:
-        return render_template("gujarat.html", user=session.get('fullname'))
+        return render_template("gujarat.html", user=session.get('username'))
     except:
-        return render_template("coming_soon.html", university_name="Gujarat University", user=session.get('fullname'))
+        return render_template("coming_soon.html", university_name="Gujarat University", user=session.get('username'))
 
 @app.route("/rajasthan")
 @no_cache
 def rajasthan():
     try:
-        return render_template("rajasthan.html", user=session.get('fullname'))
+        return render_template("rajasthan.html", user=session.get('username'))
     except:
-        return render_template("coming_soon.html", university_name="Rajasthan University (RU)", user=session.get('fullname'))
+        return render_template("coming_soon.html", university_name="Rajasthan University (RU)", user=session.get('username'))
 
 @app.route("/kurukshetra")
 @no_cache
 def kurukshetra():
     try:
-        return render_template("kurukshetra.html", user=session.get('fullname'))
+        return render_template("kurukshetra.html", user=session.get('username'))
     except:
-        return render_template("coming_soon.html", university_name="Kurukshetra University", user=session.get('fullname'))
+        return render_template("coming_soon.html", university_name="Kurukshetra University", user=session.get('username'))
 
 @app.route("/mdu")
 @no_cache
 def mdu():
     try:
-        return render_template("mdu.html", user=session.get('fullname'))
+        return render_template("mdu.html", user=session.get('username'))
     except:
-        return render_template("coming_soon.html", university_name="Maharshi Dayanand University (MDU)", user=session.get('fullname'))
+        return render_template("coming_soon.html", university_name="Maharshi Dayanand University (MDU)", user=session.get('username'))
 
 @app.route("/ignou")
 @no_cache
 def ignou():
     try:
-        return render_template("ignou.html", user=session.get('fullname'))
+        return render_template("ignou.html", user=session.get('username'))
     except:
-        return render_template("coming_soon.html", university_name="IGNOU", user=session.get('fullname'))
+        return render_template("coming_soon.html", university_name="IGNOU", user=session.get('username'))
 
 @app.route("/bangalore")
 @no_cache
 def bangalore():
     try:
-        return render_template("bangalore.html", user=session.get('fullname'))
+        return render_template("bangalore.html", user=session.get('username'))
     except:
-        return render_template("coming_soon.html", university_name="Bangalore University", user=session.get('fullname'))
+        return render_template("coming_soon.html", university_name="Bangalore University", user=session.get('username'))
 
 # ============ API ENDPOINTS ============
 
@@ -677,7 +677,7 @@ def check_session():
         return jsonify({
             'logged_in': True,
             'username': session.get('username'),
-            'fullname': session.get('fullname'),
+            'fullname': session.get('username'),
             'email': session.get('email')
         })
     return jsonify({'logged_in': False})
@@ -786,7 +786,7 @@ def serve_icon(filename):
 @app.errorhandler(404)
 @no_cache
 def page_not_found(e):
-    return render_template("404.html", user=session.get('fullname')), 404
+    return render_template("404.html", user=session.get('username')), 404
 
 @app.errorhandler(500)
 @no_cache
